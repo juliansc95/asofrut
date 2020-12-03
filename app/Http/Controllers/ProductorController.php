@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Productor;
+use App\Persona;
 
 class ProductorController extends Controller
 {
     public function index(Request $request)
     {
-        if (!$request->ajax()) return redirect('/');
+        //if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         $criterio = $request->criterio;
 
         if($buscar == ''){
-            $productors= Productor::join('tipoIds','productors.tipo_id','=','tipoIds.id')
+            $personas= Productor::join('personas','productors.id','=','personas.id')
             ->join('sexos','productors.sexo_id','=','sexos.id')
             ->join('etnias','productors.etnia_id','=','etnias.id')
             ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
@@ -22,16 +24,16 @@ class ProductorController extends Controller
             ->join('municipios','productors.municipio_id','=','municipios.id')
             ->join('veredas','productors.vereda_id','=','veredas.id')
             ->join('resguardos','productors.resguardo_id','=','resguardos.id')
-            ->select('productors.id','productors.nombre','tipoIds.nombre as nombre_tipo','productors.numeroid',
-            'productors.fechaExpedicion','productors.fechaNacimiento','sexos.nombre as nombre_sexo',
-            'etnias.nombre as nombre_etnia','gradoEscolaridads.nombre as nombre_escolaridad','productors.telefono',
-            'productors.correo','departamentos.nombre as nombre_departamento','municipios.nombre as nombre_municipio',
-            'veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
-            'productors.fotocopiaCedula','productors.condicion')
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
+            'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
+            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
+            'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
+            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
+            'productors.fotocopiaCedula')
             ->orderBy('productors.id','desc')->paginate(3);
         }
-        else{
-            $productors = Productor::join('tipoIds','productors.tipo_id','=','tipoIds.id')
+        if($criterio == 'veredas' ||$criterio == 'resguardos'){
+            $personas= Productor::join('personas','productors.id','=','personas.id')
             ->join('sexos','productors.sexo_id','=','sexos.id')
             ->join('etnias','productors.etnia_id','=','etnias.id')
             ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
@@ -39,90 +41,113 @@ class ProductorController extends Controller
             ->join('municipios','productors.municipio_id','=','municipios.id')
             ->join('veredas','productors.vereda_id','=','veredas.id')
             ->join('resguardos','productors.resguardo_id','=','resguardos.id')
-            ->select('productors.id','productors.nombre','tipoIds.nombre as nombre_tipo','productors.numeroid',
-            'productors.fechaExpedicion','productors.fechaNacimiento','sexos.nombre as nombre_sexo',
-            'etnias.nombre as nombre_etnia','gradoEscolaridads.nombre as nombre_escolaridad','productors.telefono',
-            'productors.correo','departamentos.nombre as nombre_departamento','municipios.nombre as nombre_municipio',
-            'veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
-            'productors.fotocopiaCedula','productors.condicion')
-            ->where('productors.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('productors.id', 'desc')->paginate(3);          
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
+            'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
+            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
+            'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
+            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
+            'productors.fotocopiaCedula')
+            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->orderBy('personas.id', 'desc')->paginate(3);
+        }
+        else{
+            $personas= Productor::join('personas','productors.id','=','personas.id')
+            ->join('sexos','productors.sexo_id','=','sexos.id')
+            ->join('etnias','productors.etnia_id','=','etnias.id')
+            ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
+            ->join('departamentos','productors.departamento_id','=','departamentos.id')
+            ->join('municipios','productors.municipio_id','=','municipios.id')
+            ->join('veredas','productors.vereda_id','=','veredas.id')
+            ->join('resguardos','productors.resguardo_id','=','resguardos.id')
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
+            'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
+            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
+            'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
+            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
+            'productors.fotocopiaCedula')
+            ->where('personas.'.$criterio, 'like', '%'. $buscar . '%')
+            ->orderBy('personas.id', 'desc')->paginate(3);          
         }
         return [
             'pagination' => [
-                'total'        => $productors->total(),
-                'current_page' => $productors->currentPage(),
-                'per_page'     => $productors->perPage(),
-                'last_page'    => $productors->lastPage(),
-                'from'         => $productors->firstItem(),
-                'to'           => $productors->lastItem(),
+                'total'        => $personas->total(),
+                'current_page' => $personas->currentPage(),
+                'per_page'     => $personas->perPage(),
+                'last_page'    => $personas->lastPage(),
+                'from'         => $personas->firstItem(),
+                'to'           => $personas->lastItem(),
             ],
-            'productors' => $productors
+            'personas' => $personas
         ];
     }
 
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $productor = new Productor();
-        $productor->nombre = $request->nombre;
-        $productor->tipo_id = $request->tipo_id;
-        $productor->numeroid = $request->numeroid;
-        $productor->fechaExpedicion = $request->fechaExpedicion;
-        $productor->fechaNacimiento = $request->fechaNacimiento;
-        $productor->sexo_id = $request->sexo_id;
-        $productor->etnia_id = $request->etnia_id;
-        $productor->escolaridad_id = $request->escolaridad_id;
-        $productor->telefono = $request->telefono;
-        $productor->correo = $request->correo;
-        $productor->departamento_id = $request->departamento_id;
-        $productor->municipio_id = $request->municipio_id;
-        $productor->vereda_id = $request->vereda_id;
-        $productor->resguardo_id = $request->resguardo_id;
-        $productor->fechaIngreso = $request->fechaIngreso;
-        $productor->fotocopiaCedula = $request->fotocopiaCedula;
-        $productor->condicion = '1';
-        $productor->save();
+        try{
+        DB::beginTransaction();
+        $persona = new Persona();
+            $persona->nombre = $request->nombre;
+            $persona->tipo_id = $request->tipo_id;
+            $persona->num_documento = $request->num_documento;
+            $persona->direccion = $request->direccion;
+            $persona->telefono = $request->telefono;
+            $persona->email = $request->email;
+            $persona->save();
+
+            $productor = new Productor();
+            $productor->fechaExpedicion = $request->fechaExpedicion;
+            $productor->fechaNacimiento = $request->fechaNacimiento;
+            $productor->sexo_id = $request->sexo_id;
+            $productor->etnia_id = $request->etnia_id;
+            $productor->escolaridad_id = $request->escolaridad_id;
+            $productor->departamento_id = $request->departamento_id;
+            $productor->municipio_id = $request->municipio_id;
+            $productor->vereda_id = $request->vereda_id;
+            $productor->resguardo_id = $request->resguardo_id;
+            $productor->fechaIngreso = $request->fechaIngreso;
+            $productor->fotocopiaCedula = $request->fotocopiaCedula;
+            $productor->id = $persona->id;
+            $productor->save();
+
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollback();
+        }
     }
 
     public function update(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $productor = Productor::findOrFail($request->id);
-        $productor->nombre = $request->nombre;
-        $productor->tipo_id = $request->tipo_id;
-        $productor->numeroid = $request->numeroid;
+        try{
+        DB::beginTransaction();
+        $productor =Productor::findOrFail($request->id);
+        $persona =Persona::findorFail($productor->id);
+       
+        $persona->nombre = $request->nombre;
+        $persona->tipo_id = $request->tipo_id;
+        $persona->num_documento = $request->num_documento;
+        $persona->direccion = $request->direccion;
+        $persona->telefono = $request->telefono;
+        $persona->email = $request->email;
+        $persona->save();    
+        
         $productor->fechaExpedicion = $request->fechaExpedicion;
         $productor->fechaNacimiento = $request->fechaNacimiento;
         $productor->sexo_id = $request->sexo_id;
         $productor->etnia_id = $request->etnia_id;
         $productor->escolaridad_id = $request->escolaridad_id;
-        $productor->telefono = $request->telefono;
-        $productor->correo = $request->correo;
         $productor->departamento_id = $request->departamento_id;
         $productor->municipio_id = $request->municipio_id;
         $productor->vereda_id = $request->vereda_id;
         $productor->resguardo_id = $request->resguardo_id;
         $productor->fechaIngreso = $request->fechaIngreso;
         $productor->fotocopiaCedula = $request->fotocopiaCedula;
-        $productor->condicion = '1';
-        $articulo->save();
+        $productor->save();      
+        DB::commit();
+        }
+        catch(Exception $e){
+            DB::rollback();
+        }  
     }
-
-    public function desactivar(Request $request)
-    {
-        if(!$request->ajax()) return redirect('/');
-        $productor = Productor::findOrFail($request->id);
-        $productor->condicion = '0';
-        $productor->save();
-    }
-
-    public function activar(Request $request)
-    {
-        if(!$request->ajax()) return redirect('/');
-        $productor = Productor::findOrFail($request->id);
-        $productor->condicion = '1';
-        $productor->save();
-    }
-
 }

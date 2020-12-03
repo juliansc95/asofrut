@@ -19,13 +19,17 @@
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
                                       <option value="nombre">Nombre</option>
-                                      <option value="descripcion">Descripción</option>
+                                      <option value="num_documento">Numero Documento</option>
+                                      <option value="email">Correo electronico</option>
+                                      <option value="veredas">Vereda</option>
+                                       <option value="resguardos">Resguardo</option>
                                     </select>
                                     <input type="text" v-model="buscar" @keyup.enter="listarProductor(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
                                     <button type="submit" @click="listarProductor(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
+                        <div class='table-responsive'>
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr>
@@ -41,48 +45,30 @@
                                     <th>Vereda</th>
                                     <th>Resguardo</th>
                                     <th>Fecha de Ingreso</th>
-                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="productor in arrayProductor" :key="productor.id">
+                                <tr v-for="persona in arrayProductor" :key="persona.id">
                                     <td>
-                                        <button type="button" @click="abrirModal('productor','actualizar',productor)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('productor','actualizar',persona)" class="btn btn-warning btn-sm">
                                           <i class="icon-pencil"></i>
                                         </button> &nbsp;
-                                        <template v-if="productor.condicion">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarArticulo(productor.id)">
-                                                <i class="icon-trash"></i>
-                                            </button>
-                                        </template>
-                                        <template v-else>
-                                            <button type="button" class="btn btn-info btn-sm" @click="activarArticulo(productor.id)">
-                                                <i class="icon-check"></i>
-                                            </button>
-                                        </template>
                                     </td>
-                                    <td v-text="productor.nombre"></td>
-                                    <td v-text="productor.nombre_tipo"></td>
-                                    <td v-text="productor.numeroid"></td>
-                                    <td v-text="productor.fechaNacimiento"></td>
-                                    <td v-text="productor.nombre_sexo"></td>
-                                    <td v-text="productor.nombre_escolaridad"></td>
-                                    <td v-text="productor.telefono"></td>
-                                    <td v-text="productor.correo"></td>
-                                    <td v-text="productor.nombre_vereda"></td>
-                                    <td v-text="productor.nombre_resguardo"></td>
-                                    <td v-text="productor.fechaIngreso"></td>
-                                    <td>
-                                        <div v-if="productor.condicion">
-                                            <span class="badge badge-success">Activo</span>
-                                        </div>
-                                        <div v-else>
-                                            <span class="badge badge-danger">Desactivado</span>
-                                        </div>                                        
-                                    </td>
+                                    <td v-text="persona.nombre"></td>
+                                    <td v-text="arrayTipoId[persona.tipo_id-1].nombre"></td>
+                                    <td v-text="persona.num_documento"></td>
+                                    <td v-text="persona.fechaNacimiento"></td>
+                                    <td v-text="persona.nombre_sexo"></td>
+                                    <td v-text="persona.nombre_escolaridad"></td>
+                                    <td v-text="persona.telefono"></td>
+                                    <td v-text="persona.email"></td>
+                                    <td v-text="persona.nombre_vereda"></td>
+                                    <td v-text="persona.nombre_resguardo"></td>
+                                    <td v-text="persona.fechaIngreso"></td>
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                         <nav>
                             <ul class="pagination">
                                 <li class="page-item" v-if="pagination.current_page > 1"> 
@@ -131,7 +117,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="number-input">Numero documento de identificacion</label>
                                     <div class="col-md-9">
-                                        <input type="number" v-model="numeroid"  class="form-control" placeholder="">
+                                        <input type="number" v-model="num_documento"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -182,7 +168,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="email-input">Correo electronico</label>
                                     <div class="col-md-9">
-                                        <input type="email" v-model="descripcion" class="form-control" placeholder="Ingrese su correo electronico">
+                                        <input type="email" v-model="email" class="form-control" placeholder="Ingrese su correo electronico">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -202,7 +188,43 @@
                                             <option v-for="municipio in arrayMunicipio" :key="municipio.id" :value="municipio.id" v-text="municipio.nombre" ></option>
                                       </select>  
                                     </div>
-                                </div>                              
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Vereda</label>
+                                    <div class="col-md-9">
+                                      <select class="form-control" v-model="vereda_id">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="vereda in arrayVereda" :key="vereda.id" :value="vereda.id" v-text="vereda.nombre" ></option>
+                                      </select>  
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Resguardo</label>
+                                    <div class="col-md-9">
+                                      <select class="form-control" v-model="resguardo_id">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="resguardo in arrayResguardo" :key="resguardo.id" :value="resguardo.id" v-text="resguardo.nombre" ></option>
+                                      </select>  
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Direccion</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="direccion"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Fecha de ingreso</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="fechaIngreso"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Fotocopia cedula</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="fotocopiaCedula"  class="form-control" placeholder="">
+                                    </div>
+                                </div>                                  
                                 <div v-show="errorProductor" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjProductor" :key="error" v-text="error">
@@ -214,8 +236,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarArticulo()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarArticulo()">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarProductor()">Guardar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarProductor()">Actualizar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -227,21 +249,21 @@
 </template>
 
 <script>
-    import VueBarcode from 'vue-barcode';
     export default {
         data(){
             return{
-                productor_id:0,
+                persona_id:0,
                 nombre:'',
                 tipo_id:0,
-                numeroid:'',
+                num_documento : '',
+                direccion : '',
+                telefono : '',
+                email : '',
                 fechaExpedicion:'',
                 fechaNacimiento:'',
                 sexo_id:0,
                 etnia_id:0,
                 escolaridad_id:0,
-                telefono:'',
-                correo:'',
                 departamento_id:0,
                 municipio_id:0,
                 vereda_id:0,
@@ -253,7 +275,7 @@
                 tituloModal : '',
                 tipoAccion:0,
                 errorProductor : 0,
-                errorMostrarProductor:[],
+                errorMostrarMsjProductor:[],
                 pagination:{
                     'total' : 0,
                     'current_page' : 0,
@@ -270,11 +292,10 @@
                 arrayEtnia: [],
                 arrayEscolaridad: [],
                 arrayDepartamento: [],
-                arrayMunicipio: [],            
+                arrayMunicipio: [],
+                arrayVereda: [],
+                arrayResguardo:[],            
             }
-        },
-        components:{
-            'barcode': VueBarcode
         },
         computed:{
             isActived:function(){
@@ -302,11 +323,12 @@
         },
         methods: {
             listarProductor(page,buscar,criterio){
+                this.selectTipoId();
                 let me =this;
                 var url ='productor?page='+page + '&buscar='+buscar+'&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayProductor= respuesta.productors.data;
+                    me.arrayProductor= respuesta.personas.data;
                     me.pagination=respuesta.pagination;
                 })
                 .catch(function (error) {
@@ -379,6 +401,28 @@
                     console.log(error);
                 });
             },
+            selectVereda(){
+                let me =this;
+                var url ='vereda/selectVereda';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayVereda= respuesta.veredas;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            selectResguardo(){
+                let me =this;
+                var url ='resguardo/selectResguardo';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayResguardo= respuesta.resguardos;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza a la pagina actual
@@ -386,152 +430,112 @@
                 //Envia la peticion para visualizar la data de esa pagina
                 me.listarProductor(page,buscar,criterio);
             },
-            registrarArticulo(){
-            if(this.validarArticulo()){
+            registrarProductor(){
+            if(this.validarProductor()){
                 return;
             }
             let me=this;
-            axios.post('articulo/registrar',{
-                'idcategoria': this.idcategoria,
-                'codigo':this.codigo,
+            axios.post('productor/registrar',{
                 'nombre':this.nombre,
-                'stock':this.stock,
-                'precio_venta':this.precio_venta,
-                'descripcion':this.descripcion
+                'tipo_id':this.tipo_id,
+                'num_documento':this.num_documento,
+                'fechaExpedicion':this.fechaExpedicion,
+                'fechaNacimiento':this.fechaNacimiento,
+                'sexo_id':this.sexo_id,
+                'etnia_id':this.etnia_id,
+                'escolaridad_id':this.escolaridad_id,
+                'telefono':this.telefono,
+                'email':this.email, 
+                'departamento_id':this.departamento_id,
+                'municipio_id':this.municipio_id,
+                'vereda_id':this.vereda_id,
+                'resguardo_id':this.resguardo_id,
+                'direccion':this.direccion,
+                'fechaIngreso':this.fechaIngreso,
+                'fotocopiaCedula':this.fotocopiaCedula
             }).then(function (response) {
                     me.cerrarModal();
-                    me.listarArticulo(1,'','nombre');
+                    me.listarProductor(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
 
         },
-            actualizarArticulo(){
-            if(this.validarArticulo()){
+            actualizarProductor(){
+            if(this.validarProductor()){
                 return;
             }
             let me=this;
-            axios.put('articulo/actualizar',{
-                'idcategoria': this.idcategoria,
-                'codigo':this.codigo,
+            axios.put('productor/actualizar',{
                 'nombre':this.nombre,
-                'stock':this.stock,
-                'precio_venta':this.precio_venta,
-                'descripcion':this.descripcion,
-                'id':this.articulo_id
+                'tipo_id':this.tipo_id,
+                'num_documento':this.num_documento,
+                'fechaExpedicion':this.fechaExpedicion,
+                'fechaNacimiento':this.fechaNacimiento,
+                'sexo_id':this.sexo_id,
+                'etnia_id':this.etnia_id,
+                'escolaridad_id':this.escolaridad_id,
+                'telefono':this.telefono,
+                'email':this.email, 
+                'departamento_id':this.departamento_id,
+                'municipio_id':this.municipio_id,
+                'vereda_id':this.vereda_id,
+                'resguardo_id':this.resguardo_id,
+                'direccion':this.direccion,
+                'fechaIngreso':this.fechaIngreso,
+                'fotocopiaCedula':this.fotocopiaCedula,
+                'id':this.persona_id
             }).then(function (response) {
                     me.cerrarModal();
-                    me.listarArticulo(1,'','nombre');
+                    me.listarProductor(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
-        },
-            desactivarArticulo(id){
-            const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-            })
-            swalWithBootstrapButtons.fire({
-            title: 'Esta seguro de desactivar este articulo?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Aceptar',
-            cancelButtonText: 'Cancelar',
-            reverseButtons: true
-            }).then((result) => {
-            if (result.isConfirmed) {
-                    let me=this;
-                    axios.put('articulo/desactivar',{
-                        'id':id
-                    }).then(function (response) {
-                        me.listarArticulo(1,'','nombre');
-                        swalWithBootstrapButtons.fire(
-                            'Desactivado!',
-                            'El articulo ha sido desactivado con exito.',
-                            'success'
-                        )
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                
-            }
-            })
-        },
-            activarArticulo(id){
-            const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-            })
-            swalWithBootstrapButtons.fire({
-            title: 'Esta seguro de activar este artículo?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Aceptar',
-            cancelButtonText: 'Cancelar',
-            reverseButtons: true
-            }).then((result) => {
-            if (result.isConfirmed) {
-                    let me=this;
-                    axios.put('articulo/activar',{
-                        'id':id
-                    }).then(function (response) {
-                        me.listarArticulo(1,'','nombre');
-                        swalWithBootstrapButtons.fire(
-                            'Activado!',
-                            'El artículo ha sido activado con exito.',
-                            'success'
-                        )
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                
-            }
-            })
-        },
-            validarArticulo(){
-            this.errorArticulo=0;
-            this.errorMostrarMsjArticulo=[];
+        },          
+            validarProductor(){
+            this.errorProductor=0;
+            this.errorMostrarMsjProductor=[];
 
-            if(this.idcategoria==0)this.errorMostrarMsjArticulo.push("Seleccione una categoría.");
-            if(!this.nombre) this.errorMostrarMsjArticulo.push("El nombre del artíiculo no puede estar vacío ");
-            if(!this.stock) this.errorMostrarMsjArticulo.push("El stock del artículo debe ser un numero y no puede estar vacio");
-            if(!this.precio_venta) this.errorMostrarMsjArticulo.push("El precio venta del artículo debe ser un numero y no puede estar vacio");
+            if(!this.nombre) this.errorMostrarMsjProductor.push("El nombre del productor no puede estar vacío ");
+            if(this.tipo_id==0)this.errorMostrarMsjProductor.push("Seleccione un tipo de documento.");
+            if(!this.num_documento) this.errorMostrarMsjProductor.push("Ingrese un numero de documento valido");
+            if(this.sexo_id==0)this.errorMostrarMsjProductor.push("Seleccione una opcion de sexo.");
+            if(this.etnia_id==0)this.errorMostrarMsjProductor.push("Seleccione una etnia valida.");
+            if(this.escolaridad_id==0)this.errorMostrarMsjProductor.push("Seleccione un nivel de escolaridad.");
+            if(!this.telefono) this.errorMostrarMsjProductor.push("Ingrese un numero de telefono valido sin lineas ni puntos");
+            if(!this.email) this.errorMostrarMsjProductor.push("Ingrese un correo electronico valido");
+            if(this.departamento_id==0)this.errorMostrarMsjProductor.push("Seleccione un departamento.");
+            if(this.municipio_id==0)this.errorMostrarMsjProductor.push("Seleccione un municipio.");
+            if(this.vereda_id==0)this.errorMostrarMsjProductor.push("Seleccione una vereda.");
+            if(this.resguardo_id==0)this.errorMostrarMsjProductor.push("Seleccione un resguardo.");
 
-            if(this.errorMostrarMsjArticulo.length) this.errorArticulo=1;
+            if(this.errorMostrarMsjProductor.length) this.errorProductor=1;
 
-            return this.errorArticulo;
+            return this.errorProductor;
         },
             cerrarModal(){
-            this.modal=0;
+                this.modal=0;
                 this.tituloModal='';
-                this.idcategoria= 0;
-                this.nombre_categoria = '';
-                this.codigo = '';
                 this.nombre = '';
-                this.precio_venta = 0;
-                this.stock = 0;
-                this.descripcion = '';
-		        this.errorArticulo=0;
+                this.tipo_id= 0;
+                this.num_documento = '';
+                this.fechaExpedicion = '';
+                this.fechaNacimiento = '';
+                this.sexo_id = 0;
+                this.etnia_id = 0;
+                this.escolaridad_id = 0;
+                this.telefono = '';
+                this.direccion='';
+                this.email = '';
+                this.departamento_id = 0;
+                this.municipio_id = 0;
+                this.vereda_id = 0;
+                this.resguardo_id = 0;
+                this.fechaIngreso = '';
+                this.fotocopiaCedula = '';
+		        this.errorProductor=0;
         },
             abrirModal(modelo,accion,data = []){
             switch (modelo) {
@@ -542,29 +546,49 @@
                     {
                         this.modal = 1;
                         this.tituloModal = 'Registrar Productor';
-                        this.idcategoria=0;
-                        this.nombre_categoria='';
-                        this.codigo='';
-                        this.nombre='';
-                        this.precio_venta=0;
-                        this.stock=0;
-                        this.descripcion='';
+                        this.nombre = '';
+                        this.tipo_id= 0;
+                        this.num_documento = '';
+                        this.fechaExpedicion = '';
+                        this.fechaNacimiento = '';
+                        this.sexo_id = 0;
+                        this.etnia_id = 0;
+                        this.escolaridad_id = 0;
+                        this.telefono = '';
+                        this.direccion='';
+                        this.email = '';
+                        this.departamento_id = 0;
+                        this.municipio_id = 0;
+                        this.vereda_id = 0;
+                        this.resguardo_id = 0;
+                        this.fechaIngreso = '';
+                        this.fotocopiaCedula = '';
                         this.tipoAccion=1;
                         break;
                     }    
                     case 'actualizar':
                     {
-                        //console.log(data);
                         this.modal=1;
                         this.tituloModal='Actualizar Productor';
                         this.tipoAccion=2;
-                        this.articulo_id=data['id'];
-                        this.idcategoria=data['idcategoria'];
-                        this.codigo=data['codigo'];
-                        this.nombre=data['nombre'];
-                        this.stock=data['stock'];
-                        this.precio_venta=data['precio_venta'];
-                        this.descripcion=data['descripcion'];
+                        this.persona_id=data['id'];
+                        this.nombre = data['nombre'];
+                        this.tipo_id= data['tipo_id'];
+                        this.num_documento =data ['num_documento'];
+                        this.fechaExpedicion = data['fechaExpedicion'];
+                        this.fechaNacimiento = data['fechaNacimiento'];
+                        this.sexo_id = data['sexo_id'];
+                        this.etnia_id = data['etnia_id'];
+                        this.escolaridad_id = data['escolaridad_id'];
+                        this.telefono = data['telefono'];
+                        this.direccion=data['direccion'];
+                        this.email = data['email'];
+                        this.departamento_id = data['departamento_id'];
+                        this.municipio_id = data['municipio_id'];
+                        this.vereda_id = data['vereda_id'];
+                        this.resguardo_id = data['resguardo_id'];
+                        this.fechaIngreso = data['fechaIngreso'];
+                        this.fotocopiaCedula = data['fotocopiaCedula'];
                         break;
                     }       
                 }
@@ -575,7 +599,9 @@
             this.selectEtnia();
             this.selectEscolaridad();
             this.selectDepartamento();
-            this.selectMunicipio(); 
+            this.selectMunicipio();
+            this.selectVereda();
+            this.selectResguardo(); 
         }
         },        
         mounted() {

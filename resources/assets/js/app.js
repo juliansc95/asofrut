@@ -19,6 +19,8 @@ Vue.component('categoria', require('./components/Categoria.vue'));
 Vue.component('articulo', require('./components/Articulo.vue'));
 Vue.component('cliente', require('./components/Cliente.vue'));
 Vue.component('productor', require('./components/Productor.vue'));
+Vue.component('rol', require('./components/Rol.vue'));
+Vue.component('user', require('./components/User.vue'));
 
 
 const app = new Vue({

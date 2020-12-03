@@ -108,31 +108,40 @@ class CreateAsofrutCore extends Migration
             $table->timestamps();
         });
 
+        echo "Creando tabla personas ".__LINE__."\n";
+        Schema::create('personas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre', 100)->unique();
+            $table->unsignedInteger('tipo_id');
+            $table->string('num_documento', 20)->nullable();
+            $table->string('direccion', 70)->nullable();
+            $table->string('telefono', 20)->nullable();
+            $table->string('email', 50)->nullable();
+            $table->timestamps();
+        });
+        Schema::table('personas', function (Blueprint $table) {
+            $table->foreign('tipo_id')->references('id')->on('tipoIds');
+        });
+
+
         echo "Creando tabla de productores ".__LINE__."\n";
         Schema::create('productors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
-            $table->unsignedInteger('tipo_id');
-            $table->string('numeroid')->nullable();
+            $table->integer('id')->unsigned();
             $table->date('fechaExpedicion');
             $table->date('fechaNacimiento');
             $table->unsignedInteger('sexo_id');
             $table->unsignedInteger('etnia_id');
             $table->unsignedInteger('escolaridad_id');
-            $table->string('telefono')->nullable();
-            $table->string('correo')->nullable();
             $table->unsignedInteger('departamento_id');
             $table->unsignedInteger('municipio_id');
             $table->unsignedInteger('vereda_id');
             $table->unsignedInteger('resguardo_id');
             $table->date('fechaIngreso');
-            $table->string('fotocopiaCedula')->nullable();
-            $table->boolean('condicion')->default(1);                 
-            $table->timestamps();
+            $table->string('fotocopiaCedula')->nullable();             
+            $table->foreign('id')->references('id')->on('personas')->onDelete('cascade');
         });
 
         Schema::table('productors', function (Blueprint $table) {
-            $table->foreign('tipo_id')->references('id')->on('tipoIds');
             $table->foreign('sexo_id')->references('id')->on('sexos');
             $table->foreign('etnia_id')->references('id')->on('etnias');
             $table->foreign('escolaridad_id')->references('id')->on('gradoEscolaridads');
@@ -257,6 +266,7 @@ class CreateAsofrutCore extends Migration
         Schema::dropIfExists('cultivos');
         Schema::dropIfExists('fincas');
         Schema::dropIfExists('productors');
+        Schema::dropIfExists('personas');
         Schema::dropIfExists('lugarVentas');
         Schema::dropIfExists('cadenas');
         Schema::dropIfExists('lineas');

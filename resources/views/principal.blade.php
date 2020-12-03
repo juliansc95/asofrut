@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema Ventas Laravel Vue Js- IncanatoIT">
-    <meta name="author" content="Incanatoit.com">
-    <meta name="keyword" content="Sistema ventas Laravel Vue Js, Sistema compras Laravel Vue Js">
+    <meta name="description" content="Sistema de Gestion Asofrut">
+    <meta name="author" content="EZLIFE">
+    <meta name="keyword" content="Sistema de Gestion Asofrut">
     <link rel="shortcut icon" href="img/favicon.png">
-    <title>Sistema Ventas - IncanatoIT</title>
+    <title>Sistema Gestion - Asofrut</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Icons -->
     <link href="css/plantilla.css" rel="stylesheet">
@@ -70,6 +70,18 @@
     </header>
 
     <div class="app-body">
+        @if(Auth::check())
+            @if(Auth::user()->idrol == 1)
+                @include('plantilla.sidebaradministrador')
+            @elseif(Auth::user()->idrol == 2)
+                @include('plantilla.sidebartecnicocomercial')
+            @elseif(Auth::user()->idrol == 3)
+                @include('plantilla.sidebartecnicoextensionista')
+            @elseif(Auth::user()->idrol == 4)
+                @include('plantilla.sidebarproductor')
+            @else
+            @endif
+        @endif
         @include('plantilla/sidebar')
 
         <!-- Contenido Principal -->
@@ -81,8 +93,7 @@
     
 
     <footer class="app-footer">
-        <span><a href="http://www.incanatoit.com/">IncanatoIT</a> &copy; 2017</span>
-        <span class="ml-auto">Desarrollado por <a href="http://www.incanatoit.com/">IncanatoIT</a></span>
+        <span><a href="http://www.asofrut.org/">Asofrut</a> &copy;</span>
     </footer>
 
     <script src="js/app.js"></script>

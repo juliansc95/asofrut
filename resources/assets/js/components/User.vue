@@ -2,14 +2,14 @@
            <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Escritorio</a></li>
+                <li class="breadcrumb-item"><a href="/">Escritorio</a></li>
             </ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Articulos
-                        <button type="button" @click="abrirModal('articulo','registrar')" class="btn btn-secondary">
+                        <i class="fa fa-align-justify"></i> Usuarios
+                        <button type="button" @click="abrirModal('persona','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
                     </div>
@@ -19,51 +19,56 @@
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
                                       <option value="nombre">Nombre</option>
-                                      <option value="descripcion">Descripción</option>
+                                      <option value="num_documento">Numero Documento</option>
+                                      <option value="email">Correo Electronico</option>
+                                      <option value="usuario">Usuario</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarArticulo(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarArticulo(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup.enter="listarPersona(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listarPersona(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
+                        <div class='table-responsive'>
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr>
                                     <th>Opciones</th>
-                                    <th>Código</th>
                                     <th>Nombre</th>
-                                    <th>Categoria</th>
-                                    <th>Precio Venta</th>
-                                    <th>Stock</th>
-                                    <th>Descripción</th>
+                                    <th>Tipo documento</th>
+                                    <th>Numero documento</th>
+                                    <th>Telefono</th>
+                                    <th>Correo electronico</th>
+                                    <th>Usuario</th>
+                                    <th>Rol</th>
                                     <th>Estado</th>
-                                </tr>
+                            </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="articulo in arrayArticulo" :key="articulo.id">
+                                <tr v-for="persona in arraypersona" :key="persona.id">
                                     <td>
-                                        <button type="button" @click="abrirModal('articulo','actualizar',articulo)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('persona','actualizar',persona)" class="btn btn-warning btn-sm">
                                           <i class="icon-pencil"></i>
                                         </button> &nbsp;
-                                        <template v-if="articulo.condicion">
-                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarArticulo(articulo.id)">
+                                        <template v-if="persona.condicion">
+                                            <button type="button" class="btn btn-danger btn-sm" @click="desactivarUsuario(persona.id)">
                                                 <i class="icon-trash"></i>
                                             </button>
                                         </template>
                                         <template v-else>
-                                            <button type="button" class="btn btn-info btn-sm" @click="activarArticulo(articulo.id)">
+                                            <button type="button" class="btn btn-info btn-sm" @click="activarUsuario(persona.id)">
                                                 <i class="icon-check"></i>
                                             </button>
                                         </template>
                                     </td>
-                                    <td v-text="articulo.codigo"></td>
-                                    <td v-text="articulo.nombre"></td>
-                                    <td v-text="articulo.nombre_categoria"></td>
-                                    <td v-text="articulo.precio_venta"></td>
-                                    <td v-text="articulo.stock"></td>
-                                    <td v-text="articulo.descripcion"></td>
+                                    <td v-text="persona.nombre"></td>
+                                    <td v-text="arrayTipoId[persona.tipo_id-1].nombre"></td>
+                                    <td v-text="persona.num_documento"></td>
+                                    <td v-text="persona.telefono"></td>
+                                    <td v-text="persona.email"></td>
+                                    <td v-text="persona.usuario"></td>
+                                    <td v-text="persona.rol"></td>
                                     <td>
-                                        <div v-if="articulo.condicion">
+                                        <div v-if="persona.condicion">
                                             <span class="badge badge-success">Activo</span>
                                         </div>
                                         <div v-else>
@@ -73,6 +78,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                         <nav>
                             <ul class="pagination">
                                 <li class="page-item" v-if="pagination.current_page > 1"> 
@@ -103,53 +109,71 @@
                         <div class="modal-body">
                             <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Categoria</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="idcategoria">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option v-for="categoria in arrayCategoria" :key="categoria.id" :value="categoria.id" v-text="categoria.nombre" ></option>
-                                               
-                                       </select>  
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Codigo</label>
-                                    <div class="col-md-9">
-                                        <input type="text" v-model="codigo"  class="form-control" placeholder="Codigo de barras">
-                                        <barcode :value="codigo" :options="{format :'EAN-13'}">
-                                            Generando código de barras.
-                                        </barcode>
-                                    </div>
-                                </div>
-
-                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="nombre"  class="form-control" placeholder="Nombre de artículo">
+                                        <input type="text" v-model="nombre"  class="form-control" placeholder="Nombre del persona">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Tipo Identificacion</label>
+                                    <div class="col-md-9">
+                                      <select class="form-control" v-model="tipo_id">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="tipoId in arrayTipoId" :key="tipoId.id" :value="tipoId.id" v-text="tipoId.nombre" ></option>
+                                      </select>  
+                                    </div>
+                                </div>                            
 
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Precio Venta</label>
+                                    <label class="col-md-3 form-control-label" for="number-input">Numero documento de identificacion</label>
                                     <div class="col-md-9">
-                                        <input type="number" v-model="precio_venta"  class="form-control" placeholder="">
+                                        <input type="number" v-model="num_documento"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                   
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="number-input">Telefono</label>
+                                    <div class="col-md-9">
+                                        <input type="number" v-model="telefono"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Stock</label>
+                                    <label class="col-md-3 form-control-label" for="number-input">Direccion</label>
                                     <div class="col-md-9">
-                                        <input type="number" v-model="stock"  class="form-control" placeholder="">
+                                        <input type="text" v-model="direccion"  class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="email-input">Descripción</label>
+                                    <label class="col-md-3 form-control-label" for="email-input">Correo electronico</label>
                                     <div class="col-md-9">
-                                        <input type="email" v-model="descripcion" class="form-control" placeholder="Ingrese descripcion">
+                                        <input type="email" v-model="email" class="form-control" placeholder="Ingrese su correo electronico">
                                     </div>
                                 </div>
-                                <div v-show="errorArticulo" class="form-group row div-error">
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Usuario(*)</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="usuario" class="form-control" placeholder="Nombre de usuario">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Password(*)</label>
+                                    <div class="col-md-9">
+                                        <input type="password" v-model="password" class="form-control" placeholder="Password de acceso">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Rol(*)</label>
+                                    <div class="col-md-9">
+                                      <select class="form-control" v-model="idrol">
+                                            <option value="0" disabled>Seleccione</option>
+                                            <option v-for="rol in arrayRol" :key="rol.id" :value="rol.id" v-text="rol.nombre" ></option>
+                                      </select>  
+                                    </div>
+                                </div>
+                                                                 
+                                <div v-show="errorpersona" class="form-group row div-error">
                                     <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMsjArticulo" :key="error" v-text="error">
+                                        <div v-for="error in errorMostrarMsjpersona" :key="error" v-text="error">
 
                                         </div>
                                     </div>
@@ -158,8 +182,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarArticulo()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarArticulo()">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarPersona()">Guardar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarPersona()">Actualizar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -171,24 +195,25 @@
 </template>
 
 <script>
-    import VueBarcode from 'vue-barcode';
     export default {
         data(){
             return{
-                articulo_id:0,
-                idcategoria:0,
-                nombre_categoria:'',
-                codigo:'',
+                persona_id:0,
                 nombre:'',
-                precio_venta :0,
-                stock:0,
-                descripcion:'',
-                arrayArticulo: [],
+                tipo_id:0,
+                num_documento : '',
+                direccion : '',
+                telefono : '',
+                email : '',
+                usuario:'',
+                password:'',
+                idrol:0,  
+                arraypersona: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
-                errorArticulo : 0,
-                errorMostrarMsjArticulo:[],
+                errorpersona : 0,
+                errorMostrarMsjpersona:[],
                 pagination:{
                     'total' : 0,
                     'current_page' : 0,
@@ -200,11 +225,9 @@
                 offset:3,
                 criterio: 'nombre',
                 buscar: '',
-                arrayCategoria : []            
+                arrayTipoId : [], 
+                arrayRol:[],          
             }
-        },
-        components:{
-            'barcode': VueBarcode
         },
         computed:{
             isActived:function(){
@@ -231,79 +254,99 @@
             }
         },
         methods: {
-            listarArticulo(page,buscar,criterio){
+            listarPersona(page,buscar,criterio){
+                this.selectTipoId();
                 let me =this;
-                var url ='articulo?page='+page + '&buscar='+buscar+'&criterio='+criterio;
+                var url ='user?page='+page + '&buscar='+buscar+'&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayArticulo= respuesta.articulos.data;
+                    me.arraypersona= respuesta.personas.data;
                     me.pagination=respuesta.pagination;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
-            selectCategoria(){
+            selectTipoId(){
                 let me =this;
-                var url ='categoria/selectCategoria';
+                var url ='tipoId/selectTipoId';
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arrayCategoria= respuesta.categorias;
+                    me.arrayTipoId= respuesta.tipoIds;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
+            selectRol(){
+                let me =this;
+                var url ='rol/selectRol';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayRol= respuesta.roles;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza a la pagina actual
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarArticulo(page,buscar,criterio);
+                me.listarPersona(page,buscar,criterio);
             },
-            registrarArticulo(){
-            if(this.validarArticulo()){
+            registrarPersona(){
+            if(this.validarPersona()){
                 return;
             }
             let me=this;
-            axios.post('articulo/registrar',{
-                'idcategoria': this.idcategoria,
-                'codigo':this.codigo,
+            axios.post('user/registrar',{
                 'nombre':this.nombre,
-                'stock':this.stock,
-                'precio_venta':this.precio_venta,
-                'descripcion':this.descripcion
+                'tipo_id':this.tipo_id,
+                'num_documento':this.num_documento,
+                'telefono':this.telefono,
+                'direccion':this.direccion,
+                'email':this.email,
+                'usuario':this.usuario,
+                'password':this.password,
+                'idrol':this.idrol 
+                
             }).then(function (response) {
                     me.cerrarModal();
-                    me.listarArticulo(1,'','nombre');
+                    me.listarPersona(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
 
         },
-            actualizarArticulo(){
-            if(this.validarArticulo()){
+            actualizarPersona(){
+            if(this.validarPersona()){
                 return;
             }
             let me=this;
-            axios.put('articulo/actualizar',{
-                'idcategoria': this.idcategoria,
-                'codigo':this.codigo,
+            axios.put('user/actualizar',{
                 'nombre':this.nombre,
-                'stock':this.stock,
-                'precio_venta':this.precio_venta,
-                'descripcion':this.descripcion,
-                'id':this.articulo_id
+                'tipo_id':this.tipo_id,
+                'num_documento':this.num_documento,
+                'telefono':this.telefono,
+                'direccion':this.direccion,
+                'email':this.email,
+                'usuario':this.usuario,
+                'password':this.password,
+                'idrol':this.idrol, 
+                'id':this.persona_id
             }).then(function (response) {
                     me.cerrarModal();
-                    me.listarArticulo(1,'','nombre');
+                    me.listarPersona(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
-            desactivarArticulo(id){
+        desactivarUsuario(id){
             const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -312,7 +355,7 @@
             buttonsStyling: false
             })
             swalWithBootstrapButtons.fire({
-            title: 'Esta seguro de desactivar este articulo?',
+            title: 'Esta seguro de desactivar este usuario?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Aceptar',
@@ -321,13 +364,13 @@
             }).then((result) => {
             if (result.isConfirmed) {
                     let me=this;
-                    axios.put('articulo/desactivar',{
+                    axios.put('user/desactivar',{
                         'id':id
                     }).then(function (response) {
-                        me.listarArticulo(1,'','nombre');
+                        me.listarPersona(1,'','nombre');
                         swalWithBootstrapButtons.fire(
                             'Desactivado!',
-                            'El articulo ha sido desactivado con exito.',
+                            'El usuario ha sido desactivado con exito.',
                             'success'
                         )
                     })
@@ -343,7 +386,7 @@
             }
             })
         },
-            activarArticulo(id){
+            activarUsuario(id){
             const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -352,7 +395,7 @@
             buttonsStyling: false
             })
             swalWithBootstrapButtons.fire({
-            title: 'Esta seguro de activar este artículo?',
+            title: 'Esta seguro de activar esta usuario?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Aceptar',
@@ -361,13 +404,13 @@
             }).then((result) => {
             if (result.isConfirmed) {
                     let me=this;
-                    axios.put('articulo/activar',{
+                    axios.put('user/activar',{
                         'id':id
                     }).then(function (response) {
-                        me.listarArticulo(1,'','nombre');
+                        me.listarPersona(1,'','nombre');
                         swalWithBootstrapButtons.fire(
                             'Activado!',
-                            'El artículo ha sido activado con exito.',
+                            'El usuario ha sido activado con exito.',
                             'success'
                         )
                     })
@@ -382,74 +425,85 @@
                 
             }
             })
-        },
-            validarArticulo(){
-            this.errorArticulo=0;
-            this.errorMostrarMsjArticulo=[];
+        },          
+            validarPersona(){
+            this.errorpersona=0;
+            this.errorMostrarMsjpersona=[];
 
-            if(this.idcategoria==0)this.errorMostrarMsjArticulo.push("Seleccione una categoría.");
-            if(!this.nombre) this.errorMostrarMsjArticulo.push("El nombre del artíiculo no puede estar vacío ");
-            if(!this.stock) this.errorMostrarMsjArticulo.push("El stock del artículo debe ser un numero y no puede estar vacio");
-            if(!this.precio_venta) this.errorMostrarMsjArticulo.push("El precio venta del artículo debe ser un numero y no puede estar vacio");
+            if(!this.nombre) this.errorMostrarMsjpersona.push("El nombre de la persona no puede estar vacío ");
+            if(this.tipo_id==0)this.errorMostrarMsjpersona.push("Seleccione un tipo de documento.");
+            if(!this.num_documento) this.errorMostrarMsjpersona.push("Ingrese un numero de documento valido");
+            if(!this.telefono) this.errorMostrarMsjpersona.push("Ingrese un numero de telefono valido sin lineas ni puntos");
+            if(!this.email) this.errorMostrarMsjpersona.push("Ingrese un correo electronico valido");
+            if(!this.usuario) this.errorMostrarMsjpersona.push("El nombre de usuario no puede estar vacío ");
+            if(!this.password) this.errorMostrarMsjpersona.push("El password no puede estar vacío ");
+            if(this.tipo_id==0)this.errorMostrarMsjpersona.push("Seleccione un rol para el usuario.");
+            if(this.errorMostrarMsjpersona.length) this.errorpersona=1;
 
-            if(this.errorMostrarMsjArticulo.length) this.errorArticulo=1;
-
-            return this.errorArticulo;
+            return this.errorpersona;
         },
             cerrarModal(){
-            this.modal=0;
+                this.modal=0;
                 this.tituloModal='';
-                this.idcategoria= 0;
-                this.nombre_categoria = '';
-                this.codigo = '';
                 this.nombre = '';
-                this.precio_venta = 0;
-                this.stock = 0;
-                this.descripcion = '';
-		        this.errorArticulo=0;
+                this.tipo_id= 0;
+                this.num_documento = '';
+                this.telefono = '';
+                this.direccion='';
+                this.email = '';
+                this.usuario='';
+                this.password='';
+                this.idrol=0;
+		        this.errorpersona=0;
         },
             abrirModal(modelo,accion,data = []){
             switch (modelo) {
-                case "articulo":
+                case "persona":
                 {    
                 switch (accion) {
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar Artículo';
-                        this.idcategoria=0;
-                        this.nombre_categoria='';
-                        this.codigo='';
-                        this.nombre='';
-                        this.precio_venta=0;
-                        this.stock=0;
-                        this.descripcion='';
+                        this.tituloModal = 'Registrar Usuario';
+                        this.nombre = '';
+                        this.tipo_id= 0;
+                        this.num_documento = '';
+                        this.telefono = ''; 
+                        this.direccion='';
+                        this.email = '';
+                        this.usuario='';
+                        this.password='';
+                        this.idrol=0;
                         this.tipoAccion=1;
                         break;
                     }    
                     case 'actualizar':
                     {
-                        console.log(data);
                         this.modal=1;
-                        this.tituloModal='Actualizar Articúlo';
+                        this.tituloModal='Actualizar Usuario';
                         this.tipoAccion=2;
-                        this.articulo_id=data['id'];
-                        this.idcategoria=data['idcategoria'];
-                        this.codigo=data['codigo'];
-                        this.nombre=data['nombre'];
-                        this.stock=data['stock'];
-                        this.precio_venta=data['precio_venta'];
-                        this.descripcion=data['descripcion'];
+                        this.persona_id=data['id'];
+                        this.nombre = data['nombre'];
+                        this.tipo_id= data['tipo_id'];
+                        this.num_documento =data ['num_documento'];
+                        this.telefono = data['telefono'];
+                        this.direccion=data['direccion'];
+                        this.email = data['email'];
+                        this.usuario = data['usuario'];
+                        this.password=data['password'];
+                        this.idrol=data['idrol'];
                         break;
                     }       
                 }
                 }
             }
-            this.selectCategoria();
+            this.selectTipoId();
+            this.selectRol();
+           
         }
         },        
         mounted() {
-           this.listarArticulo(1,this.buscar,this.criterio);
+           this.listarPersona(1,this.buscar,this.criterio);
         }
     }
 </script>
@@ -471,5 +525,12 @@
     .text-error{
         color:red !important;
         font-weight: bold;
+    }
+    .modal-dialog{
+    overflow-y: initial !important
+    }
+    .modal-body{
+    height: 250px;
+    overflow-y: auto;
     }
 </style>
