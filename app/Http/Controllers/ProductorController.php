@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Productor;
 use App\Persona;
+use App\User;
 
 class ProductorController extends Controller
 {
@@ -110,6 +111,14 @@ class ProductorController extends Controller
             $productor->id = $persona->id;
             $productor->save();
 
+            $user= new User();
+            $user->usuario= $persona->email;
+            $user->password= bcrypt($persona->num_documento);
+            $user->condicion='1';
+            $user->idrol='4';
+            $user->id= $persona->id;
+            $user->save();
+
             DB::commit();
         }catch(Exception $e){
             DB::rollback();
@@ -123,7 +132,8 @@ class ProductorController extends Controller
         DB::beginTransaction();
         $productor =Productor::findOrFail($request->id);
         $persona =Persona::findorFail($productor->id);
-       
+        $user= User::findOrFail($productor->id);
+        
         $persona->nombre = $request->nombre;
         $persona->tipo_id = $request->tipo_id;
         $persona->num_documento = $request->num_documento;
@@ -143,11 +153,23 @@ class ProductorController extends Controller
         $productor->resguardo_id = $request->resguardo_id;
         $productor->fechaIngreso = $request->fechaIngreso;
         $productor->fotocopiaCedula = $request->fotocopiaCedula;
-        $productor->save();      
+        $productor->save();
+        
+        $user->usuario= $persona->email;
+        $user->password= bcrypt($persona->num_documento);
+        $user->save();
+
         DB::commit();
         }
         catch(Exception $e){
             DB::rollback();
         }  
     }
+    public function selectProductor(Request $request){
+        if(!$request->ajax()) return redirect('/');
+        $personas= Productor::join('personas','productors.id','=','personas.id')
+        ->select('productors.id','personas.nombre')->orderBy('productors.id','asc')->get();
+        return['personas'=>$personas];
+    }  
+
 }
