@@ -37,11 +37,18 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/productor/selectProductor','ProductorController@selectProductor');
      Route::get('/posesion/selectPosesion','PosesionController@selectPosesion');
      Route::get('/linea/selectLinea','LineaController@selectLinea');
-
+     Route::get('/finca/selectFinca/{id}','FincaController@selectFinca');
+     Route::get('/cadena/selectCadena','CadenaController@selectCadena');
+     Route::get('/lugarVenta/selectLugarVenta','LugarVentaController@selectLugarVenta');
     
 
     Route::group(['middleware'=>['Administrador']],function(){
     
+    //Rutas Cultivos
+    Route::get('/cultivo','CultivoController@index');
+    Route::post('/cultivo/registrar','CultivoController@store');
+    Route::put('/cultivo/actualizar','CultivoController@update');    
+
      //Rutas Fincas
     Route::get('/finca','FincaController@index');
     Route::post('/finca/registrar','FincaController@store');
@@ -92,12 +99,10 @@ Route::group(['middleware'=>['auth']],function(){
     });
 
     Route::group(['middleware'=>['TecnicoExtensionista']],function(){
-        Route::get('/categoria','CategoriaController@index');
-        Route::post('/categoria/registrar','CategoriaController@store');
-        Route::put('/categoria/actualizar','CategoriaController@update');
-        Route::put('/categoria/desactivar','CategoriaController@desactivar');
-        Route::put('/categoria/activar','CategoriaController@activar');
-        Route::get('/categoria/selectCategoria','CategoriaController@selectCategoria');
+        //Rutas Fincas
+        Route::get('/finca','FincaController@index');
+        Route::post('/finca/registrar','FincaController@store');
+        Route::put('/finca/actualizar','FincaController@update');
         
         Route::get('/articulo','ArticuloController@index');
         Route::post('/articulo/registrar','ArticuloController@store');

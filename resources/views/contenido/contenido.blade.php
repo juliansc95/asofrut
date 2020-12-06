@@ -12,7 +12,7 @@
             </template>
 
             <template v-if="menu==2">
-                <<articulo></articulo>
+                <cultivo></cultivo>
             </template>
 
             <template v-if="menu==3">
@@ -63,7 +63,7 @@
                 <finca></finca>
             </template>
             <template v-if="menu==2">
-                <<articulo></articulo>
+                <cultivo></cultivo>
             </template>    
             @elseif(Auth::user()->idrol == 4)
             <template v-if="menu==1">
@@ -71,7 +71,7 @@
             </template>
 
             <template v-if="menu==2">
-                <<articulo></articulo>
+                <<cultivo></cultivo>
             </template>
 
             <template v-if="menu==3">

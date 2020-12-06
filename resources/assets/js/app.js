@@ -22,6 +22,7 @@ Vue.component('productor', require('./components/Productor.vue'));
 Vue.component('rol', require('./components/Rol.vue'));
 Vue.component('user', require('./components/User.vue'));
 Vue.component('finca', require('./components/Finca.vue'));
+Vue.component('cultivo', require('./components/Cultivo.vue'));
 
 
 const app = new Vue({

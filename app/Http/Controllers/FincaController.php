@@ -91,7 +91,7 @@ class FincaController extends Controller
 
     public function update(Request $request)
     {
-        //if(!$request->ajax()) return redirect('/');
+        if(!$request->ajax()) return redirect('/');
         
         $finca =Finca::findOrFail($request->id);
         $finca->nombre = $request->nombre;
@@ -111,4 +111,13 @@ class FincaController extends Controller
         $finca->coordenadasFinca = $request->coordenadasFinca;
         $finca->save();
     }
+    public function selectFinca(Request $request){
+        if(!$request->ajax()) return redirect('/');
+        $id=$request->id;
+        $fincas= Finca::select('id','nombre')
+        ->where('productor_id','=',$id)
+        ->orderBy('id','asc')->get();
+        return['fincas'=>$fincas];
+    }  
+
 }
