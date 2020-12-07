@@ -36,7 +36,7 @@
                                 <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Ventas</a>
                             </li>
                             <li  @click="menu=6" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Clientes</a>
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Categorias Mora</a>
                             </li>
                         </ul>
                     </li>

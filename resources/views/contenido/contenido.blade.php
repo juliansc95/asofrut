@@ -28,7 +28,7 @@
             </template>
 
             <template v-if="menu==6">
-                <Cliente></Cliente>
+            <categoriamora></categoriamora>
             </template>
 
             <template v-if="menu==7">
@@ -64,6 +64,9 @@
             </template>
             <template v-if="menu==2">
                 <cultivo></cultivo>
+            </template>
+            <template v-if="menu==3">
+                <productor></productor>
             </template>    
             @elseif(Auth::user()->idrol == 4)
             <template v-if="menu==1">

@@ -44,6 +44,11 @@ Route::group(['middleware'=>['auth']],function(){
 
     Route::group(['middleware'=>['Administrador']],function(){
     
+    //Rutas Categoria Moras
+    Route::get('/categoriaMora','CategoriaMoraController@index');
+    Route::post('/categoriaMora/registrar','CategoriaMoraController@store');
+    Route::put('/categoriaMora/actualizar','CategoriaMoraController@update');    
+
     //Rutas Cultivos
     Route::get('/cultivo','CultivoController@index');
     Route::post('/cultivo/registrar','CultivoController@store');
@@ -104,18 +109,22 @@ Route::group(['middleware'=>['auth']],function(){
         Route::post('/finca/registrar','FincaController@store');
         Route::put('/finca/actualizar','FincaController@update');
         
-        Route::get('/articulo','ArticuloController@index');
-        Route::post('/articulo/registrar','ArticuloController@store');
-        Route::put('/articulo/actualizar','ArticuloController@update');
-        Route::put('/articulo/desactivar','ArticuloController@desactivar');
-        Route::put('/articulo/activar','ArticuloController@activar');    
+        //Rutas Cultivos
+        Route::get('/cultivo','CultivoController@index');
+        Route::post('/cultivo/registrar','CultivoController@store');
+        Route::put('/cultivo/actualizar','CultivoController@update'); 
 
+          //Rutas productores
+        Route::get('/productor','ProductorController@index');
+        Route::post('/productor/registrar','ProductorController@store');
+        Route::put('/productor/actualizar','ProductorController@update');
     });
 
     Route::group(['middleware'=>['Productor']],function(){
+     Route::get('/cultivo','CultivoController@index');   
      Route::get('/productor','ProductorController@index');
-     Route::get('/categoria','CategoriaController@index');
-     Route::get('/articulo','ArticuloController@index');
+     Route::get('/finca','FincaController@index');
+     
     });
 
     
