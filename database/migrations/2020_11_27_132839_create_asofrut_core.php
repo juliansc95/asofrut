@@ -158,8 +158,8 @@ class CreateAsofrutCore extends Migration
             $table->unsignedInteger('productor_id');
             $table->unsignedInteger('linea_id');
             $table->decimal('areaPredio', 11, 2);
-            $table->decimal('longitudPredio', 11, 2);
-            $table->decimal('latitudPredio', 11, 2);
+            $table->decimal('longitudPredio', 11, 6);
+            $table->decimal('latitudPredio', 11, 6);
             $table->decimal('altitudPredio', 11, 2);
             $table->unsignedInteger('departamento_id');
             $table->unsignedInteger('municipio_id');
@@ -209,6 +209,17 @@ class CreateAsofrutCore extends Migration
         Schema::create('categoriaMoras', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre')->unique();
+            $table->decimal('valorUnitario', 11, 0);
+            $table->decimal('ValorDonacion', 11, 0);
+            $table->decimal('valorTransporte', 11, 0);
+            $table->decimal('valorAsohof', 11, 2);
+            $table->decimal('valorCuatroPorMil', 11, 4);
+            $table->timestamps();
+        });
+
+        Schema::create('estadoVentas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre')->unique;            
             $table->timestamps();
         });
 
@@ -221,14 +232,17 @@ class CreateAsofrutCore extends Migration
             $table->unsignedInteger('lugarVenta_id');
             $table->decimal('totalVenta', 11, 2);
             $table->decimal('totalKilos', 11, 2);
-            $table->boolean('estado')->default(1);                                 
+            $table->unsignedInteger('estado_id');                                 
             $table->timestamps();
         });
+
+        
 
         Schema::table('ventas', function (Blueprint $table) {
             $table->foreign('productor_id')->references('id')->on('productors');
             $table->foreign('linea_id')->references('id')->on('lineas');
             $table->foreign('lugarVenta_id')->references('id')->on('lugarVentas');
+            $table->foreign('estado_id')->references('id')->on('estadoVentas');
         });
 
         echo "Creando tabla de ventas_categorias ".__LINE__."\n";
@@ -251,6 +265,8 @@ class CreateAsofrutCore extends Migration
             $table->foreign('ventas_id')->references('id')->on('ventas');
             $table->foreign('categoria_id')->references('id')->on('categoriaMoras');
         });    
+
+      
     }
 
     /**
@@ -278,5 +294,6 @@ class CreateAsofrutCore extends Migration
         Schema::dropIfExists('etnias');
         Schema::dropIfExists('sexos');
         Schema::dropIfExists('tipoIds');
+        Schema::dropIfExists('estadoVentas');
     }
 }

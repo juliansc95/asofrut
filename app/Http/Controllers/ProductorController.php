@@ -172,4 +172,15 @@ class ProductorController extends Controller
         return['personas'=>$personas];
     }  
 
+    public function selectProductor2(Request $request){
+        if(!$request->ajax()) return redirect('/');
+        $filtro = $request->filtro;
+        $personas= Productor::join('personas','productors.id','=','personas.id')
+        ->where('personas.nombre', 'like', '%'. $filtro . '%')
+        ->orWhere('personas.num_documento', 'like', '%'. $filtro . '%')
+        ->select('productors.id','personas.nombre','personas.num_documento')
+        ->orderBy('personas.nombre', 'asc')->get();
+        return['personas'=>$personas];
+    }  
+
 }

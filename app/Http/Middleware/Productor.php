@@ -16,7 +16,12 @@ class Productor
     public function handle($request, Closure $next)
     {
         
-        return $next($request);
+        if (auth()->user()->idrol==4){
+            return $next($request);
+            }
+            else{
+            return redirect('/');
+            }
         
     }
 }

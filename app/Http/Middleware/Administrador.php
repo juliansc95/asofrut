@@ -1,9 +1,9 @@
 <?php
-
+ 
 namespace App\Http\Middleware;
-
+ 
 use Closure;
-
+ 
 class Administrador
 {
     /**
@@ -15,10 +15,10 @@ class Administrador
      */
     public function handle($request, Closure $next)
     {
-       
         if (auth()->check() && auth()->user()->idrol==1)
         return $next($request);
  
         return redirect('/');
+ 
     }
 }

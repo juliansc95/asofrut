@@ -210,5 +210,21 @@ class coreSeeder extends Seeder
             ]);
         }
 
+        echo "Creando estados venta - Line:" . __LINE__ . "\n";
+
+        $estadoVentas = array(
+            ['nombre' => 'ACOPIO'],
+            ['nombre' => 'TRAMITE FACTURACION'],
+            ['nombre' => 'DISPONIBLE PARA PAGO'],
+            ['nombre' => 'PAGADO'],
+
+        );
+
+        foreach ($estadoVentas as $estadoVenta) {
+            \App\EstadoVenta::create([
+                'nombre' => $estadoVenta['nombre']
+            ]);
+        }
+
     }
 }

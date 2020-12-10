@@ -38,6 +38,42 @@ class CategoriaMoraController extends Controller
         ];
     }
 
+    public function buscarCategoria(Request $request){ 
+        if(!$request->ajax()) return redirect('/');
+        $filtro = $request->filtro;
+        $categoriaMoras= CategoriaMora::where('id','=',$filtro)
+        ->select('id','nombre','valorUnitario','ValorDonacion','valorTransporte',
+        'valorAsohof','valorCuatroPorMil')
+        ->orderBy('nombre','asc')
+        ->take(1)->get();
+        
+
+        return[ 'categoriaMoras' => $categoriaMoras];
+    }
+
+
+    public function listarCategoria(Request $request){
+        if (!$request->ajax()) return redirect('/');
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        
+        if ($buscar==''){
+            $categoriaMoras= CategoriaMora::select('id','nombre','valorUnitario','ValorDonacion','valorTransporte',
+            'valorAsohof','valorCuatroPorMil')
+            ->orderBy('id', 'desc')->paginate(10);
+        }
+        else{
+            $categoriaMoras= CategoriaMora::select('id','nombre','valorUnitario','ValorDonacion','valorTransporte',
+            'valorAsohof','valorCuatroPorMil')
+            ->where('categoriaMoras.'.$criterio, 'like', '%'. $buscar . '%')
+            ->orderBy('categoriaMoras.id', 'desc')->paginate(10);
+        }
+        
+
+        return ['categoriaMoras' => $categoriaMoras];
+    }
+
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');

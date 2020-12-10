@@ -40,14 +40,35 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/finca/selectFinca/{id}','FincaController@selectFinca');
      Route::get('/cadena/selectCadena','CadenaController@selectCadena');
      Route::get('/lugarVenta/selectLugarVenta','LugarVentaController@selectLugarVenta');
-    
+     Route::get('/productor/selectProductor2','ProductorController@selectProductor2');
+     Route::get('/linea/selectLinea2','LineaController@selectLinea2');
+     Route::get('/lugarVenta/selectLugarVenta2','LugarVentaController@selectLugarVenta2');
+     
+     Route::group(['middleware'=>['Productor']],function(){
+        Route::get('/cultivo','CultivoController@index');   
+        Route::get('/productor','ProductorController@index');
+        Route::get('/finca','FincaController@index');
+       });
 
     Route::group(['middleware'=>['Administrador']],function(){
     
+     //Rutas Ventas
+     Route::get('/venta', 'VentaController@index');
+     Route::post('/venta/registrar', 'VentaController@store');
+     Route::put('/venta/desactivar', 'VentaController@desactivar');
+     Route::get('/venta/obtenerCabecera', 'VentaController@obtenerCabecera');
+     Route::get('/venta/obtenerDetalles', 'VentaController@obtenerVentaCategoria');
+     Route::put('/venta/pasarFacturacion', 'VentaController@pasarFacturacion');    
+     Route::put('/venta/pasarDisponiblePago', 'VentaController@pasarDisponiblePago');    
+     Route::put('/venta/pasarPagado', 'VentaController@pasarPagado');    
+
+
     //Rutas Categoria Moras
     Route::get('/categoriaMora','CategoriaMoraController@index');
     Route::post('/categoriaMora/registrar','CategoriaMoraController@store');
     Route::put('/categoriaMora/actualizar','CategoriaMoraController@update');    
+    Route::get('/categoriaMora/buscarCategoria','CategoriaMoraController@buscarCategoria');
+    Route::get('/categoriaMora/listarCategoria','CategoriaMoraController@listarCategoria');  
 
     //Rutas Cultivos
     Route::get('/cultivo','CultivoController@index');
@@ -83,6 +104,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/categoria/activar','CategoriaController@activar');
     Route::get('/categoria/selectCategoria','CategoriaController@selectCategoria');
     
+    
     Route::get('/articulo','ArticuloController@index');
     Route::post('/articulo/registrar','ArticuloController@store');
     Route::put('/articulo/actualizar','ArticuloController@update');
@@ -100,7 +122,20 @@ Route::group(['middleware'=>['auth']],function(){
 
 
     Route::group(['middleware'=>['TecnicoComercial']],function(){
-
+    //Rutas Ventas
+    Route::get('/venta', 'VentaController@index');
+    Route::post('/venta/registrar', 'VentaController@store');
+    Route::put('/venta/desactivar', 'VentaController@desactivar');
+    Route::get('/venta/obtenerCabecera', 'VentaController@obtenerCabecera');
+    Route::get('/venta/obtenerDetalles', 'VentaController@obtenerVentaCategoria');
+    Route::put('/venta/pasarFacturacion', 'VentaController@pasarFacturacion');    
+    Route::put('/venta/pasarDisponiblePago', 'VentaController@pasarDisponiblePago');    
+    Route::put('/venta/pasarPagado', 'VentaController@pasarPagado'); 
+    
+     //Rutas Categoria Moras
+    Route::get('/categoriaMora','CategoriaMoraController@index');
+    Route::get('/categoriaMora/buscarCategoria','CategoriaMoraController@buscarCategoria');
+    Route::get('/categoriaMora/listarCategoria','CategoriaMoraController@listarCategoria');      
     });
 
     Route::group(['middleware'=>['TecnicoExtensionista']],function(){
@@ -120,12 +155,7 @@ Route::group(['middleware'=>['auth']],function(){
         Route::put('/productor/actualizar','ProductorController@update');
     });
 
-    Route::group(['middleware'=>['Productor']],function(){
-     Route::get('/cultivo','CultivoController@index');   
-     Route::get('/productor','ProductorController@index');
-     Route::get('/finca','FincaController@index');
-     
-    });
+    
 
     
     

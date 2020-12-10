@@ -8,6 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import Vue from 'vue';
+import vSelect from 'vue-select';
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -24,6 +27,9 @@ Vue.component('user', require('./components/User.vue'));
 Vue.component('finca', require('./components/Finca.vue'));
 Vue.component('cultivo', require('./components/Cultivo.vue'));
 Vue.component('categoriamora', require('./components/categoriaMora.vue'));
+Vue.component('v-select', vSelect);
+Vue.component('venta', require('./components/Venta.vue'));
+
 
 
 const app = new Vue({
