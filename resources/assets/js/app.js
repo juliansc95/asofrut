@@ -10,6 +10,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 import Vue from 'vue';
 import vSelect from 'vue-select';
+import Datepicker from 'vuejs-datepicker';
+
 
 
 /**
@@ -28,6 +30,7 @@ Vue.component('finca', require('./components/Finca.vue'));
 Vue.component('cultivo', require('./components/Cultivo.vue'));
 Vue.component('categoriamora', require('./components/categoriaMora.vue'));
 Vue.component('v-select', vSelect);
+Vue.component('v-datepicker', Datepicker);
 Vue.component('venta', require('./components/Venta.vue'));
 
 

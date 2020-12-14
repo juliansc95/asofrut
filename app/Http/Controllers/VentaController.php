@@ -27,7 +27,20 @@ class VentaController extends Controller
             'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
             'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
             'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
-             ->orderBy('ventas.id', 'desc')->paginate(3);
+             ->orderBy('ventas.estado_id', 'asc')->paginate(10);
+        }
+        if($criterio == 'personas'){
+        $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
+        ->join('productors','ventas.productor_id','=','productors.id')
+        ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+        ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+        ->join('lineas','ventas.linea_id','=','lineas.id')
+        ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+        'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+        'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
+        'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+        ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+        ->orderBy('ventas.estado_id', 'asc')->paginate(10);
         }
         else{
             $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
@@ -40,7 +53,7 @@ class VentaController extends Controller
             'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
             'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
             ->where('ventas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('ventas.id', 'desc')->paginate(3);
+            ->orderBy('ventas.estado_id', 'asc')->paginate(10);
         }
         
         return [
@@ -88,6 +101,36 @@ class VentaController extends Controller
         return ['ventaCategoria' => $ventaCategoria];
     }
 
+    public function pdf(Request $request,$id){
+        $venta = Venta::join('personas','ventas.productor_id','=','personas.id')
+        ->join('productors','ventas.productor_id','=','productors.id')
+        ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+        ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+        ->join('lineas','ventas.linea_id','=','lineas.id')
+        ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+        'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+        'ventas.estado_id','ventas.totalDonacion','ventas.totalTransporte',
+        'ventas.totalAsohof','ventas.totalCuatroXmil',
+        'personas.nombre as nombre_persona','personas.num_documento as num_documento',
+        'estadoVentas.nombre as nombre_estadoVenta','personas.direccion as direccion',
+        'personas.telefono as telefono', 'personas.telefono as telefono','personas.email as email',
+        'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+        ->where('ventas.id','=',$id)
+        ->orderBy('ventas.id', 'desc')->take(1)->get();
+
+        $ventaCategoria = VentaCategoria::join('categoriaMoras','ventas_categorias.categoria_id','=','categoriaMoras.id')
+        ->select('ventas_categorias.peso','ventas_categorias.valorUnitario','ventas_categorias.subtotal',
+        'categoriaMoras.nombre as nombre_categoria')
+        ->where('ventas_categorias.ventas_id','=',$id)
+        ->orderBy('ventas_categorias.id', 'desc')->get();
+
+        $nombrePdf=Venta::select('ventas.fechaVenta')
+        ->where('id',$id)->get();
+
+        $pdf = \PDF::loadView('pdf.venta',['venta'=>$venta,'ventaCategoria' => $ventaCategoria]);
+        return $pdf->download('venta-'.$nombrePdf[0]->fechaVenta.'.pdf');
+    }
+
     public function store(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -126,6 +169,9 @@ class VentaController extends Controller
             }          
 
             DB::commit();
+            return[
+                'id'=>$venta->id
+            ];
         } catch (Exception $e){
             DB::rollBack();
         }

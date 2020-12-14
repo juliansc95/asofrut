@@ -123,13 +123,13 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Fecha expedicion documento</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="fechaExpedicion"  class="form-control" placeholder="">
+                                        <v-datepicker :inline="true" v-model="fechaExpedicion "></v-datepicker>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Fecha de nacimiento</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="fechaNacimiento"  class="form-control" placeholder="">
+                                       <v-datepicker :inline="true" v-model="fechaNacimiento"></v-datepicker>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -216,13 +216,13 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Fecha de ingreso</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="fechaIngreso"  class="form-control" placeholder="">
+                                         <v-datepicker :inline="true" v-model="fechaIngreso"></v-datepicker>
                                     </div>
                                 </div>
                                  <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Fotocopia cedula</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="fotocopiaCedula"  class="form-control" placeholder="">
+                                        <input type="text" v-model="fotocopiaCedula"   class="form-control" placeholder="" >
                                     </div>
                                 </div>                                  
                                 <div v-show="errorProductor" class="form-group row div-error">
@@ -249,6 +249,7 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker';
     export default {
         data(){
             return{
@@ -435,7 +436,7 @@
                 return;
             }
             let me=this;
-            axios.post('productor/registrar',{
+            axios.post('productor/registrar',{                            
                 'nombre':this.nombre,
                 'tipo_id':this.tipo_id,
                 'num_documento':this.num_documento,
@@ -452,8 +453,9 @@
                 'resguardo_id':this.resguardo_id,
                 'direccion':this.direccion,
                 'fechaIngreso':this.fechaIngreso,
-                'fotocopiaCedula':this.fotocopiaCedula
+                'fotocopiaCedula':this.fotocopiaCedula,
             }).then(function (response) {
+                    console.log(response);
                     me.cerrarModal();
                     me.listarProductor(1,'','nombre');
                 })

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\Productor;
 use App\Persona;
 use App\User;
@@ -12,7 +13,7 @@ class ProductorController extends Controller
 {
     public function index(Request $request)
     {
-        //if (!$request->ajax()) return redirect('/');
+        if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         $criterio = $request->criterio;
 
@@ -96,9 +97,12 @@ class ProductorController extends Controller
             $persona->email = $request->email;
             $persona->save();
 
+            $mytime= Carbon::parse($request->fechaExpedicion)->toDateString();
+            $nacimiento= Carbon::parse($request->fechaNacimiento)->toDateString();
+            $ingreso= Carbon::parse($request->fechaIngreso)->toDateString();
             $productor = new Productor();
-            $productor->fechaExpedicion = $request->fechaExpedicion;
-            $productor->fechaNacimiento = $request->fechaNacimiento;
+            $productor->fechaExpedicion =$mytime;
+            $productor->fechaNacimiento = $nacimiento;
             $productor->sexo_id = $request->sexo_id;
             $productor->etnia_id = $request->etnia_id;
             $productor->escolaridad_id = $request->escolaridad_id;
@@ -106,13 +110,13 @@ class ProductorController extends Controller
             $productor->municipio_id = $request->municipio_id;
             $productor->vereda_id = $request->vereda_id;
             $productor->resguardo_id = $request->resguardo_id;
-            $productor->fechaIngreso = $request->fechaIngreso;
+            $productor->fechaIngreso = $ingreso;
             $productor->fotocopiaCedula = $request->fotocopiaCedula;
             $productor->id = $persona->id;
             $productor->save();
 
             $user= new User();
-            $user->usuario= $persona->email;
+            $user->usuario= $persona->num_documento;
             $user->password= bcrypt($persona->num_documento);
             $user->condicion='1';
             $user->idrol='4';
@@ -140,10 +144,14 @@ class ProductorController extends Controller
         $persona->direccion = $request->direccion;
         $persona->telefono = $request->telefono;
         $persona->email = $request->email;
-        $persona->save();    
-        
-        $productor->fechaExpedicion = $request->fechaExpedicion;
-        $productor->fechaNacimiento = $request->fechaNacimiento;
+        $persona->save(); 
+
+        $mytime= Carbon::parse($request->fechaExpedicion)->toDateString();
+        $nacimiento= Carbon::parse($request->fechaNacimiento)->toDateString();
+        $ingreso= Carbon::parse($request->fechaIngreso)->toDateString();
+
+        $productor->fechaExpedicion = $mytime;
+        $productor->fechaNacimiento = $nacimiento;
         $productor->sexo_id = $request->sexo_id;
         $productor->etnia_id = $request->etnia_id;
         $productor->escolaridad_id = $request->escolaridad_id;
@@ -151,13 +159,11 @@ class ProductorController extends Controller
         $productor->municipio_id = $request->municipio_id;
         $productor->vereda_id = $request->vereda_id;
         $productor->resguardo_id = $request->resguardo_id;
-        $productor->fechaIngreso = $request->fechaIngreso;
+        $productor->fechaIngreso = $ingreso;
         $productor->fotocopiaCedula = $request->fotocopiaCedula;
         $productor->save();
         
-        $user->usuario= $persona->email;
-        $user->password= bcrypt($persona->num_documento);
-        $user->save();
+        
 
         DB::commit();
         }

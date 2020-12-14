@@ -63,7 +63,8 @@ class CultivoController extends Controller
         $cultivo->finca_id = $request->finca_id;
         $cultivo->cadena_id = $request->cadena_id;
         $cultivo->areaSembrada = $request->areaSembrada;
-        $cultivo->fechaSiembra = $request->fechaSiembra;
+        $mytime= Carbon::parse($request->fechaSiembra)->toDateString();
+        $cultivo->fechaSiembra =  $mytime;
         $cultivo->numeroPlantulasArboles = $request->numeroPlantulasArboles;
         $cultivo->totalVentasKgAnioAnterior = $request->totalVentasKgAnioAnterior;
         $cultivo->precioPromedio = $request->precioPromedio;

@@ -61,7 +61,7 @@ Route::group(['middleware'=>['auth']],function(){
      Route::put('/venta/pasarFacturacion', 'VentaController@pasarFacturacion');    
      Route::put('/venta/pasarDisponiblePago', 'VentaController@pasarDisponiblePago');    
      Route::put('/venta/pasarPagado', 'VentaController@pasarPagado');    
-
+     Route::get('/venta/pdf/{id}','VentaController@pdf')->name('venta_pdf');
 
     //Rutas Categoria Moras
     Route::get('/categoriaMora','CategoriaMoraController@index');

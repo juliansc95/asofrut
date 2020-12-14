@@ -128,7 +128,7 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Fecha Siembra</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="fechaSiembra"  class="form-control" placeholder="">
+                                         <v-datepicker :inline="true" v-model="fechaSiembra "></v-datepicker>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -188,6 +188,7 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker';
     export default {
         data(){
             return{

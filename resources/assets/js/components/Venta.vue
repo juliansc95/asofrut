@@ -20,6 +20,7 @@
                             <div class="col-md-6">
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
+                                      <option value="personas">Nombre</option>
                                       <option value="fechaVenta">Fecha-Hora</option>
                                       <option value="totalKilos">Peso total</option>
                                     </select>
@@ -48,17 +49,24 @@
                                             <button type="button" @click="verVenta(venta.id)" class="btn btn-success btn-sm">
                                             <i class="icon-eye"></i>
                                             </button> &nbsp;
+                                             <button type="button" @click="pdfVenta(venta.id)" class="btn btn-info btn-sm">
+                                            <i class="icon-doc"></i>
+                                            </button> &nbsp;
                                             <template v-if="venta.estado_id=='1'">
                                                 <button type="button" class="btn btn-danger btn-sm" @click="desactivarVenta(venta.id)">
                                                     <i class="icon-trash"></i>
                                                 </button>
-                                                <button  type="button" class="btn btn-info btn-sm" @click="pasarFacturacion(venta.id)">
-                                                    <i class="fa fa-money"></i>
+                                                <button  type="button" class="btn btn-warning btn-sm" @click="pasarFacturacion(venta.id)">
+                                                   <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-calculator-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zM4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM4 12.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zM7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM7 9.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM10 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1z"/>
+                                                    </svg>
                                                 </button>
                                             </template>
                                             <template v-if="venta.estado_id=='2'">
-                                                 <button  type="button" class="btn btn-info btn-sm" @click="pasarDisponiblePago(venta.id)">
-                                                    <i class="fa fa-money"></i>
+                                                 <button  type="button" class="btn btn-secondary btn-sm" @click="pasarDisponiblePago(venta.id)">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-shop" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
+                                                    </svg>
                                                 </button>
                                             </template>
                                             <template v-if="venta.estado_id=='3'">
@@ -219,7 +227,7 @@
                                             <td>$ {{(totalTransporte=calcularTotalTransporte).toFixed(0)}}</td>
                                         </tr>
                                          <tr style="background-color: #ff4d4d;">
-                                            <td colspan="4" align="right"><strong>Descuento Asohof:</strong></td>
+                                            <td colspan="4" align="right"><strong>Descuento Asohofrucol:</strong></td>
                                             <td>$ {{(totalAsohof=calcularTotalAsohof).toFixed(0)}}</td>
                                         </tr>
                                          <tr style="background-color: #ff4d4d;">
@@ -318,7 +326,7 @@
                                             <td  v-text="totalTransporte"></td>
                                         </tr>
                                          <tr style="background-color: #ff4d4d;">
-                                            <td colspan="3" align="right"><strong>Descuento Asohof:</strong></td>
+                                            <td colspan="3" align="right"><strong>Descuento Asohofrucol:</strong></td>
                                             <td  v-text="totalAsohof"></td>
                                         </tr>
                                          <tr style="background-color: #ff4d4d;">
@@ -384,7 +392,7 @@
                                             <th>Valor Unitario</th>
                                             <th>Valor Donacion</th>
                                             <th>Valor Transporte</th>
-                                            <th>Valor Asohof</th>
+                                            <th>Valor Asohofrucol</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -452,7 +460,7 @@
                     'to' : 0,
                 },
                 offset : 3,
-                criterio : 'totalKilos',
+                criterio : 'personas',
                 buscar : '',
                 criterioA:'nombre',
                 buscarA: 'Mora',
@@ -658,7 +666,9 @@
                     console.log(error);
                 });
             },
-
+            pdfVenta(id){
+                window.open('http://localhost/asofrut/public/venta/pdf/'+id);
+            },
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza la página actual
@@ -765,7 +775,7 @@
 
                 }).then(function (response) {
                     me.listado=1;
-                    me.listarVenta(1,'','totalKilos');
+                    me.listarVenta(1,'','personas');
                     me.productor_id=0;
                     me.linea_id=0;
                     me.lugarVenta_id=0;
@@ -782,6 +792,7 @@
                     me.totalCuatroXmil=0;
                     me.codigo='';
                     me.arrayDetalle=[];
+                    window.open('http://localhost/asofrut/public/venta/pdf/'+response.data.id);
 
                 }).catch(function (error) {
                     console.log(error);
@@ -888,7 +899,7 @@
                     axios.put('venta/desactivar',{
                         'id': id
                     }).then(function (response) {
-                        me.listarVenta(1,'','totalKilos');
+                        me.listarVenta(1,'','personas');
                         swal.fire(
                         'Anulado!',
                         'La venta ha sido anulada con éxito.',
@@ -927,7 +938,7 @@
                     axios.put('venta/pasarFacturacion',{
                         'id': id
                     }).then(function (response) {
-                        me.listarVenta(1,'','totalKilos');
+                        me.listarVenta(1,'','personas');
                         swal.fire(
                         'Tramite Facturacion!',
                         'La venta ha pasado al siguiente estado con exito.',
@@ -966,7 +977,7 @@
                     axios.put('venta/pasarDisponiblePago',{
                         'id': id
                     }).then(function (response) {
-                        me.listarVenta(1,'','totalKilos');
+                        me.listarVenta(1,'','personas');
                         swal.fire(
                         'Disponible para pago!',
                         'La venta ha pasado al siguiente estado con exito.',
@@ -1005,7 +1016,7 @@
                     axios.put('venta/pasarPagado',{
                         'id': id
                     }).then(function (response) {
-                        me.listarVenta(1,'','totalKilos');
+                        me.listarVenta(1,'','personas');
                         swal.fire(
                         'Pagado!',
                         'La venta ha pasado al siguiente estado con exito.',
