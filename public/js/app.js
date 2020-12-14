@@ -52994,6 +52994,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -53231,6 +53237,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         pdfVenta: function pdfVenta(id) {
             window.open('http://localhost/asofrut/public/venta/pdf/' + id);
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/venta/listarPdf');
+        },
+        reporteDiario: function reporteDiario() {
+            window.open('http://localhost/asofrut/public/venta/listarDiario');
         },
         cambiarPagina: function cambiarPagina(page, buscar, criterio) {
             var me = this;
@@ -53597,6 +53609,40 @@ var render = function() {
               [
                 _c("i", { staticClass: "icon-plus" }),
                 _vm._v(" Nuevo\n                ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" Reporte Total\n                ")
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.reporteDiario()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" Reporte Diario\n                ")
               ]
             )
           ]),

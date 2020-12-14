@@ -12,6 +12,12 @@
                         <button type="button" @click="mostrarDetalle()" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;Reporte Total
+                        </button>
+                        <button type="button" @click="reporteDiario()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;Reporte Diario
+                        </button>
                     </div>
                     <!-- Listado-->
                     <template v-if="listado==1">
@@ -668,6 +674,12 @@
             },
             pdfVenta(id){
                 window.open('http://localhost/asofrut/public/venta/pdf/'+id);
+            },
+            cargarPdf(){
+                window.open('http://localhost/asofrut/public/venta/listarPdf');
+            },
+            reporteDiario(){
+                window.open('http://localhost/asofrut/public/venta/listarDiario');
             },
             cambiarPagina(page,buscar,criterio){
                 let me = this;

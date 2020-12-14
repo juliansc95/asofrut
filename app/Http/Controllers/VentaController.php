@@ -131,6 +131,56 @@ class VentaController extends Controller
         return $pdf->download('venta-'.$nombrePdf[0]->fechaVenta.'.pdf');
     }
 
+    public function listarPdf(){
+        $ahora= Carbon::now('America/Bogota');
+        $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
+        ->join('productors','ventas.productor_id','=','productors.id')
+        ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+        ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+        ->join('lineas','ventas.linea_id','=','lineas.id')
+        ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+        'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+        'ventas.estado_id','ventas.totalDonacion','ventas.totalTransporte',
+        'ventas.totalAsohof','ventas.totalCuatroXmil',
+        'personas.nombre as nombre_persona','personas.num_documento as num_documento',
+        'estadoVentas.nombre as nombre_estadoVenta','personas.direccion as direccion',
+        'personas.telefono as telefono', 'personas.telefono as telefono','personas.email as email',
+        'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+        ->orderBy('ventas.id', 'desc')->get();
+        $cont=Venta::count();
+
+        $pdf = \PDF::loadView('pdf.ventas',['ventas'=>$ventas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('ventas.pdf');
+    }
+
+    public function listarPdfDiario(){
+        
+        $ahora= Carbon::now('America/Bogota');
+        $today= Carbon::now('America/Bogota')->toDateString();
+
+        $tomorrow= new Carbon('tomorrow');
+
+        $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
+        ->join('productors','ventas.productor_id','=','productors.id')
+        ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+        ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+        ->join('lineas','ventas.linea_id','=','lineas.id')
+        ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+        'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+        'ventas.estado_id','ventas.totalDonacion','ventas.totalTransporte',
+        'ventas.totalAsohof','ventas.totalCuatroXmil',
+        'personas.nombre as nombre_persona','personas.num_documento as num_documento',
+        'estadoVentas.nombre as nombre_estadoVenta','personas.direccion as direccion',
+        'personas.telefono as telefono', 'personas.telefono as telefono','personas.email as email',
+        'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+        ->whereBetween('fechaVenta',[$today,$tomorrow])
+        ->orderBy('ventas.id', 'desc')->get();
+        $cont=count($ventas);
+
+        $pdf = \PDF::loadView('pdf.ventas',['ventas'=>$ventas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('ventas'.$today.'.pdf');
+    }
+
     public function store(Request $request)
     {
         if (!$request->ajax()) return redirect('/');

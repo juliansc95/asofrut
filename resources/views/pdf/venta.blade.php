@@ -192,6 +192,12 @@
                         <tr>
                             <th></th>
                             <th></th>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
                             <th>Peso Total(Kg)</th>
                             <td>{{$v->totalKilos}}</td>
                         </tr>
