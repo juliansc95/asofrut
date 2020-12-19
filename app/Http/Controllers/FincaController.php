@@ -119,5 +119,13 @@ class FincaController extends Controller
         ->orderBy('id','asc')->get();
         return['fincas'=>$fincas];
     }  
+    public function selectFincaEncuesta(Request $request){
+        //if(!$request->ajax()) return redirect('/');
+        $id = \Auth::user()->id;
+        $fincas= Finca::select('id','nombre')
+        ->where('productor_id','=',$id)
+        ->orderBy('id','asc')->get();
+        return['fincas'=>$fincas];
+    }  
 
 }

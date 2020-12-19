@@ -38,12 +38,23 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/posesion/selectPosesion','PosesionController@selectPosesion');
      Route::get('/linea/selectLinea','LineaController@selectLinea');
      Route::get('/finca/selectFinca/{id}','FincaController@selectFinca');
+     Route::get('/finca/selectFincaEncuesta','FincaController@selectFincaEncuesta');
      Route::get('/cadena/selectCadena','CadenaController@selectCadena');
      Route::get('/lugarVenta/selectLugarVenta','LugarVentaController@selectLugarVenta');
      Route::get('/productor/selectProductor2','ProductorController@selectProductor2');
      Route::get('/linea/selectLinea2','LineaController@selectLinea2');
      Route::get('/lugarVenta/selectLugarVenta2','LugarVentaController@selectLugarVenta2');
-     
+     Route::get('/equipoAplicacion/selectEquipo','EquipoAplicacionController@selectEquipo');
+     Route::get('/metodoAplicacion/selectMetodo','EquipoAplicacionController@selectMetodo');
+     Route::get('/unidadAplicacion/selectUnidad','EquipoAplicacionController@selectUnidad');
+     Route::get('/unidadDosis/selectDosis','EquipoAplicacionController@selectDosis');
+     Route::get('/producto/selectProducto2','EquipoAplicacionController@selectProducto2');
+
+     //Rutas Encuesta fitosanitaria
+     Route::get('/fitosanitaria', 'EncuestaFitosanitariaController@index');
+     Route::post('/fitosanitaria/registrar', 'EncuestaFitosanitariaController@store');
+     Route::get('/fitosanitaria/id', 'EncuestaFitosanitariaController@MostrarId');
+
      Route::group(['middleware'=>['Productor']],function(){
         Route::get('/cultivo','CultivoController@index');   
         Route::get('/productor','ProductorController@index');
@@ -52,6 +63,7 @@ Route::group(['middleware'=>['auth']],function(){
 
     Route::group(['middleware'=>['Administrador']],function(){
     
+   
      //Rutas Ventas
      Route::get('/venta', 'VentaController@index');
      Route::post('/venta/registrar', 'VentaController@store');
@@ -64,6 +76,12 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/venta/pdf/{id}','VentaController@pdf')->name('venta_pdf');
      Route::get('/venta/listarPdf','VentaController@listarPdf')->name('ventas_pdf');
      Route::get('/venta/listarDiario','VentaController@listarPdfDiario')->name('ventas_dia_pdf');
+    
+
+     //Rutas Lugares de Venta
+     Route::get('/lugarVenta','LugarVentaController@index');
+     Route::post('/lugarVenta/registrar','LugarVentaController@store');
+     Route::put('/lugarVenta/actualizar','LugarVentaController@update');
 
     //Rutas Categoria Moras
     Route::get('/categoriaMora','CategoriaMoraController@index');

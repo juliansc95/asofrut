@@ -20,7 +20,7 @@
             </template>
             
             <template v-if="menu==4">
-                <h1>Adicional productores</h1>
+                <encuestafitosanitaria></encuestafitosanitaria>
             </template>
 
             <template v-if="menu==5">
@@ -52,7 +52,7 @@
             </template>
 
             <template v-if="menu==12">
-                <h1>Contenido del menú 12</h1>
+                <lugarventa></lugarventa>
             </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
@@ -79,6 +79,10 @@
 
             <template v-if="menu==3">
                 <productor></productor>
+            </template>
+
+            <template v-if="menu==4">
+                <encuestafitosanitaria></encuestafitosanitaria>
             </template>
 
             <template v-if="menu==5">

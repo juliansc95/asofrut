@@ -32,6 +32,8 @@ Vue.component('categoriamora', require('./components/categoriaMora.vue'));
 Vue.component('v-select', vSelect);
 Vue.component('v-datepicker', Datepicker);
 Vue.component('venta', require('./components/Venta.vue'));
+Vue.component('lugarventa', require('./components/LugarVenta.vue'));
+Vue.component('encuestafitosanitaria', require('./components/EncuestaFitosanitaria.vue'));
 
 
 

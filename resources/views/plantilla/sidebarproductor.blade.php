@@ -21,6 +21,9 @@
                             <li @click="menu=3" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-wallet"></i> Detalle Productores</a>
                             </li>
+                            <li @click="menu=4" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Encuesta</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">

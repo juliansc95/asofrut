@@ -8,8 +8,8 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Categorias Mora
-                        <button type="button" @click="abrirModal('categoriaMora','registrar')" class="btn btn-secondary">
+                        <i class="fa fa-align-justify"></i> Lugares de Venta
+                        <button type="button" @click="abrirModal('lugarVenta','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
                     </div>
@@ -20,8 +20,8 @@
                                     <select class="form-control col-md-3" v-model="criterio">
                                       <option value="nombre">Nombre</option>
                                     </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarCategoriaMora(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarCategoriaMora(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                    <input type="text" v-model="buscar" @keyup.enter="listarLugarVenta(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listarLugarVenta(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
                             </div>
                         </div>
@@ -31,26 +31,16 @@
                                 <tr>
                                     <th>Opciones</th>
                                     <th>Nombre</th>
-                                    <th>Valor Unitario</th>
-                                    <th>Valor Donacion</th>
-                                    <th>Valor Transporte</th>
-                                    <th>Valor ASOHOFRUCOL</th>
-                                    <th>Valor 4x100</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="categoria in arraycategoriaMora" :key="categoria.id">
+                                <tr v-for="lugarVenta in arraylugarVenta" :key="lugarVenta.id">
                                     <td>
-                                        <button type="button" @click="abrirModal('categoriaMora','actualizar',categoria)" class="btn btn-warning btn-sm">
+                                        <button type="button" @click="abrirModal('lugarVenta','actualizar',lugarVenta)" class="btn btn-warning btn-sm">
                                           <i class="icon-pencil"></i>
                                         </button> &nbsp;
                                     </td>
-                                    <td v-text="categoria.nombre"></td>
-                                    <td v-text="categoria.valorUnitario"></td>
-                                    <td v-text="categoria.ValorDonacion"></td>
-                                    <td v-text="categoria.valorTransporte"></td>
-                                    <td v-text="categoria.valorAsohof"></td>
-                                    <td v-text="categoria.valorCuatroPorMil"></td>
+                                    <td v-text="lugarVenta.nombre"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -87,42 +77,12 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Nombre</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="nombre"  class="form-control" placeholder="Nombre de Categoria">
+                                        <input type="text" v-model="nombre"  class="form-control" placeholder="Nombre lugar de venta">
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="number-input">Valor Unitario</label>
-                                    <div class="col-md-9">
-                                        <input type="number" v-model="valorUnitario"  class="form-control" placeholder="">
-                                    </div>
-                                </div>  
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="number-input">Valor Donacion</label>
-                                    <div class="col-md-9">
-                                        <input type="number" v-model="valorDonacion"  class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="number-input">Valor Transporte</label>
-                                    <div class="col-md-9">
-                                        <input type="number" v-model="valorTransporte"  class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="number-input">Valor ASOHOF</label>
-                                    <div class="col-md-9">
-                                        <input type="number" v-model="valorAsohof   "  class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="number-input">Valor 4x100</label>
-                                    <div class="col-md-9">
-                                        <input type="number" v-model="valorCuatroPorMil   "  class="form-control" placeholder="">
-                                    </div>
-                                </div>                             
-                                <div v-show="errorcategoriaMora" class="form-group row div-error">
+                                </div>                       
+                                <div v-show="errorlugarVenta" class="form-group row div-error">
                                     <div class="text-center text-error">
-                                        <div v-for="error in errorMostrarMsjcategoriaMora" :key="error" v-text="error">
+                                        <div v-for="error in errorMostrarMsjlugarVenta" :key="error" v-text="error">
                                         </div>
                                     </div>
                                 </div>
@@ -130,8 +90,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="cerrarModal()">Cerrar</button>
-                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarCategoriaMora()">Guardar</button>
-                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarCategoriaMora()">Actualizar</button>
+                            <button type="button" v-if="tipoAccion==1" class="btn btn-primary" @click="registrarLugarVenta()">Guardar</button>
+                            <button type="button" v-if="tipoAccion==2" class="btn btn-primary" @click="actualizarLugarVenta()">Actualizar</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->
@@ -146,19 +106,14 @@
     export default {
         data(){
             return{
-                categoriaMora_id:0,
+                lugarVenta_id:0,
                 nombre:'',
-                valorUnitario:0,
-                valorDonacion :0,
-                valorTransporte :0,
-                valorAsohof :0,
-                valorCuatroPorMil :0,
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
-                errorcategoriaMora : 0,
-                errorMostrarMsjcategoriaMora:[],
-                arraycategoriaMora:[],
+                errorlugarVenta : 0,
+                errorMostrarMsjlugarVenta:[],
+                arraylugarVenta:[],
                 pagination:{
                     'total' : 0,
                     'current_page' : 0,
@@ -197,12 +152,12 @@
             }
         },
         methods: {
-            listarCategoriaMora(page,buscar,criterio){
+            listarLugarVenta(page,buscar,criterio){
                 let me =this;
-                var url ='categoriaMora?page='+page + '&buscar='+buscar+'&criterio='+criterio;
+                var url ='lugarVenta?page='+page + '&buscar='+buscar+'&criterio='+criterio;
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
-                    me.arraycategoriaMora= respuesta.categoriaMoras.data;
+                    me.arraylugarVenta= respuesta.lugarVentas.data;
                     me.pagination=respuesta.pagination;
                 })
                 .catch(function (error) {
@@ -214,100 +169,75 @@
                 //Actualiza a la pagina actual
                 me.pagination.current_page = page;
                 //Envia la peticion para visualizar la data de esa pagina
-                me.listarCategoriaMora(page,buscar,criterio);
+                me.listarLugarVenta(page,buscar,criterio);
             },
-            registrarCategoriaMora(){
-            if(this.validarCategoriaMora()){
+            registrarLugarVenta(){
+            if(this.validarLugarVenta()){
                 return;
             }
             let me=this;
-            axios.post('categoriaMora/registrar',{
-                'nombre':this.nombre,
-                'valorUnitario':this.valorUnitario,
-                'valorDonacion' :this.valorDonacion,
-                'valorTransporte' :this.valorTransporte,
-                'valorAsohof' :this.valorAsohof,
-                'valorCuatroPorMil':this.valorCuatroPorMil                              
+            axios.post('lugarVenta/registrar',{
+                'nombre':this.nombre,                              
             }).then(function (response) {
                     me.cerrarModal();
-                    me.listarCategoriaMora(1,'','nombre');
+                    me.listarLugarVenta(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
 
         },
-            actualizarCategoriaMora(){
-            if(this.validarCategoriaMora()){
+            actualizarLugarVenta(){
+            if(this.validarLugarVenta()){
                 return;
             }
             let me=this;
-            axios.put('categoriaMora/actualizar',{
+            axios.put('lugarVenta/actualizar',{
                 'nombre':this.nombre,
-                'valorUnitario':this.valorUnitario,
-                'valorDonacion' :this.valorDonacion,
-                'valorTransporte' :this.valorTransporte,
-                'valorAsohof' :this.valorAsohof,
-                'valorCuatroPorMil':this.valorCuatroPorMil,  
-                'id':this.categoriaMora_id
+                'id':this.lugarVenta_id
             }).then(function (response) {
                     me.cerrarModal();
-                    me.listarCategoriaMora(1,'','nombre');
+                    me.listarLugarVenta(1,'','nombre');
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },                  
-            validarCategoriaMora(){
-            this.errorcategoriaMora=0;
-            this.errorMostrarMsjcategoriaMora=[];
+            validarLugarVenta(){
+            this.errorlugarVenta=0;
+            this.errorMostrarMsjlugarVenta=[];
 
-            if(!this.nombre) this.errorMostrarMsjcategoriaMora.push("El nombre de la categoria no puede estar vacío ");
-            if(this.errorMostrarMsjcategoriaMora.length) this.errorcategoriaMora=1;
+            if(!this.nombre) this.errorMostrarMsjlugarVenta.push("El nombre del lugar de Venta no puede estar vacío ");
+            if(this.errorMostrarMsjlugarVenta.length) this.errorlugarVenta=1;
 
-            return this.errorcategoriaMora;
+            return this.errorlugarVenta;
         },
             cerrarModal(){
                 this.modal=0;
                 this.tituloModal='';
                 this.nombre='';
-                this.valorUnitario=0;
-                this.valorDonacion=0;
-                this.valorTransporte=0;
-                this.valorAsohof=0;
-                this.valorCuatroPorMil=0;
-		        this.errorcategoriaMora=0;
+		        this.errorlugarVenta=0;
         },
             abrirModal(modelo,accion,data = []){
             switch (modelo) {
-                case "categoriaMora":
+                case "lugarVenta":
                 {    
                 switch (accion) {
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar Categoria Mora';
+                        this.tituloModal = 'Registrar Lugar de Venta';
                         this.nombre = '';
-                        this.valorUnitario=0;
-                        this.valorDonacion=0;
-                        this.valorTransporte=0;
-                        this.valorAsohof=0;
-                        this.valorCuatroPorMil=0;
                         this.tipoAccion=1;
                         break;
                     }    
                     case 'actualizar':
                     {
                         this.modal=1;
-                        this.tituloModal='Actualizar Categoria Mora';
+                        this.tituloModal='Actualizar Lugar de Venta';
                         this.tipoAccion=2;
-                        this.categoriaMora_id=data['id'];
+                        this.lugarVenta_id=data['id'];
                         this.nombre =data['nombre'];
-                        this.valorUnitario=data['valorUnitario'];
-                        this.valorDonacion=data['ValorDonacion'];
-                        this.valorTransporte=data['valorTransporte'];
-                        this.valorAsohof=data['valorAsohof'];
-                        this.valorCuatroPorMil=data['valorCuatroPorMil'];
                         break;
                     }       
                 }
@@ -316,7 +246,7 @@
         }
         },        
         mounted() {
-           this.listarCategoriaMora(1,this.buscar,this.criterio);
+           this.listarLugarVenta(1,this.buscar,this.criterio);
         }
     }
 </script>
