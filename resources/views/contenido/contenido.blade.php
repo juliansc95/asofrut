@@ -47,7 +47,7 @@
                <h1>Contenido del menú 10</h1>
             </template>
 
-            <template v-if="menu==21">
+            <template v-if="menu==19">
                <visita></visita>
             </template>
 
