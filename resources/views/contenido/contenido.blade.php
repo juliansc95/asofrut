@@ -40,11 +40,19 @@
             </template>
 
             <template v-if="menu==9">
-                <h1>Contenido del menú 9</h1>
+                <predio></predio>
             </template>
 
             <template v-if="menu==10">
-               <h1>Contenido del menú 10</h1>
+               <poda></poda>
+            </template>
+            
+            <template v-if="menu==11">
+               <plaga></plaga>
+            </template>
+
+            <template v-if="menu==18">
+               <cosecha></cosecha>
             </template>
 
             <template v-if="menu==19">

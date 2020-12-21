@@ -35,8 +35,10 @@ Vue.component('venta', require('./components/Venta.vue'));
 Vue.component('lugarventa', require('./components/LugarVenta.vue'));
 Vue.component('encuestafitosanitaria', require('./components/EncuestaFitosanitaria.vue'));
 Vue.component('visita', require('./components/EncuestaAsofrut.vue'));
-
-
+Vue.component('cosecha', require('./components/Cosecha.vue'));
+Vue.component('predio', require('./components/PredioCultivo.vue'));
+Vue.component('poda', require('./components/Poda.vue'));
+Vue.component('plaga', require('./components/Plaga.vue'));
 
 const app = new Vue({
     el: '#app',

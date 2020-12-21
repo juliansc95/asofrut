@@ -55,9 +55,27 @@ Route::group(['middleware'=>['auth']],function(){
      Route::post('/fitosanitaria/registrar', 'EncuestaFitosanitariaController@store');
      Route::get('/fitosanitaria/id', 'EncuestaFitosanitariaController@MostrarId');
 
+
      //Rutas Encuesta asofrut
      Route::get('/visita', 'EncuestaAsofrutController@index');
      Route::post('/visita/registrar', 'EncuestaAsofrutController@store');
+
+     //Caracterizacion predio cultivo
+     Route::get('/predio', 'PredioCultivoController@index');
+     Route::post('/predio/registrar', 'PredioCultivoController@store');
+
+    //Caracterizacion podas
+    Route::get('/poda', 'PodaController@index');
+     Route::post('/poda/registrar', 'PodaController@store');
+    
+    //Caracterizacion plagas
+    Route::get('/plaga', 'PlagaController@index');
+    Route::post('/plaga/registrar', 'PlagaController@store');
+
+    //Caracterizacion cosechas
+    Route::get('/cosecha', 'CosechaController@index');
+    Route::post('/cosecha/registrar', 'CosechaController@store');
+
 
      Route::group(['middleware'=>['Productor']],function(){
         Route::get('/cultivo','CultivoController@index');   
