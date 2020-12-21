@@ -13,7 +13,7 @@ class EncuestaFitosanitaria extends Model
     'unidad_aplicaciones_id','cantidad_aplicacion','equipo_aplicaciones_id',
     'metodo_aplicaciones_id'];
 
-    public $timestamps=false;
+    //public $timestamps=false;
     
     public function productor()
     {

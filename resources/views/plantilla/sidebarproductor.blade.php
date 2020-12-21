@@ -22,7 +22,7 @@
                                 <a class="nav-link" href="#"><i class="icon-wallet"></i> Detalle Productores</a>
                             </li>
                             <li @click="menu=4" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Encuesta</a>
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Control Fitosanitario</a>
                             </li>
                         </ul>
                     </li>

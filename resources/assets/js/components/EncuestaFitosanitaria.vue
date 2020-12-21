@@ -8,7 +8,7 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Encuesta Fitosanitaria
+                        <i class="fa fa-align-justify"></i> Control Fitosanitario
                         <button type="button" @click="abrirModal('encuesta','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
@@ -490,7 +490,7 @@ import vSelect from 'vue-select';
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar encuesta fitosanitaria';
+                        this.tituloModal = 'Registrar control fitosanitario';
                         this.finca_id=0;
                         this.fechaControl='';
                         this.productoSembrado='';

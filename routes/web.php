@@ -55,6 +55,10 @@ Route::group(['middleware'=>['auth']],function(){
      Route::post('/fitosanitaria/registrar', 'EncuestaFitosanitariaController@store');
      Route::get('/fitosanitaria/id', 'EncuestaFitosanitariaController@MostrarId');
 
+     //Rutas Encuesta asofrut
+     Route::get('/visita', 'EncuestaAsofrutController@index');
+     Route::post('/visita/registrar', 'EncuestaAsofrutController@store');
+
      Route::group(['middleware'=>['Productor']],function(){
         Route::get('/cultivo','CultivoController@index');   
         Route::get('/productor','ProductorController@index');

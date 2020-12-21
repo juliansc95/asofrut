@@ -34,6 +34,7 @@ Vue.component('v-datepicker', Datepicker);
 Vue.component('venta', require('./components/Venta.vue'));
 Vue.component('lugarventa', require('./components/LugarVenta.vue'));
 Vue.component('encuestafitosanitaria', require('./components/EncuestaFitosanitaria.vue'));
+Vue.component('visita', require('./components/EncuestaAsofrut.vue'));
 
 
 
