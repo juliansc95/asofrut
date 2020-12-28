@@ -679,7 +679,7 @@
                 window.open('http://localhost/asofrut/public/venta/listarPdf');
             },
             reporteDiario(){
-                window.open('http://localhost/asofrut/public/venta/listarDiario');
+                window.open('http://localhost//asofrut/public/venta/listarDiario');
             },
             cambiarPagina(page,buscar,criterio){
                 let me = this;

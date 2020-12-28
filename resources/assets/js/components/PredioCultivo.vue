@@ -209,7 +209,7 @@ import vSelect from 'vue-select';
     export default {
         data(){
             return{
-                cosecha_id:0,
+                tutorado_id:0,
                 productor_id:0,
                 finca_id:0,
                 areaSembradaPredio:0, 
@@ -402,7 +402,7 @@ import vSelect from 'vue-select';
                         this.modal=1;
                         this.tituloModal='Detalle Predio cultivo';
                         this.tipoAccion=2;
-                        this.encuestaAsofrut_id=data['id'];
+                        this.tutorado_id=data['id'];
                         this.productor_id=data['productor_id'];
                         this.finca_id=data['finca_id'];
                         this.areaSembradaPredio=data['areaSembradaPredio']; 

@@ -95,9 +95,6 @@
                             <li @click="menu=19" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-chart"></i> Visita Extensionista</a>
                             </li>
-                            <li @click="menu=20" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-chart"></i> Reporte Ventas</a>
-                            </li>
                         </ul>
                     </li>
                     

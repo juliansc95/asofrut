@@ -68,6 +68,71 @@ class VentaController extends Controller
             'ventas' => $ventas
         ];
     }
+
+    public function indexProductor(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        $user = \Auth::user()->id;
+        
+        if ($buscar==''){
+            $id = $request->id;
+            $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
+            ->join('productors','ventas.productor_id','=','productors.id')
+            ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+            ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+            ->join('lineas','ventas.linea_id','=','lineas.id')
+            ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+            'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+            'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
+            'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+            ->where('ventas.productor_id','=',$user)
+            ->orderBy('ventas.estado_id', 'asc')->paginate(10);
+        }
+        if($criterio == 'personas'){
+        $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
+        ->join('productors','ventas.productor_id','=','productors.id')
+        ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+        ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+        ->join('lineas','ventas.linea_id','=','lineas.id')
+        ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+        'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+        'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
+        'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+        ->where('ventas.productor_id','=',$user)
+        ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+        ->orderBy('ventas.estado_id', 'asc')->paginate(10);
+        }
+        else{
+            $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
+            ->join('productors','ventas.productor_id','=','productors.id')
+            ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+            ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+            ->join('lineas','ventas.linea_id','=','lineas.id')
+            ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+            'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+            'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
+            'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+            ->where('ventas.productor_id','=',$user)
+            ->where('ventas.'.$criterio, 'like', '%'. $buscar . '%')
+            ->orderBy('ventas.estado_id', 'asc')->paginate(10);
+        }
+        
+        return [
+            'pagination' => [
+                'total'        => $ventas->total(),
+                'current_page' => $ventas->currentPage(),
+                'per_page'     => $ventas->perPage(),
+                'last_page'    => $ventas->lastPage(),
+                'from'         => $ventas->firstItem(),
+                'to'           => $ventas->lastItem(),
+            ],
+            'ventas' => $ventas
+        ];
+    }
+
     public function obtenerCabecera(Request $request){
         if (!$request->ajax()) return redirect('/');
 

@@ -20,6 +20,7 @@ Route::group(['middleware'=>['guest']],function(){
 Route::group(['middleware'=>['auth']],function(){
 
     Route::post('/logout','Auth\LoginController@logout')->name('logout');
+    Route::get('/dashboard','DashboardController');
 
     Route::get('/main', function () {
         return view('contenido/contenido');
@@ -72,16 +73,49 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/plaga', 'PlagaController@index');
     Route::post('/plaga/registrar', 'PlagaController@store');
 
+    //Caracterizacion nutricion
+    Route::get('/nutricion', 'NutricionController@index');
+    Route::post('/nutricion/registrar', 'NutricionController@store');
+
+    //Caracterizacion tutorado
+    Route::get('/tutorado', 'TutoradoController@index');
+    Route::post('/tutorado/registrar', 'TutoradoController@store');
+
+    //Caracterizacion riego
+    Route::get('/riego', 'RiegoController@index');
+    Route::post('/riego/registrar', 'RiegoController@store');
+
+    //Caracterizacion practica
+     Route::get('/practica', 'PracticaController@index');
+     Route::post('/practica/registrar', 'PracticaController@store');
+
+     //Caracterizacion vocacion
+     Route::get('/vocacion', 'VocacionController@index');
+     Route::post('/vocacion/registrar', 'VocacionController@store');
+
+     //Caracterizacion suelo
+     Route::get('/suelo', 'SueloController@index');
+     Route::post('/suelo/registrar', 'SueloController@store');
+
     //Caracterizacion cosechas
     Route::get('/cosecha', 'CosechaController@index');
     Route::post('/cosecha/registrar', 'CosechaController@store');
 
 
      Route::group(['middleware'=>['Productor']],function(){
-        Route::get('/cultivo','CultivoController@index');   
-        Route::get('/productor','ProductorController@index');
-        Route::get('/finca','FincaController@index');
+        Route::get('/cultivoP','CultivoController@indexProductor');   
+        Route::get('/productorP','ProductorController@indexProductor');
+        Route::get('/fincaP','FincaController@indexProductor');
+        Route::get('/ventaP','ventaController@indexProductor');
        });
+
+       Route::group(['middleware'=>['Contador']],function(){
+        Route::put('/venta/pasarFacturacion', 'VentaController@pasarFacturacion');    
+        Route::put('/venta/pasarDisponiblePago', 'VentaController@pasarDisponiblePago');    
+        Route::put('/venta/pasarPagado', 'VentaController@pasarPagado'); 
+        Route::get('/venta', 'VentaController@index');       
+        });
+  
 
     Route::group(['middleware'=>['Administrador']],function(){
     

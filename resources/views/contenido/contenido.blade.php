@@ -4,7 +4,7 @@
         @if(Auth::check())
             @if(Auth::user()->idrol == 1)
             <template v-if="menu==0">
-                <h1>Escritorio</h1>
+               <dashboard></dashboard>
             </template>
 
             <template v-if="menu==1">
@@ -51,6 +51,32 @@
                <plaga></plaga>
             </template>
 
+            <template v-if="menu==12">
+               <nutricion></nutricion>
+            </template>
+
+            <template v-if="menu==13">
+               <tutorado></tutorado>
+            </template>
+
+            <template v-if="menu==14">
+               <riego></riego>
+            </template>
+
+            <template v-if="menu==15">
+               <practica></practica>
+            </template>
+
+            <template v-if="menu==16">
+               <suelo></suelo>
+            </template>
+
+            <template v-if="menu==17">
+               <vocacion></vocacion>
+            </template>
+
+
+
             <template v-if="menu==18">
                <cosecha></cosecha>
             </template>
@@ -64,7 +90,7 @@
             </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
-            <venta></venta>
+                <ventatecnico></ventatecnico>
             </template>   
             @elseif(Auth::user()->idrol == 3)
             <template v-if="menu==1">
@@ -75,18 +101,62 @@
             </template>
             <template v-if="menu==3">
                 <productor></productor>
+            </template>
+            
+            <template v-if="menu==9">
+                <predio></predio>
+            </template>
+
+            <template v-if="menu==10">
+               <poda></poda>
+            </template>
+            
+            <template v-if="menu==11">
+               <plaga></plaga>
+            </template>
+
+            <template v-if="menu==12">
+               <nutricion></nutricion>
+            </template>
+
+            <template v-if="menu==13">
+               <tutorado></tutorado>
+            </template>
+
+            <template v-if="menu==14">
+               <riego></riego>
+            </template>
+
+            <template v-if="menu==15">
+               <practica></practica>
+            </template>
+
+            <template v-if="menu==16">
+               <suelo></suelo>
+            </template>
+
+            <template v-if="menu==17">
+               <vocacion></vocacion>
+            </template>
+
+            <template v-if="menu==18">
+               <cosecha></cosecha>
+            </template>
+
+            <template v-if="menu==19">
+               <visita></visita>
             </template>    
             @elseif(Auth::user()->idrol == 4)
             <template v-if="menu==1">
-                <finca></finca>
+                <fincaproductor></fincaproductor>
             </template>
 
             <template v-if="menu==2">
-                <<cultivo></cultivo>
+                <cultivoproductor></cultivoproductor>
             </template>
 
             <template v-if="menu==3">
-                <productor></productor>
+                <productorpro></productorpro>
             </template>
 
             <template v-if="menu==4">
@@ -94,7 +164,11 @@
             </template>
 
             <template v-if="menu==5">
-            <venta></venta>
+            <VentaProductor></VentaProductor>
+            </template>
+            @elseif(Auth::user()->idrol == 5)
+            <template v-if="menu==5">
+            <ventacontador></ventacontador>
             </template>
             @else
             @endif

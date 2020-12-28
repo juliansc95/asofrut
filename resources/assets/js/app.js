@@ -39,7 +39,25 @@ Vue.component('cosecha', require('./components/Cosecha.vue'));
 Vue.component('predio', require('./components/PredioCultivo.vue'));
 Vue.component('poda', require('./components/Poda.vue'));
 Vue.component('plaga', require('./components/Plaga.vue'));
+Vue.component('nutricion', require('./components/Nutricion.vue'));
+Vue.component('tutorado', require('./components/Tutorado.vue'));
+Vue.component('riego', require('./components/Riego.vue'));
+Vue.component('practica', require('./components/Practica.vue'));
+Vue.component('vocacion', require('./components/Vocacion.vue'));
+Vue.component('suelo', require('./components/Suelo.vue'));
+Vue.component('dashboard', require('./components/Dashboard.vue'));
 
+//Vistas Productor
+Vue.component('fincaproductor', require('./components/FincaProductor.vue'));
+Vue.component('productorpro', require('./components/ProductorPro.vue'));
+Vue.component('cultivoproductor', require('./components/CultivoProductor.vue'));
+Vue.component('ventaproductor', require('./components/VentaProductor.vue'));
+
+//Vistas Tecnico
+Vue.component('ventatecnico', require('./components/VentaTecnico.vue'));
+
+//Vista Contador
+Vue.component('ventacontador', require('./components/VentaContador.vue'));
 const app = new Vue({
     el: '#app',
     data:{

@@ -83,6 +83,82 @@ class ProductorController extends Controller
         ];
     }
 
+    public function indexProductor(Request $request)
+    {
+        if (!$request->ajax()) return redirect('/');
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        $id = \Auth::user()->id;
+
+        if($buscar == ''){
+            $personas= Productor::join('personas','productors.id','=','personas.id')
+            ->join('sexos','productors.sexo_id','=','sexos.id')
+            ->join('etnias','productors.etnia_id','=','etnias.id')
+            ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
+            ->join('departamentos','productors.departamento_id','=','departamentos.id')
+            ->join('municipios','productors.municipio_id','=','municipios.id')
+            ->join('veredas','productors.vereda_id','=','veredas.id')
+            ->join('resguardos','productors.resguardo_id','=','resguardos.id')
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
+            'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
+            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
+            'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
+            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
+            'productors.fotocopiaCedula')
+            ->where('productors.id','=',$id)
+            ->orderBy('productors.id','desc')->paginate(3);
+        }
+        if($criterio == 'veredas' ||$criterio == 'resguardos'){
+            $personas= Productor::join('personas','productors.id','=','personas.id')
+            ->join('sexos','productors.sexo_id','=','sexos.id')
+            ->join('etnias','productors.etnia_id','=','etnias.id')
+            ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
+            ->join('departamentos','productors.departamento_id','=','departamentos.id')
+            ->join('municipios','productors.municipio_id','=','municipios.id')
+            ->join('veredas','productors.vereda_id','=','veredas.id')
+            ->join('resguardos','productors.resguardo_id','=','resguardos.id')
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
+            'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
+            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
+            'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
+            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
+            'productors.fotocopiaCedula')
+            ->where('productors.id','=',$id)
+            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->orderBy('personas.id', 'desc')->paginate(3);
+        }
+        else{
+            $personas= Productor::join('personas','productors.id','=','personas.id')
+            ->join('sexos','productors.sexo_id','=','sexos.id')
+            ->join('etnias','productors.etnia_id','=','etnias.id')
+            ->join('gradoEscolaridads','productors.escolaridad_id','=','gradoEscolaridads.id')
+            ->join('departamentos','productors.departamento_id','=','departamentos.id')
+            ->join('municipios','productors.municipio_id','=','municipios.id')
+            ->join('veredas','productors.vereda_id','=','veredas.id')
+            ->join('resguardos','productors.resguardo_id','=','resguardos.id')
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento','personas.direccion','personas.telefono','personas.email',
+            'productors.fechaExpedicion','productors.fechaNacimiento','productors.sexo_id','sexos.nombre as nombre_sexo',
+            'productors.etnia_id','etnias.nombre as nombre_etnia','productors.escolaridad_id','gradoEscolaridads.nombre as nombre_escolaridad',
+            'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
+            'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
+            'productors.fotocopiaCedula')
+            ->where('productors.id','=',$id)
+            ->where('personas.'.$criterio, 'like', '%'. $buscar . '%')
+            ->orderBy('personas.id', 'desc')->paginate(3);          
+        }
+        return [
+            'pagination' => [
+                'total'        => $personas->total(),
+                'current_page' => $personas->currentPage(),
+                'per_page'     => $personas->perPage(),
+                'last_page'    => $personas->lastPage(),
+                'from'         => $personas->firstItem(),
+                'to'           => $personas->lastItem(),
+            ],
+            'personas' => $personas
+        ];
+    }
+
     public function store(Request $request)
     {
         if(!$request->ajax()) return redirect('/');

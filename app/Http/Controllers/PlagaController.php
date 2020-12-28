@@ -30,7 +30,7 @@ class PlagaController extends Controller
             ->orderBy('plagas.id','desc')->paginate(3);
         }
         if($criterio == 'personas'){
-            $$plagas= Plaga::join('personas','plagas.productor_id','=','personas.id')
+            $plagas= Plaga::join('personas','plagas.productor_id','=','personas.id')
             ->join('productors','plagas.productor_id','=','productors.id')
             ->join('fincas','plagas.finca_id','=','fincas.id')
             ->select('personas.nombre','plagas.productor_id','plagas.finca_id','fincas.nombre as nombre_finca',

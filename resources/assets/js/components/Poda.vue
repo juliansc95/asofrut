@@ -195,7 +195,7 @@
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
-            </div>a
+            </div>
             <!--Fin del modal-->
         </main>
 </template>
