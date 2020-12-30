@@ -16,6 +16,12 @@
                             <li @click="menu=2" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-bag"></i> Historico cultivo</a>
                             </li>
+                            <li @click="menu=20" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> Cargar Ubicacion</a>
+                            </li>
+                            <li @click="menu=21" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-bag"></i> Mapa fincas</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">

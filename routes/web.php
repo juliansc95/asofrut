@@ -101,6 +101,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/cosecha', 'CosechaController@index');
     Route::post('/cosecha/registrar', 'CosechaController@store');
 
+    Route::post('/formSubmit','GpxUploadController@formSubmit');
 
      Route::group(['middleware'=>['Productor']],function(){
         Route::get('/cultivoP','CultivoController@indexProductor');   
@@ -118,7 +119,8 @@ Route::group(['middleware'=>['auth']],function(){
   
 
     Route::group(['middleware'=>['Administrador']],function(){
-    
+        Route::post('/formSubmit','GpxUploadController@formSubmit');
+
    
      //Rutas Ventas
      Route::get('/venta', 'VentaController@index');

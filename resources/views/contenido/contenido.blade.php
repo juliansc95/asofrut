@@ -85,6 +85,14 @@
                <visita></visita>
             </template>
 
+            <template v-if="menu==20">
+               <gpx></gpx>
+            </template>
+
+            <template v-if="menu==21">
+               <gmap></gmap>
+            </template> 
+
             <template v-if="menu==23">
                 <lugarventa></lugarventa>
             </template>
@@ -145,6 +153,9 @@
 
             <template v-if="menu==19">
                <visita></visita>
+            </template>   
+            <template v-if="menu==20">
+               <gpx></gpx>
             </template>    
             @elseif(Auth::user()->idrol == 4)
             <template v-if="menu==1">

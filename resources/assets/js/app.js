@@ -11,6 +11,8 @@ window.Vue = require('vue');
 import Vue from 'vue';
 import vSelect from 'vue-select';
 import Datepicker from 'vuejs-datepicker';
+import * as VueGoogleMaps from 'vue2-google-maps'
+ 
 
 
 
@@ -46,6 +48,8 @@ Vue.component('practica', require('./components/Practica.vue'));
 Vue.component('vocacion', require('./components/Vocacion.vue'));
 Vue.component('suelo', require('./components/Suelo.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
+Vue.component('gpx', require('./components/GpxUpload.vue'));
+
 
 //Vistas Productor
 Vue.component('fincaproductor', require('./components/FincaProductor.vue'));
@@ -58,9 +62,24 @@ Vue.component('ventatecnico', require('./components/VentaTecnico.vue'));
 
 //Vista Contador
 Vue.component('ventacontador', require('./components/VentaContador.vue'));
+Vue.component('gmap',require('./components/gmap.vue'));
 const app = new Vue({
     el: '#app',
     data:{
         menu:0
     }
 });
+
+Vue.use(VueGoogleMaps, {
+    load: {
+      key: 'AIzaSyC0E8xMKzvXrCY0_OyX1ODMEkIs8fSXy6Q',
+      libraries: 'places', // This is required if you use the Autocomplete plugin
+      // OR: libraries: 'places,drawing'
+      // OR: libraries: 'places,drawing,visualization'
+      // (as you require)
+   
+      //// If you want to set the version, you can do so:
+      // v: '3.26',
+    },
+    installComponents: true
+    });
