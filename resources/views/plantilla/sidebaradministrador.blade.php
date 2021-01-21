@@ -33,6 +33,9 @@
                             <li @click="menu=4" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i> Control Fitosanitario</a>
                             </li>
+                            <li @click="menu=24" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Productos Fitosanitarios</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">

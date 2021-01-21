@@ -120,7 +120,12 @@ Route::group(['middleware'=>['auth']],function(){
 
     Route::group(['middleware'=>['Administrador']],function(){
         Route::post('/formSubmit','GpxUploadController@formSubmit');
+        Route::get('/gps','GpxUploadController@index');
 
+     //Ruta productor fitosanitarios   
+     Route::post('/fitosanitario/registrar','ProductoFitosanitarioController@store');
+     Route::put('/fitosanitario/actualizar','ProductoFitosanitarioController@update');
+     Route::get('/fitosanitario','ProductoFitosanitarioController@index');
    
      //Rutas Ventas
      Route::get('/venta', 'VentaController@index');

@@ -220,7 +220,7 @@
                                     </div>
                                 </div>
                                  <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Fotocopia cedula</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Observaciones</label>
                                     <div class="col-md-9">
                                         <input type="text" v-model="fotocopiaCedula"   class="form-control" placeholder="" >
                                     </div>

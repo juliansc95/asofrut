@@ -21,15 +21,27 @@
 </template>
 <script>
 export default {
+   data(){
+            return{
+                gps_id:0,
+                productor_id:0,
+                finca_id:0,
+                nombre_productor:'',
+                nombre_finca:'',
+                latitud:0,
+                longitud:0,              
+                arrayGps:[],
+            }
+        },
   name: "SiteMap",
   props: [],
   methods: {   
     getOptions() {
       return {
         zoomControl: true,
-        mapTypeControl: false,
+        mapTypeControl: true,
         scaleControl: false,
-        streetViewControl: false,
+        streetViewControl: true,
         rotateControl: false,
         fullscreenControl: false,
         disableDefaultUi: false
@@ -40,29 +52,32 @@ export default {
     },
     getCenter() {     
           return {
-            lat: 37.12523,
-            lng: -122.1252
+            lat: 2.954829514,
+            lng: -76.269498922
           };
     },
     getMarkers() {
+       let me =this;
+       var url ='gps';
+        axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayGps= respuesta.gps;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
       // generating markers for site map
         var markers = [];
         // remove this after lat long received from api.
         const tempLatLong = [
-          { lat: 37.9068361, lng: -122.116971 },
-          { lat: 37.9168362, lng: -122.076972 },
-          { lat: 37.9268363, lng: -122.136973 },
-          { lat: 37.9368364, lng: -122.146974 },
-          { lat: 37.9468365, lng: -122.106975 },
-          { lat: 37.9568366, lng: -122.166976 },
-          { lat: 37.9668367, lng: -122.176977 },
-          { lat: 37.9768368, lng: -122.016978 },
-          { lat: 37.9868369, lng: -122.196979 }
+          { lat: 2.954829514, lng:-76.269498922},
+          { lat: 2.964829514, lng:-76.279498922}
         ];
-       for(let i=0;i<tempLatLong.length;i++){
+       for(let i=0;i<me.arrayGps['data'].length;i++){
           markers.push({
-              position: tempLatLong[i],
-              title: 'test title',        
+              position:  { lat: parseFloat(me.arrayGps['data'][i]['latitud']), lng:parseFloat(me.arrayGps['data'][i]['longitud'])},
+              title:me.arrayGps['data'][i]['nombre_finca'],
+              icon:'img/finca.png',        
             });
         }
         return markers;      

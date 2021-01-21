@@ -200,7 +200,7 @@
                                     </div>
                                 </div>  
                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Coordenadas Finca</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Punto de referencia finca</label>
                                     <div class="col-md-9">
                                         <input type="text" v-model="coordenadasFinca"  class="form-control" placeholder="">
                                     </div>

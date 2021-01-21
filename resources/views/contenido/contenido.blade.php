@@ -96,6 +96,9 @@
             <template v-if="menu==23">
                 <lugarventa></lugarventa>
             </template>
+            <template v-if="menu==24">
+                <fitosanitario></fitosanitario>
+            </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
                 <ventatecnico></ventatecnico>

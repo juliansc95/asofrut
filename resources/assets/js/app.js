@@ -49,7 +49,7 @@ Vue.component('vocacion', require('./components/Vocacion.vue'));
 Vue.component('suelo', require('./components/Suelo.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('gpx', require('./components/GpxUpload.vue'));
-
+Vue.component('fitosanitario', require('./components/ProductoFitosanitario.vue'));
 
 //Vistas Productor
 Vue.component('fincaproductor', require('./components/FincaProductor.vue'));

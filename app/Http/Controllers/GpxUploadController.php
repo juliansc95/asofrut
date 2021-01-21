@@ -24,6 +24,7 @@ class GpxUploadController extends Controller
             $name = (string) $pt->name;
         }
         unset($gpx);   
+        
         $latitud = $lat;
         $longitud=$lon;
         $gpx = new GpxUpload();
@@ -34,5 +35,28 @@ class GpxUploadController extends Controller
         $gpx->save(); 
 
         return response()->json(['success'=>'La carga de su archivo ha sido exitosa.']);
+    }
+
+    public function index(Request $request)
+    {
+        //if (!$request->ajax()) return redirect('/');
+
+            $gps= GpxUpload::join('productors','gpxs.productor_id','=','productors.id')
+            ->join('personas','gpxs.productor_id','=','personas.id')
+            ->join('fincas','gpxs.finca_id','=','fincas.id')
+            ->select('gpxs.id','gpxs.productor_id','gpxs.finca_id','gpxs.latitud',
+            'gpxs.longitud','personas.nombre as nombre_persona','fincas.nombre as nombre_finca')
+            ->orderBy('gpxs.id', 'desc')->paginate(100);          
+            return [
+                'pagination' => [
+                    'total'        => $gps->total(),
+                    'current_page' => $gps->currentPage(),
+                    'per_page'     => $gps->perPage(),
+                    'last_page'    => $gps->lastPage(),
+                    'from'         => $gps->firstItem(),
+                    'to'           => $gps->lastItem(),
+                ],
+            'gps' => $gps
+        ];
     }
 }
