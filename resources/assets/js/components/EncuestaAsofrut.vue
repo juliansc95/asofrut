@@ -239,6 +239,9 @@
                                             <option value="Roceria">Roceria</option>
                                             <option value="Asadon">Asadon</option>
                                             <option value="Pala">Pala</option>
+                                            <option value="Guadana">Guadaña</option>
+                                            <option value="Quema">Quema</option>
+                                            <option value="Herbicida">Herbicida</option>
                                       </select>  
                                     </div>
                                      <label class="col-md-3 form-control-label" for="text-input">Maneja coberturas vegetales</label>
@@ -435,6 +438,7 @@
                                             <option value="Vende">Vende</option>
                                             <option value="Entierra">Entierra</option>
                                             <option value="Quema">Quema</option>
+                                            <option value="Acopio">Acopio en caseta veredal</option>
                                       </select>  
                                     </div>
                                      <label class="col-md-3 form-control-label" for="text-input">Tiene un manejo integrado de desechos</label>
@@ -445,20 +449,7 @@
                                             <option value="No">No</option>
                                       </select>  
                                     </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Manejo del cultivo</label>
-                                </div>
-                                 <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Que practica utiliza para el control de malezas</label>
-                                    <div class="col-md-9">
-                                      <select class="form-control" v-model="cultivo">
-                                            <option value="0" disabled>Seleccione</option>
-                                            <option value="Quema">Quema</option>
-                                      </select>  
-                                    </div>
-                                </div>
-
+                                </div>                             
                                 <div v-show="errorEncuesta" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjEncuesta" :key="error" v-text="error">
@@ -530,7 +521,7 @@ import vSelect from 'vue-select';
                 desechos2:'',
                 desechos3:'',
                 desechos4:'',
-                cultivo:'',
+                
                 arrayEncuesta: [],
                 modal: 0,
                 tituloModal : '',
@@ -667,7 +658,7 @@ import vSelect from 'vue-select';
                 'desechos2':this.desechos2,
                 'desechos3':this.desechos3,
                 'desechos4':this.desechos4,
-                'cultivo':this.cultivo,               
+                          
             }).then(function (response) {
                     me.cerrarModal();
                     me.listarEncuesta(1,'','personas');
@@ -731,7 +722,7 @@ import vSelect from 'vue-select';
                         this.desechos2=0;
                         this.desechos3=0;
                         this.desechos4=0;
-                        this.cultivo=0;    
+                        
 		                this.errorEncuesta=0;
         },
             abrirModal(modelo,accion,data = []){
@@ -785,7 +776,7 @@ import vSelect from 'vue-select';
                         this.desechos2=0;
                         this.desechos3=0;
                         this.desechos4=0;
-                        this.cultivo=0;        
+                             
                         this.tipoAccion=1;
                         break;
                     }  case 'actualizar':
@@ -833,8 +824,7 @@ import vSelect from 'vue-select';
                         this.desechos1=data['desechos1'];
                         this.desechos2=data['desechos2'];
                         this.desechos3=data['desechos3'];
-                        this.desechos4=data['desechos4'];
-                        this.cultivo=data['cultivo'];  
+                        this.desechos4=data['desechos4'];  
                         break
                     }       
                 }

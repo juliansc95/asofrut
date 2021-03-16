@@ -66,6 +66,10 @@
             <template v-if="menu==15">
                <practica></practica>
             </template>
+            <template v-if="menu==22">
+               <enfermedad></enfermedad>
+            </template>
+
 
             <template v-if="menu==16">
                <suelo></suelo>

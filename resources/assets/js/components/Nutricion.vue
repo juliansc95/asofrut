@@ -154,7 +154,7 @@
                                             <option value="No">No</option>
                                       </select>  
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Dosis de aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Dosis de aplicacion(cm3/g)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="dosisAplicacionCal"  class="form-control" placeholder="">
                                     </div>
@@ -169,7 +169,7 @@
                                             <option value="Lote">En todo el lote</option>
                                       </select>  
                                     </div>
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion cal</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion cal(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionCal"  class="form-control" placeholder="">
                                     </div>
@@ -198,7 +198,7 @@
                                             <option value="No">No</option>
                                       </select>  
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Dosis de aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Dosis de aplicacion(cm3/g)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="dosisAplicacionMateriaOrganica"  class="form-control" placeholder="">
                                     </div>
@@ -212,7 +212,7 @@
                                             <option value="Lote">En todo el lote</option>
                                       </select>  
                                     </div>
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion Materia Organica</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion Materia Organica(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionMateriaOrganica"  class="form-control" placeholder="">
                                     </div>

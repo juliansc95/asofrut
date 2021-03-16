@@ -33,7 +33,7 @@
                                     <th>Detalle</th>
                                     <th>Productor</th>
                                     <th>Finca</th>
-                                    <th>Trazado en curvas de nivel</th>
+                                    <th>Tipo trazado</th>
                                     <th>Control de arvenses</th>
                                     <th>Frecuencia de control(meses)</th>
                                     <th>Nombre herbicida</th>
@@ -109,12 +109,13 @@
                                     </div>
                                 </div>
                                  <div class="form-group row">
-                                    <label class="col-md-3 form-control-label" for="text-input">Trazado en curvas de nivel</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Tipo de trazado</label>
                                     <div class="col-md-9">
                                       <select class="form-control" v-model="curvasNivel">
                                             <option value="Seleccione" disabled>Seleccione</option>
-                                             <option value="Si">Si</option>
-                                            <option value="No">No</option>
+                                            <option value="Curvas de nivel">Curvas de nivel</option>
+                                            <option value="Curvas en contorno">Curvas en contorno</option>
+                                            <option value="Trazado a favor de la pendiente">Trazado a favor de la pendiente</option>
                                       </select>  
                                     </div>
                                 </div>
@@ -335,7 +336,7 @@ import vSelect from 'vue-select';
                     case 'registrar':
                     {
                         this.modal = 1;
-                        this.tituloModal = 'Registrar vocacion';
+                        this.tituloModal = 'Registrar conservacion de suelos';
                         this.productor_id=0;
                         this.finca_id=0;
                         this.curvasNivel='Seleccione';
@@ -349,7 +350,7 @@ import vSelect from 'vue-select';
                     }  case 'actualizar':
                     {
                         this.modal=1;
-                        this.tituloModal='Detalle vocacion';
+                        this.tituloModal='Detalle conservacion de suelos';
                         this.tipoAccion=2;
                         this.suelo_id=data['id'];
                         this.productor_id=data['productor_id'];

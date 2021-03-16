@@ -24,9 +24,6 @@
                             <li @click="menu=3" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-wallet"></i> Detalle Productores</a>
                             </li>
-                            <li @click="menu=4" class="nav-item">
-                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Proveedores</a>
-                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
@@ -52,6 +49,9 @@
                             </li>
                             <li @click="menu=15" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-chart"></i>Buenas practicas agricolas</a>
+                            </li>
+                            <li @click="menu=22" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-chart"></i>Enfermedades</a>
                             </li>
                             <li @click="menu=16" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-chart"></i>Conservacion de suelos</a>

@@ -32,7 +32,8 @@ class Practica extends Model
     'usaExtintor',
     'capacitacionesBPA',
     'certificadas',
-    'institucionCertificado'
+    'institucionCertificado',
+    'tiempo'
     ];
 
     public function productor()

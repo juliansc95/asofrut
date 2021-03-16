@@ -158,6 +158,28 @@
                                        <input type="number" v-model="jornales"  class="form-control" placeholder="">
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Tiene reservorio?</label>
+                                    <div class="col-md-9">
+                                      <select class="form-control" v-model="reservorio">
+                                            <option value="Seleccione" disabled>Seleccione</option>
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
+                                      </select>  
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Capacidad Reservorio(Litros)</label>
+                                    <div class="col-md-9">
+                                       <input type="number" v-model="capacidadR"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
+                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="text-input">Diferencial de Altura(Metros)</label>
+                                    <div class="col-md-9">
+                                       <input type="number" v-model="alturaR"  class="form-control" placeholder="">
+                                    </div>
+                                </div>
                                 <div v-show="errorRiego" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjRiego" :key="error" v-text="error">
@@ -194,7 +216,10 @@ import vSelect from 'vue-select';
                 frecuencia:0,
                 tipo:'Seleccione',
                 tiempo:0,
-                jornales:0,            
+                jornales:0, 
+                reservorio:'Seleccione',
+                capacidadR:0,
+                alturaR:0,           
                 arrayRiego: [],
                 modal: 0,
                 tituloModal : '',
@@ -296,7 +321,10 @@ import vSelect from 'vue-select';
                 'frecuencia':this.frecuencia,
                 'tipo':this.tipo,
                 'tiempo':this.tiempo,
-                'jornales':this.jornales        
+                'jornales':this.jornales,
+                'reservorio':this.reservorio,
+                'capacidadR':this.capacidadR,
+                'alturaR':this.alturaR              
             }).then(function (response) {
                     me.cerrarModal();
                     me.listarRiego(1,'','personas');
@@ -323,7 +351,10 @@ import vSelect from 'vue-select';
                         this.frecuencia=0;
                         this.tipo='Seleccione';
                         this.tiempo=0;
-                        this.jornales=0;                                
+                        this.jornales=0; 
+                        this.reservorio='Seleccione';
+                        this.capacidadR=0;
+                        this.alturaR=0;                                     
                         this.errorRiego=0;
         },
             abrirModal(modelo,accion,data = []){
@@ -342,7 +373,10 @@ import vSelect from 'vue-select';
                         this.frecuencia=0;
                         this.tipo='Seleccione';
                         this.tiempo=0;
-                        this.jornales=0;    
+                        this.jornales=0;
+                        this.reservorio='Seleccione';
+                        this.capacidadR=0;
+                        this.alturaR=0;              
                         this.tipoAccion=1;
                         break;
                     }  case 'actualizar':
@@ -358,7 +392,10 @@ import vSelect from 'vue-select';
                         this.frecuencia=data['frecuencia'];
                         this.tipo=data['tipo'];
                         this.tiempo=data['tiempo'];
-                        this.jornales=data['jornales'];    
+                        this.jornales=data['jornales'];
+                        this.reservorio=data['reservorio'];
+                        this.capacidadR=data['capacidadR'];
+                        this.alturaR=data['alturaR'];              
                         break;
                     }       
                 }

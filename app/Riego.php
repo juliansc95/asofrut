@@ -14,7 +14,10 @@ class Riego extends Model
     'frecuencia',
     'tipo',
     'tiempo',
-    'jornales'
+    'jornales',
+    'reservorio',
+    'capacidadR',
+    'alturaR'
     ];
 
     public function productor()

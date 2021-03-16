@@ -89,6 +89,10 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/practica', 'PracticaController@index');
      Route::post('/practica/registrar', 'PracticaController@store');
 
+    //Caracterizacion Enfermedad
+    Route::get('/enfermedad', 'EnfermedadController@index');
+    Route::post('/enfermedad/registrar', 'EnfermedadController@store');
+
      //Caracterizacion vocacion
      Route::get('/vocacion', 'VocacionController@index');
      Route::post('/vocacion/registrar', 'VocacionController@store');

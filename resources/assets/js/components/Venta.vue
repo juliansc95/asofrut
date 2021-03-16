@@ -673,13 +673,13 @@
                 });
             },
             pdfVenta(id){
-                window.open('http://localhost/asofrut/public/venta/pdf/'+id);
+                window.open('http://gestion.asofrut.org/venta/pdf/'+id);
             },
             cargarPdf(){
-                window.open('http://localhost/asofrut/public/venta/listarPdf');
+                window.open('http://gestion.asofrut.org/venta/listarPdf');
             },
             reporteDiario(){
-                window.open('http://localhost/asofrut/public/venta/listarDiario');
+                window.open('http://gestion.asofrut.org/venta/listarDiario');
             },
             cambiarPagina(page,buscar,criterio){
                 let me = this;
@@ -804,7 +804,7 @@
                     me.totalCuatroXmil=0;
                     me.codigo='';
                     me.arrayDetalle=[];
-                    window.open('http://localhost/asofrut/public/venta/pdf/'+response.data.id);
+                    window.open('http://gestion.asofrut.org/venta/pdf/'+response.data.id);
 
                 }).catch(function (error) {
                     console.log(error);

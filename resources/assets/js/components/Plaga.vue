@@ -119,7 +119,7 @@
                                             <option value="No">No</option>
                                       </select>  
                                     </div>
-                                    <label class="col-md-3 form-control-label" for="text-input">Frecuencia Aplicacion</label>
+                                    <label class="col-md-3 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-3">
                                        <input type="number" v-model="frecuenciaMonitoreo"  class="form-control" placeholder="">
                                     </div>
@@ -145,7 +145,7 @@
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionPerla"  class="form-control" placeholder="">
                                     </div>
@@ -172,7 +172,7 @@
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionBarrenador"  class="form-control" placeholder="">
                                     </div>
@@ -198,7 +198,7 @@
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionTrips"  class="form-control" placeholder="">
                                     </div>
@@ -224,7 +224,7 @@
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionAfidios"  class="form-control" placeholder="">
                                     </div>
@@ -250,7 +250,7 @@
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionAcaros"  class="form-control" placeholder="">
                                     </div>
@@ -275,7 +275,7 @@
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
                                     </div> 
-                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion</label>
+                                    <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionCochinilla"  class="form-control" placeholder="">
                                     </div>

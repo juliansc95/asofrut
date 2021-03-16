@@ -322,12 +322,13 @@
                                     <label class="col-md-3 form-control-label" for="text-input">Quien lo certifico?</label>
                                     <div class="col-md-3">
                                        <input type="text" v-model="institucionCertificado"  class="form-control" placeholder="">
+                                    </div> 
+                                    <label class="col-md-3 form-control-label" for="text-input">Hace cuanto se capacito?(Años)
+                                    </label>
+                                    <div class="col-md-3">
+                                       <input type="number" v-model="tiempo"  class="form-control" placeholder="">
                                     </div>
-                                </div>
-                                 
-
-                             
-
+                                </div>                                       
                                 <div v-show="errorPractica" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjPractica" :key="error" v-text="error">
@@ -382,7 +383,8 @@ import vSelect from 'vue-select';
                 usaExtintor:'Seleccione',
                 capacitacionesBPA:'Seleccione',
                 certificadas:'Seleccione',
-                institucionCertificado:'',           
+                institucionCertificado:'',
+                tiempo:0,           
                 arrayPractica: [],
                 modal: 0,
                 tituloModal : '',
@@ -502,7 +504,8 @@ import vSelect from 'vue-select';
                 'usaExtintor':this.usaExtintor,
                 'capacitacionesBPA':this.capacitacionesBPA,
                 'certificadas':this.certificadas,
-                'institucionCertificado':this.institucionCertificado
+                'institucionCertificado':this.institucionCertificado,
+                'tiempo':this.tiempo
             }).then(function (response) {
                     me.cerrarModal();
                     me.listarPractica(1,'','personas');
@@ -549,7 +552,8 @@ import vSelect from 'vue-select';
                         this.usaExtintor='Seleccione';
                         this.capacitacionesBPA='Seleccione';
                         this.certificadas='Seleccione';
-                        this.institucionCertificado='';                   
+                        this.institucionCertificado='';  
+                        this.tiempo=0;                 
 		                this.errorPractica=0;
         },
             abrirModal(modelo,accion,data = []){
@@ -586,7 +590,8 @@ import vSelect from 'vue-select';
                         this.usaExtintor='Seleccione';
                         this.capacitacionesBPA='Seleccione';
                         this.certificadas='Seleccione';
-                        this.institucionCertificado='';    
+                        this.institucionCertificado='';   
+                        this.tiempo=0; 
                         this.tipoAccion=1;
                         break;
                     }  case 'actualizar':
@@ -621,6 +626,7 @@ import vSelect from 'vue-select';
                         this.capacitacionesBPA=data['capacitacionesBPA'];
                         this.certificadas=data['certificadas'];
                         this.institucionCertificado=data['institucionCertificado'];  
+                        this.tiempo=data['tiempo'];
                         break;
                     }       
                 }

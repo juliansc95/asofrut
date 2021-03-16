@@ -87,6 +87,9 @@
                             <li @click="menu=15" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-chart"></i>Buenas practicas agricolas</a>
                             </li>
+                            <li @click="menu=22" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-chart"></i>Enfermedades</a>
+                            </li>
                             <li @click="menu=16" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-chart"></i>Conservacion de suelos</a>
                             </li>

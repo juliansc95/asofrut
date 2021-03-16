@@ -45,6 +45,7 @@ Vue.component('nutricion', require('./components/Nutricion.vue'));
 Vue.component('tutorado', require('./components/Tutorado.vue'));
 Vue.component('riego', require('./components/Riego.vue'));
 Vue.component('practica', require('./components/Practica.vue'));
+Vue.component('enfermedad', require('./components/Enfermedad.vue'));
 Vue.component('vocacion', require('./components/Vocacion.vue'));
 Vue.component('suelo', require('./components/Suelo.vue'));
 Vue.component('dashboard', require('./components/Dashboard.vue'));

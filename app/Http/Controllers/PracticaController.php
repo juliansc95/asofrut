@@ -22,7 +22,8 @@ class PracticaController extends Controller
             'practicas.usaBarbecho','practicas.agroquimicos','practicas.mezclaAgroquimicos','practicas.usaAgroquimicos',
             'practicas.bodegaMateriales','practicas.usaBodega','practicas.canastillas','practicas.usaCanastillas','practicas.trajeProteccion',
             'practicas.usaTraje','practicas.puntoEcologico','practicas.usaPuntoEcologico','practicas.botiquin','practicas.usaBotiquin',
-            'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado')
+            'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado',
+            'practicas.tiempo')
             ->orderBy('practicas.id','desc')->paginate(3);
         }
         if($criterio == 'personas'){
@@ -34,7 +35,8 @@ class PracticaController extends Controller
             'practicas.usaBarbecho','practicas.agroquimicos','practicas.mezclaAgroquimicos','practicas.usaAgroquimicos',
             'practicas.bodegaMateriales','practicas.usaBodega','practicas.canastillas','practicas.usaCanastillas','practicas.trajeProteccion',
             'practicas.usaTraje','practicas.puntoEcologico','practicas.usaPuntoEcologico','practicas.botiquin','practicas.usaBotiquin',
-            'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado')
+            'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado',
+            'practicas.tiempo')
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
             ->orderBy('practicas.id', 'asc')->paginate(3);
             }
@@ -47,7 +49,8 @@ class PracticaController extends Controller
             'practicas.usaBarbecho','practicas.agroquimicos','practicas.mezclaAgroquimicos','practicas.usaAgroquimicos',
             'practicas.bodegaMateriales','practicas.usaBodega','practicas.canastillas','practicas.usaCanastillas','practicas.trajeProteccion',
             'practicas.usaTraje','practicas.puntoEcologico','practicas.usaPuntoEcologico','practicas.botiquin','practicas.usaBotiquin',
-            'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado')
+            'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado',
+            'practicas.tiempo')
             ->where('practicas.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('practicas.id', 'desc')->paginate(3);          
         }
@@ -95,6 +98,7 @@ class PracticaController extends Controller
         $practica->capacitacionesBPA= $request->capacitacionesBPA;
         $practica->certificadas= $request->certificadas;
         $practica->institucionCertificado= $request->institucionCertificado;
+        $practica->tiempo = $request->tiempo;
         $practica->save();
         DB::commit();
         }catch(Exception $e){

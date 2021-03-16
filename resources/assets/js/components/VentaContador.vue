@@ -795,7 +795,7 @@
                     me.totalCuatroXmil=0;
                     me.codigo='';
                     me.arrayDetalle=[];
-                    window.open('http://localhost/asofrut/public/venta/pdf/'+response.data.id);
+                    window.open('http://gestion.asofrut.org/venta/pdf/'+response.data.id);
 
                 }).catch(function (error) {
                     console.log(error);

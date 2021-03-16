@@ -19,7 +19,8 @@ class RiegoController extends Controller
             ->join('productors','riegos.productor_id','=','productors.id')
             ->join('fincas','riegos.finca_id','=','fincas.id')
             ->select('personas.nombre','riegos.productor_id','riegos.finca_id','fincas.nombre as nombre_finca',
-            'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales')
+            'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales',
+            'riegos.reservorio','riegos.capacidadR','riegos.alturaR')
             ->orderBy('riegos.id','desc')->paginate(3);
         }
         if($criterio == 'personas'){
@@ -27,7 +28,8 @@ class RiegoController extends Controller
             ->join('productors','riegos.productor_id','=','productors.id')
             ->join('fincas','riegos.finca_id','=','fincas.id')
             ->select('personas.nombre','riegos.productor_id','riegos.finca_id','fincas.nombre as nombre_finca',
-            'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales')
+            'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales',
+            'riegos.reservorio','riegos.capacidadR','riegos.alturaR')
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
             ->orderBy('riegos.id', 'asc')->paginate(3);
             }
@@ -36,7 +38,8 @@ class RiegoController extends Controller
             ->join('productors','riegos.productor_id','=','productors.id')
             ->join('fincas','riegos.finca_id','=','fincas.id')
             ->select('personas.nombre','riegos.productor_id','riegos.finca_id','fincas.nombre as nombre_finca',
-            'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales')
+            'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales',
+            'riegos.reservorio','riegos.capacidadR','riegos.alturaR')
             ->where('riegos.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('riegos.id', 'desc')->paginate(3);          
         }
@@ -66,6 +69,9 @@ class RiegoController extends Controller
         $riego->tipo= $request->tipo;
         $riego->tiempo= $request->tiempo;
         $riego->jornales= $request->jornales;
+        $riego->reservorio=$request->reservorio;
+        $riego->capacidadR=$request->capacidadR;
+        $riego->alturaR=$request->alturaR;
         $riego->save();
         DB::commit();
         }catch(Exception $e){
