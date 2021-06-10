@@ -55,7 +55,7 @@ class PlagaController extends Controller
             'plagas.tipoManejoAcaros','plagas.frecuenciaAplicacionAcaros','plagas.cochinillaCultivos','plagas.tipoManejoCochinilla',
             'plagas.frecuenciaAplicacionCochinilla','plagas.frecuenciaAplicacionTrips')
             ->where('plagas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('plagas.id', 'desc')->paginate(3);          
+            ->orderBy('plagas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -71,7 +71,7 @@ class PlagaController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $plagas = new Plaga();
@@ -98,7 +98,7 @@ class PlagaController extends Controller
         $plagas->cochinillaCultivos=$request->cochinillaCultivos;
         $plagas->tipoManejoCochinilla=$request->tipoManejoCochinilla;
         $plagas->frecuenciaAplicacionCochinilla=$request->frecuenciaAplicacionCochinilla;
-        $plagas->save();   
+        $plagas->save();
         DB::commit();
         }catch(Exception $e){
             DB::rollback();

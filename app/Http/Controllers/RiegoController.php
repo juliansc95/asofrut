@@ -41,7 +41,7 @@ class RiegoController extends Controller
             'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales',
             'riegos.reservorio','riegos.capacidadR','riegos.alturaR')
             ->where('riegos.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('riegos.id', 'desc')->paginate(3);          
+            ->orderBy('riegos.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -57,7 +57,7 @@ class RiegoController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $riego = new Riego();

@@ -74,7 +74,7 @@ class EncuestaFitosanitariaController extends Controller
             'encuesta_fitosanitarias.equipo_aplicaciones_id','equipo_aplicaciones.nombre as equipo_aplicaciones','encuesta_fitosanitarias.metodo_aplicaciones_id',
             'metodo_aplicaciones.nombre as metodo_aplicaciones')
             ->where('encuesta_fitosanitarias.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('encuesta_fitosanitarias.id', 'desc')->paginate(3);          
+            ->orderBy('encuesta_fitosanitarias.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -90,7 +90,7 @@ class EncuestaFitosanitariaController extends Controller
     }
 
     public function MostrarId(Request $request){
-        
+
         $id = \Auth::user()->id;
         $user =(int)$id;
         $personas= Persona::select('id','nombre')
@@ -119,8 +119,36 @@ class EncuestaFitosanitariaController extends Controller
         $encuesta->cantidad_aplicacion = $request->cantidad_aplicacion;
         $encuesta->unidad_aplicaciones_id = $request->unidad_aplicaciones_id;
         $encuesta->equipo_aplicaciones_id = $request->equipo_aplicaciones_id;
-        $encuesta->metodo_aplicaciones_id = $request->metodo_aplicaciones_id;           
+        $encuesta->metodo_aplicaciones_id = $request->metodo_aplicaciones_id;
         $encuesta->save();
+
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollback();
+        }
+    }
+
+    public function storeApi(Request $request)
+    {
+        try{
+            DB::beginTransaction();
+            $encuesta = new EncuestaFitosanitaria();
+            $encuesta->productor_id =  $request->productor_id;
+            $encuesta->finca_id = $request->finca_id;
+            $mytime= Carbon::parse($request->fechaControl)->toDateString();
+            $encuesta->fechaControl =$mytime;
+            $encuesta->productoSembrado = $request->productoSembrado;
+            $encuesta->lote = $request->lote;
+            $encuesta->linea_id = $request->linea_id;
+            $encuesta->numeroPlantas = $request->numeroPlantas;
+            $encuesta->producto_fitosanitario_id = $request->producto_fitosanitario_id;
+            $encuesta->cantidad_dosis = $request->cantidad_dosis;
+            $encuesta->unidad_dosis_id = $request->unidad_dosis_id;
+            $encuesta->cantidad_aplicacion = $request->cantidad_aplicacion;
+            $encuesta->unidad_aplicaciones_id = $request->unidad_aplicaciones_id;
+            $encuesta->equipo_aplicaciones_id = $request->equipo_aplicaciones_id;
+            $encuesta->metodo_aplicaciones_id = $request->metodo_aplicaciones_id;
+            $encuesta->save();
 
             DB::commit();
         }catch(Exception $e){

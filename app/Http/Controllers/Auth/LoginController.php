@@ -13,7 +13,7 @@ class LoginController extends Controller
     }
 
     public function login(Request $request){
-        $this->validateLogin($request);        
+        $this->validateLogin($request);
 
         if (Auth::attempt(['usuario' => $request->usuario,'password' => $request->password,'condicion'=>1])){
             return redirect()->route('main');
@@ -23,6 +23,16 @@ class LoginController extends Controller
         ->withErrors(['usuario' => trans('auth.failed')])
         ->withInput(request(['usuario']));
 
+    }
+    public function loginApi(Request $request)
+    {
+        $credentials = $request->only(['usuario', 'password']);
+
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
     protected function validateLogin(Request $request){
@@ -37,5 +47,14 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         return redirect('/');
+    }
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'user'=> 'user',
+            //'expires_in' => auth('api')->factory()->getTTL() * 60
+        ]);
     }
 }

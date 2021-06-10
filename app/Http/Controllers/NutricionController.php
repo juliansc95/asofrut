@@ -51,7 +51,7 @@ class NutricionController extends Controller
             'nutricions.formaAplicacionMateriaOrganica','nutricions.frecuenciaAplicacionMateriaOrganica',
             'nutricions.fechaMateriaOrganica','nutricions.fechaUltimaFertilizacion','nutricions.formaAplicacionFert','nutricions.frecuenciaAplicacionFert')
             ->where('nutricions.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('nutricions.id', 'desc')->paginate(3);          
+            ->orderBy('nutricions.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -67,7 +67,7 @@ class NutricionController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $nutricion = new Nutricion();
@@ -89,13 +89,13 @@ class NutricionController extends Controller
         $nutricion->dosisAplicacionMateriaOrganica=$request->dosisAplicacionMateriaOrganica;
         $nutricion->formaAplicacionMateriaOrganica=$request->formaAplicacionMateriaOrganica;
         $nutricion->frecuenciaAplicacionMateriaOrganica=$request->frecuenciaAplicacionMateriaOrganica;
-        $organica= Carbon::parse($request->fechaMateriaOrganica)->toDateString();    
-        $nutricion->fechaMateriaOrganica=$organica; 
-        $fertilizacion= Carbon::parse($request->fechaUltimaFertilizacion)->toDateString();    
+        $organica= Carbon::parse($request->fechaMateriaOrganica)->toDateString();
+        $nutricion->fechaMateriaOrganica=$organica;
+        $fertilizacion= Carbon::parse($request->fechaUltimaFertilizacion)->toDateString();
         $nutricion->fechaUltimaFertilizacion= $fertilizacion;
         $nutricion->formaAplicacionFert=$request->formaAplicacionFert;
-        $nutricion->frecuenciaAplicacionFert=$request->frecuenciaAplicacionFert;   
-        $nutricion->save();   
+        $nutricion->frecuenciaAplicacionFert=$request->frecuenciaAplicacionFert;
+        $nutricion->save();
         DB::commit();
         }catch(Exception $e){
             DB::rollback();

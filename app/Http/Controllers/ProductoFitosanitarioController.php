@@ -19,7 +19,7 @@ class ProductoFitosanitarioController extends Controller
         else{
             $productoFitosanitarios = ProductoFitosanitario::select('id','nombre')
             ->where('productoFitosanitarios.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('productoFitosanitarios.id', 'desc')->paginate(20);          
+            ->orderBy('productoFitosanitarios.id', 'desc')->paginate(20);
         }
         return [
             'pagination' => [
@@ -36,30 +36,30 @@ class ProductoFitosanitarioController extends Controller
 
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
 
         try{
-        DB::beginTransaction();    
+        DB::beginTransaction();
         $productoFitosanitario = new ProductoFitosanitario();
         $productoFitosanitario->nombre = $request->nombre;
         $productoFitosanitario->save();
 
-        DB::commit();    
+        DB::commit();
         } catch(Exception $e){
             DB::rollBack();
         }
     }
 
     public function update(Request $request)
-    {      
+    {
         if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
 
-        $productoFitosanitario= ProductoFitosanitario::findOrFail($request->id);    
+        $productoFitosanitario= ProductoFitosanitario::findOrFail($request->id);
         $productoFitosanitario->nombre = $request->nombre;
         $productoFitosanitario->save();
-        DB::commit();    
+        DB::commit();
         }catch(Exception $e){
             DB::rollback();
         }

@@ -47,7 +47,7 @@ class EnfermedadController extends Controller
             'enfermedads.tipoManejoMildeo','enfermedads.frecuenciaMildeo','enfermedads.mildeoVelloso','enfermedads.tipoManejoMildeoVelloso','enfermedads.frecuenciaMildeoVelloso',
             'enfermedads.adherentes','enfermedads.nombreAdherente','enfermedads.dosisAplicacion')
             ->where('enfermedads.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('enfermedads.id', 'desc')->paginate(3);          
+            ->orderBy('enfermedads.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -63,7 +63,7 @@ class EnfermedadController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $enfermedads = new Enfermedad();

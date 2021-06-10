@@ -21,7 +21,7 @@ class VocacionController extends Controller
             'vocacions.vocacion','vocacions.tiempo','vocacions.practicaBasica','vocacions.capacitacionRefuerzo','vocacions.temasRefuerzo',
             'vocacions.diasMora','vocacions.labores','vocacions.motivo')
             ->orderBy('vocacions.id','desc')->paginate(3);
-        } 
+        }
         if($criterio == 'personas'){
             $vocacions= Vocacion::join('personas','vocacions.productor_id','=','personas.id')
             ->join('productors','vocacions.productor_id','=','productors.id')
@@ -40,7 +40,7 @@ class VocacionController extends Controller
             'vocacions.vocacion','vocacions.tiempo','vocacions.practicaBasica','vocacions.capacitacionRefuerzo','vocacions.temasRefuerzo',
             'vocacions.diasMora','vocacions.labores','vocacions.motivo')
             ->where('vocacions.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('vocacions.id', 'desc')->paginate(3);          
+            ->orderBy('vocacions.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -56,7 +56,7 @@ class VocacionController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+       // if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $vocacion = new Vocacion();
@@ -70,7 +70,7 @@ class VocacionController extends Controller
         $vocacion->diasMora= $request->diasMora;
         $vocacion->labores= $request->labores;
         $vocacion->motivo= $request->motivo;
-        $vocacion->save();   
+        $vocacion->save();
         DB::commit();
         }catch(Exception $e){
             DB::rollback();

@@ -46,7 +46,7 @@ class FincaController extends Controller
             'posesions.nombre as nombre_posesion','departamentos.nombre as nombre_departamento',
             'municipios.nombre as nombre_municipio','veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo')
             ->where('fincas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('fincas.id', 'desc')->paginate(3);          
+            ->orderBy('fincas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -61,6 +61,48 @@ class FincaController extends Controller
         ];
     }
 
+    public function indexApi(Request $request)
+    {
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+
+        if($buscar == ''){
+            $fincas= Finca::join('productors','fincas.productor_id','=','productors.id')
+                ->join('personas','fincas.productor_id','=','personas.id')
+                ->join('lineas','fincas.linea_id','=','lineas.id')
+                ->join('departamentos','fincas.departamento_id','=','departamentos.id')
+                ->join('municipios','fincas.municipio_id','=','municipios.id')
+                ->join('veredas','fincas.vereda_id','=','veredas.id')
+                ->join('resguardos','fincas.resguardo_id','=','resguardos.id')
+                ->join('posesions','fincas.posesion_id','=','posesions.id')
+                ->select('fincas.id','fincas.nombre','fincas.productor_id','fincas.linea_id','fincas.areaPredio',
+                    'fincas.longitudPredio','fincas.latitudPredio','fincas.altitudPredio','fincas.departamento_id',
+                    'fincas.municipio_id','fincas.vereda_id','fincas.resguardo_id','fincas.posesion_id',
+                    'fincas.distanciaAlLote','personas.nombre as nombre_persona','fincas.distanciaLoteVia','coordenadasFinca','lineas.nombre as nombre_linea',
+                    'posesions.nombre as nombre_posesion','departamentos.nombre as nombre_departamento',
+                    'municipios.nombre as nombre_municipio','veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo')
+                ->orderBy('fincas.id','desc')->get();
+        }
+        else{
+            $fincas= Finca::join('productors','fincas.productor_id','=','productors.id')
+                ->join('personas','fincas.productor_id','=','personas.id')
+                ->join('lineas','fincas.linea_id','=','lineas.id')
+                ->join('departamentos','fincas.departamento_id','=','departamentos.id')
+                ->join('municipios','fincas.municipio_id','=','municipios.id')
+                ->join('veredas','fincas.vereda_id','=','veredas.id')
+                ->join('resguardos','fincas.resguardo_id','=','resguardos.id')
+                ->join('posesions','fincas.posesion_id','=','posesions.id')
+                ->select('fincas.id','fincas.nombre','fincas.productor_id','fincas.linea_id','fincas.areaPredio',
+                    'fincas.longitudPredio','fincas.latitudPredio','fincas.altitudPredio','fincas.departamento_id',
+                    'fincas.municipio_id','fincas.vereda_id','fincas.resguardo_id','fincas.posesion_id',
+                    'fincas.distanciaAlLote','personas.nombre as nombre_persona','fincas.distanciaLoteVia','coordenadasFinca','lineas.nombre as nombre_linea',
+                    'posesions.nombre as nombre_posesion','departamentos.nombre as nombre_departamento',
+                    'municipios.nombre as nombre_municipio','veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo')
+                ->where('fincas.'.$criterio, 'like', '%'. $buscar . '%')
+                ->orderBy('fincas.id', 'desc')->get();
+        }
+        return $fincas;
+    }
 
     public function indexProductor(Request $request)
     {
@@ -104,7 +146,7 @@ class FincaController extends Controller
             'municipios.nombre as nombre_municipio','veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo')
             ->where('fincas.productor_id','=',$id)
             ->where('fincas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('fincas.id', 'desc')->paginate(3);          
+            ->orderBy('fincas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -121,26 +163,26 @@ class FincaController extends Controller
 
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
-        DB::beginTransaction();
-        $finca = new Finca();
-        $finca->nombre = $request->nombre;
-        $finca->productor_id = $request->productor_id;
-        $finca->linea_id = $request->linea_id;
-        $finca->areaPredio = $request->areaPredio;
-        $finca->longitudPredio = $request->longitudPredio;
-        $finca->latitudPredio = $request->latitudPredio;
-        $finca->altitudPredio = $request->altitudPredio;
-        $finca->departamento_id = $request->departamento_id;
-        $finca->municipio_id = $request->municipio_id;
-        $finca->vereda_id = $request->vereda_id;
-        $finca->resguardo_id = $request->resguardo_id;
-        $finca->posesion_id = $request->posesion_id;
-        $finca->distanciaAlLote = $request->distanciaAlLote;
-        $finca->distanciaLoteVia = $request->distanciaLoteVia;
-        $finca->coordenadasFinca = $request->coordenadasFinca;
-        $finca->save();
+            DB::beginTransaction();
+            $finca = new Finca();
+            $finca->nombre = $request->nombre;
+            $finca->productor_id = $request->productor_id;
+            $finca->linea_id = $request->linea_id;
+            $finca->areaPredio = $request->areaPredio;
+            $finca->longitudPredio = $request->longitudPredio;
+            $finca->latitudPredio = $request->latitudPredio;
+            $finca->altitudPredio = $request->altitudPredio;
+            $finca->departamento_id = $request->departamento_id;
+            $finca->municipio_id = $request->municipio_id;
+            $finca->vereda_id = $request->vereda_id;
+            $finca->resguardo_id = $request->resguardo_id;
+            $finca->posesion_id = $request->posesion_id;
+            $finca->distanciaAlLote = $request->distanciaAlLote;
+            $finca->distanciaLoteVia = $request->distanciaLoteVia;
+            $finca->coordenadasFinca = $request->coordenadasFinca;
+            $finca->save();
             DB::commit();
         }catch(Exception $e){
             DB::rollback();
@@ -150,7 +192,7 @@ class FincaController extends Controller
     public function update(Request $request)
     {
         if(!$request->ajax()) return redirect('/');
-        
+
         $finca =Finca::findOrFail($request->id);
         $finca->nombre = $request->nombre;
         $finca->productor_id = $request->productor_id;
@@ -170,20 +212,20 @@ class FincaController extends Controller
         $finca->save();
     }
     public function selectFinca(Request $request){
-        if(!$request->ajax()) return redirect('/');
+       // if(!$request->ajax()) return redirect('/');
         $id=$request->id;
         $fincas= Finca::select('id','nombre')
         ->where('productor_id','=',$id)
         ->orderBy('id','asc')->get();
         return['fincas'=>$fincas];
-    }  
+    }
     public function selectFincaEncuesta(Request $request){
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         $id = \Auth::user()->id;
         $fincas= Finca::select('id','nombre')
         ->where('productor_id','=',$id)
         ->orderBy('id','asc')->get();
         return['fincas'=>$fincas];
-    }  
+    }
 
 }

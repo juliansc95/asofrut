@@ -47,7 +47,7 @@ class PredioCultivoController extends Controller
             'predioCultivos.plantasErradicadas','predioCultivos.plantasLevante','predioCultivos.TipoMora','predioCultivos.vereda_id','veredas.nombre as nombre_vereda',
             'predioCultivos.tipoReproduccion','predioCultivos.bolsa')
             ->where('predioCultivos.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('predioCultivos.id', 'desc')->paginate(3);          
+            ->orderBy('predioCultivos.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -63,7 +63,7 @@ class PredioCultivoController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $predio = new PredioCultivo();

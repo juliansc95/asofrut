@@ -52,7 +52,7 @@ class PracticaController extends Controller
             'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado',
             'practicas.tiempo')
             ->where('practicas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('practicas.id', 'desc')->paginate(3);          
+            ->orderBy('practicas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -68,7 +68,7 @@ class PracticaController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $practica = new Practica();

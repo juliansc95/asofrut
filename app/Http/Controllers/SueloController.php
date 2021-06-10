@@ -22,7 +22,7 @@ class SueloController extends Controller
             'suelos.curvasNivel','suelos.controlArvenses','suelos.frecuencia','suelos.herbicida','suelos.dosisAplicacionCal',
             'suelos.frecuenciaHerbicida')
             ->orderBy('suelos.id','desc')->paginate(3);
-        } 
+        }
         if($criterio == 'personas'){
             $suelos= Suelo::join('personas','suelos.productor_id','=','personas.id')
             ->join('productors','suelos.productor_id','=','productors.id')
@@ -41,7 +41,7 @@ class SueloController extends Controller
             'suelos.curvasNivel','suelos.controlArvenses','suelos.frecuencia','suelos.herbicida','suelos.dosisAplicacionCal',
             'suelos.frecuenciaHerbicida')
             ->where('suelos.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('suelos.id', 'desc')->paginate(3);          
+            ->orderBy('suelos.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -57,7 +57,7 @@ class SueloController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $suelo = new Suelo();
@@ -69,7 +69,7 @@ class SueloController extends Controller
         $suelo->herbicida= $request->herbicida;
         $suelo->dosisAplicacionCal= $request->dosisAplicacionCal;
         $suelo->frecuenciaHerbicida= $request->frecuenciaHerbicida;
-        $suelo->save();   
+        $suelo->save();
         DB::commit();
         }catch(Exception $e){
             DB::rollback();

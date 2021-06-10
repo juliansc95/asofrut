@@ -41,7 +41,7 @@ class CosechaController extends Controller
             'cosechas.frecuencia','cosechas.clasificacion','cosechas.empaque','cosechas.transporte','cosechas.kilogramoMoraPrimera',
             'cosechas.kilogramoMoraSegunda','cosechas.mesesProduccion','cosechas.clientes','cosechas.tiempoPago','cosechas.tipoPago')
             ->where('cosechas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('cosechas.id', 'desc')->paginate(3);          
+            ->orderBy('cosechas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -57,7 +57,7 @@ class CosechaController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $cosecha = new Cosecha();

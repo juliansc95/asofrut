@@ -38,7 +38,7 @@ class TutoradoController extends Controller
             ->select('personas.nombre','tutorados.productor_id','tutorados.finca_id','fincas.nombre as nombre_finca',
             'tutorados.tutorado','tutorados.tipoTutorado','tutorados.tipoMadera')
             ->where('tutorados.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('tutorados.id', 'desc')->paginate(3);          
+            ->orderBy('tutorados.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -54,7 +54,7 @@ class TutoradoController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $tutorado = new Tutorado();

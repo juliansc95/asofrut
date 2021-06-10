@@ -8,20 +8,20 @@ use Illuminate\Support\Facades\DB;
 class LugarVentaController extends Controller
 {
     public function selectLugarVenta(Request $request){
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         $lugarVentas = LugarVenta::select('id','nombre')->orderBy('id','asc')->get();
         return['lugarVentas'=>$lugarVentas];
     }
-    
+
     public function selectLugarVenta2(Request $request){
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         $filtro = $request->filtro;
         $lugarVentas = LugarVenta::select('id','nombre')
         ->where('nombre', 'like', '%'. $filtro . '%')
         ->orderBy('nombre', 'asc')->get();
         return['lugarVentas'=>$lugarVentas];
     }
-    
+
     public function index(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
@@ -35,7 +35,7 @@ class LugarVentaController extends Controller
         else{
             $lugarVentas = LugarVenta::select('id','nombre')
             ->where('lugarVentas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('lugarVentas.id', 'desc')->paginate(5);          
+            ->orderBy('lugarVentas.id', 'desc')->paginate(5);
         }
         return [
             'pagination' => [
@@ -55,27 +55,27 @@ class LugarVentaController extends Controller
         if(!$request->ajax()) return redirect('/');
 
         try{
-        DB::beginTransaction();    
+        DB::beginTransaction();
         $lugarVenta = new LugarVenta();
         $lugarVenta->nombre = $request->nombre;
         $lugarVenta->save();
 
-        DB::commit();    
+        DB::commit();
         } catch(Exception $e){
             DB::rollBack();
         }
     }
 
     public function update(Request $request)
-    {      
+    {
         if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
 
-        $lugarVenta= LugarVenta::findOrFail($request->id);    
+        $lugarVenta= LugarVenta::findOrFail($request->id);
         $lugarVenta->nombre = $request->nombre;
         $lugarVenta->save();
-        DB::commit();    
+        DB::commit();
         }catch(Exception $e){
             DB::rollback();
         }

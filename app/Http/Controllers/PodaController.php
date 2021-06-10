@@ -41,7 +41,7 @@ class PodaController extends Controller
             'podas.estadoVegetativo','podas.podaFormacion','podas.podaAclareo','podas.frecuenciaAclareo','podas.podaMantenimiento',
             'podas.frecuenciaMantenimiento','podas.podaFitosanitaria','podas.frecuenciaFitosanitaria')
             ->where('podas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('podas.id', 'desc')->paginate(3);          
+            ->orderBy('podas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -57,7 +57,7 @@ class PodaController extends Controller
     }
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $podas = new Poda();

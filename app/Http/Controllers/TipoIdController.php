@@ -31,9 +31,9 @@ class TipoIdController extends Controller
         ];
     }
     public function selectTipoId(Request $request){
-        if(!$request->ajax()) return redirect('/');
+       // if(!$request->ajax()) return redirect('/');
         $tipoIds = TipoId::select('id','nombre')->orderBy('id','asc')->get();
         return['tipoIds'=>$tipoIds];
-    }  
+    }
 
 }

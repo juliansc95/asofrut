@@ -68,7 +68,7 @@ class ProductorController extends Controller
             'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
             'productors.fotocopiaCedula')
             ->where('personas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('personas.id', 'desc')->paginate(3);          
+            ->orderBy('personas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -144,7 +144,7 @@ class ProductorController extends Controller
             'productors.fotocopiaCedula')
             ->where('productors.id','=',$id)
             ->where('personas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('personas.id', 'desc')->paginate(3);          
+            ->orderBy('personas.id', 'desc')->paginate(3);
         }
         return [
             'pagination' => [
@@ -161,7 +161,7 @@ class ProductorController extends Controller
 
     public function store(Request $request)
     {
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         try{
         DB::beginTransaction();
         $persona = new Persona();
@@ -213,14 +213,14 @@ class ProductorController extends Controller
         $productor =Productor::findOrFail($request->id);
         $persona =Persona::findorFail($productor->id);
         $user= User::findOrFail($productor->id);
-        
+
         $persona->nombre = $request->nombre;
         $persona->tipo_id = $request->tipo_id;
         $persona->num_documento = $request->num_documento;
         $persona->direccion = $request->direccion;
         $persona->telefono = $request->telefono;
         $persona->email = $request->email;
-        $persona->save(); 
+        $persona->save();
 
         $mytime= Carbon::parse($request->fechaExpedicion)->toDateString();
         $nacimiento= Carbon::parse($request->fechaNacimiento)->toDateString();
@@ -238,24 +238,24 @@ class ProductorController extends Controller
         $productor->fechaIngreso = $ingreso;
         $productor->fotocopiaCedula = $request->fotocopiaCedula;
         $productor->save();
-        
-        
+
+
 
         DB::commit();
         }
         catch(Exception $e){
             DB::rollback();
-        }  
+        }
     }
     public function selectProductor(Request $request){
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         $personas= Productor::join('personas','productors.id','=','personas.id')
         ->select('productors.id','personas.nombre')->orderBy('productors.id','asc')->get();
         return['personas'=>$personas];
-    }  
+    }
 
     public function selectProductor2(Request $request){
-        if(!$request->ajax()) return redirect('/');
+        //if(!$request->ajax()) return redirect('/');
         $filtro = $request->filtro;
         $personas= Productor::join('personas','productors.id','=','personas.id')
         ->where('personas.nombre', 'like', '%'. $filtro . '%')
@@ -263,6 +263,6 @@ class ProductorController extends Controller
         ->select('productors.id','personas.nombre','personas.num_documento')
         ->orderBy('personas.nombre', 'asc')->get();
         return['personas'=>$personas];
-    }  
+    }
 
 }
