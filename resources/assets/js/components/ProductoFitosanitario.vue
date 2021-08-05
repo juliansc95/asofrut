@@ -12,6 +12,20 @@
                         <button type="button" @click="abrirModal('productoFitosanitario','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayProductoFitosanitario
+                        worksheet = "Productos Fitosanitarios"
+                        name    = "productos.xls">
+                        Excel
+                        </export-excel>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayProductoFitosanitario
+                        type="csv"
+                        name    = "productos.xls">
+                        csv
+                        </export-excel>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">

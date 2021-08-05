@@ -12,6 +12,20 @@
                         <button type="button" @click="abrirModal('enfermedad','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayEnfermedad
+                            worksheet = "Enfermedades"
+                            name    = "enfermedad.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayEnfermedad
+                            type="csv"
+                            name    = "enfermedad.xls">
+                            csv
+                        </export-excel>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">

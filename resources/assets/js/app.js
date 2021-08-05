@@ -12,7 +12,7 @@ import Vue from 'vue';
 import vSelect from 'vue-select';
 import Datepicker from 'vuejs-datepicker';
 import * as VueGoogleMaps from 'vue2-google-maps'
- 
+import excel from 'vue-excel-export' 
 
 
 
@@ -84,3 +84,5 @@ Vue.use(VueGoogleMaps, {
     },
     installComponents: true
     });
+
+Vue.use(excel);    

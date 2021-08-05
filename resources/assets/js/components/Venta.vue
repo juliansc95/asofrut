@@ -18,6 +18,20 @@
                         <button type="button" @click="reporteDiario()" class="btn btn-info">
                             <i class="icon-doc"></i>&nbsp;Reporte Diario
                         </button>
+                         <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayVenta
+                        worksheet = "Ventas"
+                        name    = "ventas.xls">
+                        Excel
+                        </export-excel>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayVenta
+                        type="csv"
+                        name    = "ventas.xls">
+                        csv
+                        </export-excel>
                     </div>
                     <!-- Listado-->
                     <template v-if="listado==1">

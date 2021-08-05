@@ -12,6 +12,20 @@
                         <button type="button" @click="abrirModal('tutorado','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayTutorado
+                            worksheet = "Tutorado"
+                            name    = "tutorado.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayTutorado
+                            type="csv"
+                            name    = "tutorado.xls">
+                            csv
+                        </export-excel>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
