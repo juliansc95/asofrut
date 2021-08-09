@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Finca;
 
@@ -228,4 +229,49 @@ class FincaController extends Controller
         return['fincas'=>$fincas];
     }
 
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');    
+        $fincas= Finca::join('productors','fincas.productor_id','=','productors.id')
+            ->join('personas','fincas.productor_id','=','personas.id')
+            ->join('lineas','fincas.linea_id','=','lineas.id')
+            ->join('departamentos','fincas.departamento_id','=','departamentos.id')
+            ->join('municipios','fincas.municipio_id','=','municipios.id')
+            ->join('veredas','fincas.vereda_id','=','veredas.id')
+            ->join('resguardos','fincas.resguardo_id','=','resguardos.id')
+            ->join('posesions','fincas.posesion_id','=','posesions.id')
+            ->select('fincas.id','fincas.nombre','fincas.productor_id','fincas.linea_id','fincas.areaPredio',
+            'fincas.longitudPredio','fincas.latitudPredio','fincas.altitudPredio','fincas.departamento_id',
+            'fincas.municipio_id','fincas.vereda_id','fincas.resguardo_id','fincas.posesion_id',
+            'fincas.distanciaAlLote','personas.nombre as nombre_persona','fincas.distanciaLoteVia','coordenadasFinca','lineas.nombre as nombre_linea',
+            'posesions.nombre as nombre_posesion','departamentos.nombre as nombre_departamento',
+            'municipios.nombre as nombre_municipio','veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo')
+            ->orderBy('fincas.id','desc')->get();
+            $cont=Finca::count();
+
+            $pdf = \PDF::loadView('pdf.fincas',['fincas'=>$fincas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+            return $pdf->download('fincas.pdf');  
+    }
+
+    public function excel(Request $request)
+    {    
+        $fincas= Finca::join('productors','fincas.productor_id','=','productors.id')
+            ->join('personas','fincas.productor_id','=','personas.id')
+            ->join('lineas','fincas.linea_id','=','lineas.id')
+            ->join('departamentos','fincas.departamento_id','=','departamentos.id')
+            ->join('municipios','fincas.municipio_id','=','municipios.id')
+            ->join('veredas','fincas.vereda_id','=','veredas.id')
+            ->join('resguardos','fincas.resguardo_id','=','resguardos.id')
+            ->join('posesions','fincas.posesion_id','=','posesions.id')
+            ->select('fincas.id','fincas.nombre','fincas.productor_id','fincas.linea_id','fincas.areaPredio',
+            'fincas.longitudPredio','fincas.latitudPredio','fincas.altitudPredio','fincas.departamento_id',
+            'fincas.municipio_id','fincas.vereda_id','fincas.resguardo_id','fincas.posesion_id',
+            'fincas.distanciaAlLote','personas.nombre as nombre_persona','fincas.distanciaLoteVia','coordenadasFinca','lineas.nombre as nombre_linea',
+            'posesions.nombre as nombre_posesion','departamentos.nombre as nombre_departamento',
+            'municipios.nombre as nombre_municipio','veredas.nombre as nombre_vereda','resguardos.nombre as nombre_resguardo')
+            ->orderBy('fincas.id','desc')->get();
+            return [
+                'fincas' => $fincas
+            ];
+    }
 }

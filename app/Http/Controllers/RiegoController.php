@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Riego;
+use Carbon\Carbon;
+
 
 
 class RiegoController extends Controller
@@ -77,5 +79,34 @@ class RiegoController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Riego::count();
+        $riegos= Riego::join('personas','riegos.productor_id','=','personas.id')
+        ->join('productors','riegos.productor_id','=','productors.id')
+        ->join('fincas','riegos.finca_id','=','fincas.id')
+        ->select('personas.nombre','riegos.productor_id','riegos.finca_id','fincas.nombre as nombre_finca',
+        'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales',
+        'riegos.reservorio','riegos.capacidadR','riegos.alturaR')
+        ->orderBy('riegos.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.riego',['riegos'=>$riegos,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('riego.pdf');   
+    }
+
+    public function excel(Request $request)
+    {
+        $riegos= Riego::join('personas','riegos.productor_id','=','personas.id')
+        ->join('productors','riegos.productor_id','=','productors.id')
+        ->join('fincas','riegos.finca_id','=','fincas.id')
+        ->select('personas.nombre','riegos.productor_id','riegos.finca_id','fincas.nombre as nombre_finca',
+        'riegos.riego','riegos.adquisicion','riegos.frecuencia','riegos.tipo','riegos.tiempo','riegos.jornales',
+        'riegos.reservorio','riegos.capacidadR','riegos.alturaR')
+        ->orderBy('riegos.id','desc')->get();
+        return [
+            'riegos' => $riegos
+        ];   
     }
 }

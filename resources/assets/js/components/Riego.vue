@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayRiego
+                            :data   = arrayRiegoEx
                             worksheet = "Riego"
                             name    = "riego.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayRiego
+                            :data   = arrayRiegoEx
                             type="csv"
                             name    = "riego.xls">
                             csv
                         </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -235,6 +238,7 @@ import vSelect from 'vue-select';
                 capacidadR:0,
                 alturaR:0,           
                 arrayRiego: [],
+                arrayRiegoEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -288,6 +292,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayRiego= respuesta.riegos.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+             listarRiegoEx(){
+                let me =this;
+                var url ='riego/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayRiegoEx= respuesta.riegos;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -347,7 +362,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://localhost/asofrut/public/riego/listarPdf');
+            },    
             validarRiego(){
             this.errorRiego=0;
             this.errorMostrarMsjRiego=[];
@@ -421,6 +439,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarRiego(1,this.buscar,this.criterio);
+           this.listarRiegoEx();
            
         }
     }

@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayPoda
+                            :data   = arrayPodaEx
                             worksheet = "Poda"
                             name    = "poda.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayPoda
+                            :data   = arrayPodaEx
                             type="csv"
                             name    = "poda.xls">
                             csv
                         </export-excel>
+                         <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -232,6 +235,7 @@ import vSelect from 'vue-select';
                 podaFitosanitaria:'Seleccione',
                 frecuenciaFitosanitaria:0,
                 arrayPoda: [],
+                arrayPodaEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -290,6 +294,17 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
             },
+             listarPodaEx(){
+                let me =this;
+                var url ='poda/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayPodaEx= respuesta.podas;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             selectProductor(){
                 let me =this;
                 var url ='productor/selectProductor';
@@ -343,7 +358,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+         cargarPdf(){
+                window.open('http://localhost/asofrut/public/poda/listarPdf');
+            },    
             validarPoda(){
             this.errorPoda=0;
             this.errorMostrarMsjPoda=[];
@@ -416,6 +434,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarPoda(1,this.buscar,this.criterio);
+           this.listarPodaEx();
            
         }
     }

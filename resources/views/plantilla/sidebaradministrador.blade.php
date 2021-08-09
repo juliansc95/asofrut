@@ -22,6 +22,9 @@
                             <li @click="menu=21" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-bag"></i> Mapa fincas</a>
                             </li>
+                            <li @click="menu=25" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-bag"></i>Cargar Area</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
@@ -60,6 +63,9 @@
                             </li>
                             <li @click="menu=8" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>
+                            </li>
+                            <li @click="menu=26" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-user-following"></i> Copia de seguridad</a>
                             </li>
                         </ul>
                     </li>

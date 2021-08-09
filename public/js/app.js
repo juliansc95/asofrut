@@ -5779,6 +5779,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('suelo', __webpack_require
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('dashboard', __webpack_require__(263));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('gpx', __webpack_require__(266));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('fitosanitario', __webpack_require__(269));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('backup', __webpack_require__(307));
+//Vue.component('area', require('./components/Area.vue'));
 
 //Vistas Productor
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('fincaproductor', __webpack_require__(274));
@@ -48765,6 +48767,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -48789,6 +48794,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             fechaIngreso: '',
             fotocopiaCedula: '',
             arrayProductor: [],
+            arrayProductorEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -48849,6 +48855,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayProductor = respuesta.personas.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarProductorEx: function listarProductorEx() {
+            var me = this;
+            var url = 'productor/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayProductorEx = respuesta.personas;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -48970,6 +48986,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/productor/listarPdf');
         },
         actualizarProductor: function actualizarProductor() {
             if (this.validarProductor()) {
@@ -49116,6 +49135,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarProductor(1, this.buscar, this.criterio);
+        this.listarProductorEx();
     }
 });
 
@@ -49160,7 +49180,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayProductor,
+                  data: _vm.arrayProductorEx,
                   worksheet: "Productores",
                   name: "productores.xls"
                 }
@@ -49173,12 +49193,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayProductor,
+                  data: _vm.arrayProductorEx,
                   type: "csv",
                   name: "productores.xls"
                 }
               },
               [_vm._v("\n                csv\n            ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -51285,6 +51322,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -51300,6 +51340,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             password: '',
             idrol: 0,
             arraypersona: [],
+            arraypersonaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -51358,6 +51399,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarPersonaEx: function listarPersonaEx() {
+            var me = this;
+            var url = 'user/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arraypersonaEx = respuesta.personas;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         selectTipoId: function selectTipoId() {
             var me = this;
             var url = 'tipoId/selectTipoId';
@@ -51407,6 +51458,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/user/listarPdf');
         },
         actualizarPersona: function actualizarPersona() {
             if (this.validarPersona()) {
@@ -51576,6 +51630,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarPersona(1, this.buscar, this.criterio);
+        this.listarPersonaEx();
     }
 });
 
@@ -51620,7 +51675,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arraypersona,
+                  data: _vm.arraypersonaEx,
                   worksheet: "Usuarios",
                   name: "usuarios.xls"
                 }
@@ -51633,12 +51688,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arraypersona,
+                  data: _vm.arraypersonaEx,
                   type: "csv",
                   name: "usuarios.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -52864,6 +52936,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -52885,6 +52960,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             distanciaLoteVia: 0,
             coordenadasFinca: '',
             arrayFinca: [],
+            arrayFincaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -52943,6 +53019,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayFinca = respuesta.fincas.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarFincaEx: function listarFincaEx() {
+            var me = this;
+            var url = 'finca/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayFincaEx = respuesta.fincas;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -53051,6 +53137,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/finca/listarPdf');
         },
         actualizarFinca: function actualizarFinca() {
             if (this.validarFinca()) {
@@ -53171,6 +53260,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     mounted: function mounted() {
+        this.listarFincaEx();
         this.listarFinca(1, this.buscar, this.criterio);
     }
 });
@@ -53216,7 +53306,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayFinca,
+                  data: _vm.arrayFincaEx,
                   worksheet: "Fincas",
                   name: "fincas.xls"
                 }
@@ -53228,9 +53318,30 @@ var render = function() {
               "export-excel",
               {
                 staticClass: "button btn btn-success",
-                attrs: { data: _vm.arrayFinca, type: "csv", name: "fincas.xls" }
+                attrs: {
+                  data: _vm.arrayFincaEx,
+                  type: "csv",
+                  name: "fincas.xls"
+                }
               },
               [_vm._v("\n            csv\n           ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -54700,6 +54811,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -54717,6 +54831,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             TotalVentasAnioAnterior: 0,
             lugarVenta_id: 0,
             arrayCultivo: [],
+            arrayCultivoEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -54773,6 +54888,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayCultivo = respuesta.cultivos.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarCultivoEx: function listarCultivoEx() {
+            var me = this;
+            var url = 'cultivo/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayCultivoEx = respuesta.cultivos;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -54846,6 +54971,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/cultivo/listarPdf');
         },
         actualizarCultivo: function actualizarCultivo() {
             if (this.validarCultivo()) {
@@ -54954,6 +55082,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarCultivo(1, this.buscar, this.criterio);
+        this.listarCultivoEx();
     }
 });
 
@@ -54998,7 +55127,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayCultivo,
+                  data: _vm.arrayCultivoEx,
                   worksheet: "Cultivo",
                   name: "cultivos.xls"
                 }
@@ -55011,12 +55140,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayCultivo,
+                  data: _vm.arrayCultivoEx,
                   type: "csv",
                   name: "cultivos.xls"
                 }
               },
               [_vm._v("\n                csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -56186,6 +56332,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -56203,6 +56352,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             errorcategoriaMora: 0,
             errorMostrarMsjcategoriaMora: [],
             arraycategoriaMora: [],
+            arraycategoriaMoraEx: [],
             pagination: {
                 'total': 0,
                 'current_page': 0,
@@ -56253,6 +56403,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarCategoriaMoraEx: function listarCategoriaMoraEx() {
+            var me = this;
+            var url = 'mora/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arraycategoriaMoraEx = respuesta.categoriaMoras;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         cambiarPagina: function cambiarPagina(page, buscar, criterio) {
             var me = this;
             //Actualiza a la pagina actual
@@ -56278,6 +56438,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/mora/listarPdf');
         },
         actualizarCategoriaMora: function actualizarCategoriaMora() {
             if (this.validarCategoriaMora()) {
@@ -56360,6 +56523,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarCategoriaMora(1, this.buscar, this.criterio);
+        this.listarCategoriaMoraEx();
     }
 });
 
@@ -56404,7 +56568,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arraycategoriaMora,
+                  data: _vm.arraycategoriaMoraEx,
                   worksheet: "Categoria Moras",
                   name: "categoriasMora.xls"
                 }
@@ -56417,12 +56581,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arraycategoriaMora,
+                  data: _vm.arraycategoriaMoraEx,
                   type: "csv",
                   name: "categoriasMora.xls"
                 }
               },
-              [_vm._v("\n                    csv\n                ")]
+              [_vm._v("\n                    csv\n                    ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -57644,6 +57825,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             totalImpuesto: 0.0,
             totalParcial: 0.0,
             arrayVenta: [],
+            arrayVentaEx: [],
             arrayProductor: [],
             arrayLugarVenta: [],
             arrayLinea: [],
@@ -57772,6 +57954,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayVenta = respuesta.ventas.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarVentaEx: function listarVentaEx(page, buscar, criterio) {
+            var me = this;
+            var url = 'venta/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayVentaEx = respuesta.ventas;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -58200,6 +58392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarVenta(1, this.buscar, this.criterio);
+        this.listarVentaEx();
     }
 });
 
@@ -58281,7 +58474,7 @@ var render = function() {
                 {
                   staticClass: "button btn btn-success",
                   attrs: {
-                    data: _vm.arrayVenta,
+                    data: _vm.arrayVentaEx,
                     worksheet: "Ventas",
                     name: "ventas.xls"
                   }
@@ -58294,7 +58487,7 @@ var render = function() {
                 {
                   staticClass: "button btn btn-success",
                   attrs: {
-                    data: _vm.arrayVenta,
+                    data: _vm.arrayVentaEx,
                     type: "csv",
                     name: "ventas.xls"
                   }
@@ -60257,6 +60450,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -60269,6 +60465,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             errorlugarVenta: 0,
             errorMostrarMsjlugarVenta: [],
             arraylugarVenta: [],
+            arraylugarVentaEx: [],
             pagination: {
                 'total': 0,
                 'current_page': 0,
@@ -60319,6 +60516,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarLugarVentaEx: function listarLugarVentaEx() {
+            var me = this;
+            var url = 'lugarVenta/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arraylugarVentaEx = respuesta.lugarVentas;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         cambiarPagina: function cambiarPagina(page, buscar, criterio) {
             var me = this;
             //Actualiza a la pagina actual
@@ -60339,6 +60546,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/lugarVenta/listarPdf');
         },
         actualizarLugarVenta: function actualizarLugarVenta() {
             if (this.validarLugarVenta()) {
@@ -60401,6 +60611,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarLugarVenta(1, this.buscar, this.criterio);
+        this.listarLugarVentaEx();
     }
 });
 
@@ -60445,7 +60656,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arraylugarVenta,
+                  data: _vm.arraylugarVentaEx,
                   worksheet: "Lugar Venta",
                   name: "lugarVenta.xls"
                 }
@@ -60458,12 +60669,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arraylugarVenta,
+                  data: _vm.arraylugarVentaEx,
                   type: "csv",
                   name: "lugarVenta.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -61245,6 +61473,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -61268,6 +61499,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             equipo_aplicaciones_id: 0,
             metodo_aplicaciones_id: 0,
             arrayEncuesta: [],
+            arrayEncuestaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -61328,6 +61560,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayEncuesta = respuesta.encuestas.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarEncuestaEx: function listarEncuestaEx() {
+            var me = this;
+            var url = 'fitosanitaria/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayEncuestaEx = respuesta.encuestas;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -61456,6 +61698,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/fitosanitaria/listarPdf');
+        },
         validarEncuesta: function validarEncuesta() {
             this.errorEncuesta = 0;
             this.errorMostrarMsjEncuesta = [];
@@ -61530,6 +61775,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarEncuesta(1, this.buscar, this.criterio);
+        this.listarEncuestaEx();
     }
 });
 
@@ -61574,7 +61820,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayEncuesta,
+                  data: _vm.arrayEncuestaEx,
                   worksheet: "Control Fitosanitario",
                   name: "fitosanitario.xls"
                 }
@@ -61587,12 +61833,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayEncuesta,
+                  data: _vm.arrayEncuestaEx,
                   type: "csv",
                   name: "fitosanitario.xls"
                 }
               },
               [_vm._v("\n                csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -63286,6 +63549,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -63337,6 +63603,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             desechos4: '',
 
             arrayEncuesta: [],
+            arrayEncuestaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -63391,6 +63658,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayEncuesta = respuesta.encuestas.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarEncuestaEx: function listarEncuestaEx() {
+            var me = this;
+            var url = 'encuesta/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayEncuestaEx = respuesta.encuestas;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -63477,6 +63754,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/encuesta/listarPdf');
         },
         validarEncuesta: function validarEncuesta() {
             this.errorEncuesta = 0;
@@ -63648,6 +63928,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarEncuesta(1, this.buscar, this.criterio);
+        this.listarEncuestaEx();
     }
 });
 
@@ -63692,7 +63973,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayEncuesta,
+                  data: _vm.arrayEncuestaEx,
                   worksheet: "Visitas",
                   name: "visita.xls"
                 }
@@ -63705,12 +63986,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayEncuesta,
+                  data: _vm.arrayEncuestaEx,
                   type: "csv",
                   name: "visita.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -66813,6 +67111,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -66833,6 +67134,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tiempoPago: 'Seleccione',
             tipoPago: 'Seleccione',
             arrayCosecha: [],
+            arrayCosechaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -66891,6 +67193,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarCosechaEx: function listarCosechaEx() {
+            var me = this;
+            var url = 'cosecha/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayCosechaEx = respuesta.cosechas;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         selectProductor: function selectProductor() {
             var me = this;
             var url = 'productor/selectProductor';
@@ -66942,6 +67254,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/cosecha/listarPdf');
         },
         validarCosecha: function validarCosecha() {
             this.errorCosecha = 0;
@@ -67023,6 +67338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarCosecha(1, this.buscar, this.criterio);
+        this.listarCosechaEx();
     }
 });
 
@@ -67067,7 +67383,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayCosecha,
+                  data: _vm.arrayCosechaEx,
                   worksheet: "Cosechas",
                   name: "cosecha.xls"
                 }
@@ -67080,12 +67396,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayCosecha,
+                  data: _vm.arrayCosechaEx,
                   type: "csv",
                   name: "cosecha.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -68473,6 +68806,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -68493,6 +68829,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tipoReproduccion: '',
             bolsa: 'Seleccione',
             arrayPredioCultivo: [],
+            arrayPredioCultivoEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -68548,6 +68885,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayPredioCultivo = respuesta.predios.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarPredioCultivoEx: function listarPredioCultivoEx(page, buscar, criterio) {
+            var me = this;
+            var url = 'predioCultivo/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayPredioCultivoEx = respuesta.predios;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -68613,6 +68960,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/predioCultivo/listarPdf');
         },
         validarPredioCultivo: function validarPredioCultivo() {
             this.errorPredioCultivo = 0;
@@ -68684,6 +69034,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarPredioCultivo(1, this.buscar, this.criterio);
+        this.listarPredioCultivoEx();
     }
 });
 
@@ -68728,7 +69079,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayPredioCultivo,
+                  data: _vm.arrayPredioCultivoEx,
                   worksheet: "Predio Cultivo",
                   name: "predioCultivo.xls"
                 }
@@ -68741,12 +69092,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayPredioCultivo,
+                  data: _vm.arrayPredioCultivoEx,
                   type: "csv",
                   name: "predioCultivo.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -70054,6 +70422,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -70072,6 +70443,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             podaFitosanitaria: 'Seleccione',
             frecuenciaFitosanitaria: 0,
             arrayPoda: [],
+            arrayPodaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -70130,6 +70502,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarPodaEx: function listarPodaEx() {
+            var me = this;
+            var url = 'poda/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayPodaEx = respuesta.podas;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         selectProductor: function selectProductor() {
             var me = this;
             var url = 'productor/selectProductor';
@@ -70179,6 +70561,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/poda/listarPdf');
         },
         validarPoda: function validarPoda() {
             this.errorPoda = 0;
@@ -70254,6 +70639,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarPoda(1, this.buscar, this.criterio);
+        this.listarPodaEx();
     }
 });
 
@@ -70298,7 +70684,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayPoda,
+                  data: _vm.arrayPodaEx,
                   worksheet: "Poda",
                   name: "poda.xls"
                 }
@@ -70310,9 +70696,26 @@ var render = function() {
               "export-excel",
               {
                 staticClass: "button btn btn-success",
-                attrs: { data: _vm.arrayPoda, type: "csv", name: "poda.xls" }
+                attrs: { data: _vm.arrayPodaEx, type: "csv", name: "poda.xls" }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -71699,6 +72102,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -71729,6 +72135,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tipoManejoCochinilla: 'Seleccione',
             frecuenciaAplicacionCochinilla: 0,
             arrayPlaga: [],
+            arrayPlagaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -71783,6 +72190,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayPlaga = respuesta.plagas.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarPlagaEx: function listarPlagaEx() {
+            var me = this;
+            var url = 'plaga/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayPlagaEx = respuesta.plagas;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -71848,6 +72265,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/plaga/listarPdf');
         },
         validarPlaga: function validarPlaga() {
             this.errorPlaga = 0;
@@ -71921,6 +72341,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarPlaga(1, this.buscar, this.criterio);
+        this.listarPlagaEx();
     }
 });
 
@@ -71965,7 +72386,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayPlaga,
+                  data: _vm.arrayPlagaEx,
                   worksheet: "Plaga",
                   name: "plaga.xls"
                 }
@@ -71977,9 +72398,30 @@ var render = function() {
               "export-excel",
               {
                 staticClass: "button btn btn-success",
-                attrs: { data: _vm.arrayPlaga, type: "csv", name: "plaga.xls" }
+                attrs: {
+                  data: _vm.arrayPlagaEx,
+                  type: "csv",
+                  name: "plaga.xls"
+                }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -74013,6 +74455,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -74041,6 +74486,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             formaAplicacionFert: 'Seleccione',
             frecuenciaAplicacionFert: 0,
             arrayNutricion: [],
+            arrayNutricionEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -74095,6 +74541,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayNutricion = respuesta.nutricions.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarNutricionEx: function listarNutricionEx() {
+            var me = this;
+            var url = 'nutricion/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayNutricionEx = respuesta.nutricions;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -74158,6 +74614,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/nutricion/listarPdf');
         },
         validarNutricion: function validarNutricion() {
             this.errorNutricion = 0;
@@ -74263,6 +74722,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarNutricion(1, this.buscar, this.criterio);
+        this.listarNutricionEx();
     }
 });
 
@@ -74307,7 +74767,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayNutricion,
+                  data: _vm.arrayNutricionEx,
                   worksheet: "Nutricion",
                   name: "nutricion.xls"
                 }
@@ -74320,12 +74780,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayNutricion,
+                  data: _vm.arrayNutricionEx,
                   type: "csv",
                   name: "nutricion.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -75997,6 +76474,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -76010,6 +76490,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             tipoTutorado: 'Seleccione',
             tipoMadera: 'Seleccione',
             arrayTutorado: [],
+            arrayTutorado2: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -76068,6 +76549,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarTutoradoEx: function listarTutoradoEx() {
+            var me = this;
+            var url = 'tutorado/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayTutoradoEx = respuesta.tutorados;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         selectProductor: function selectProductor() {
             var me = this;
             var url = 'productor/selectProductor';
@@ -76112,6 +76603,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/tutorado/listarPdf');
         },
         validarTutorado: function validarTutorado() {
             this.errorTutorado = 0;
@@ -76170,6 +76664,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarTutorado(1, this.buscar, this.criterio);
+        this.listarTutoradoEx();
     }
 });
 
@@ -76214,7 +76709,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayTutorado,
+                  data: _vm.arrayTutoradoEx,
                   worksheet: "Tutorado",
                   name: "tutorado.xls"
                 }
@@ -76227,12 +76722,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayTutorado,
+                  data: _vm.arrayTutoradoEx,
                   type: "csv",
                   name: "tutorado.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -77284,6 +77796,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -77303,6 +77818,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             capacidadR: 0,
             alturaR: 0,
             arrayRiego: [],
+            arrayRiegoEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -77361,6 +77877,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarRiegoEx: function listarRiegoEx() {
+            var me = this;
+            var url = 'riego/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayRiegoEx = respuesta.riegos;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         selectProductor: function selectProductor() {
             var me = this;
             var url = 'productor/selectProductor';
@@ -77411,6 +77937,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/riego/listarPdf');
         },
         validarRiego: function validarRiego() {
             this.errorRiego = 0;
@@ -77487,6 +78016,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarRiego(1, this.buscar, this.criterio);
+        this.listarRiegoEx();
     }
 });
 
@@ -77531,7 +78061,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayRiego,
+                  data: _vm.arrayRiegoEx,
                   worksheet: "Riego",
                   name: "riego.xls"
                 }
@@ -77543,9 +78073,30 @@ var render = function() {
               "export-excel",
               {
                 staticClass: "button btn btn-success",
-                attrs: { data: _vm.arrayRiego, type: "csv", name: "riego.xls" }
+                attrs: {
+                  data: _vm.arrayRiegoEx,
+                  type: "csv",
+                  name: "riego.xls"
+                }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -78985,6 +79536,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -79020,6 +79574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             institucionCertificado: '',
             tiempo: 0,
             arrayPractica: [],
+            arrayPracticaEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -79074,6 +79629,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayPractica = respuesta.practicas.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarPracticaEx: function listarPracticaEx() {
+            var me = this;
+            var url = 'practica/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayPracticaEx = respuesta.practicas;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -79144,6 +79709,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/practica/listarPdf');
         },
         validarPractica: function validarPractica() {
             this.errorPractica = 0;
@@ -79270,6 +79838,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarPractica(1, this.buscar, this.criterio);
+        this.listarPracticaEx();
     }
 });
 
@@ -79314,7 +79883,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayPractica,
+                  data: _vm.arrayPracticaEx,
                   worksheet: "Practicas",
                   name: "practicas.xls"
                 }
@@ -79327,12 +79896,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayPractica,
+                  data: _vm.arrayPracticaEx,
                   type: "csv",
                   name: "practicas.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -81694,6 +82280,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -81721,6 +82310,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             nombreAdherente: '',
             dosisAplicacion: 0,
             arrayEnfermedad: [],
+            arrayEnfermedadEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -81775,6 +82365,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var respuesta = response.data;
                 me.arrayEnfermedad = respuesta.enfermedads.data;
                 me.pagination = respuesta.pagination;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        listarEnfermedadEx: function listarEnfermedadEx() {
+            var me = this;
+            var url = 'enfermedad/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayEnfermedadEx = respuesta.enfermedads;
             }).catch(function (error) {
                 console.log(error);
             });
@@ -81837,6 +82437,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/enfermedad/listarPdf');
         },
         validarEnfermedad: function validarEnfermedad() {
             this.errorEnfermedad = 0;
@@ -81939,6 +82542,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarEnfermedad(1, this.buscar, this.criterio);
+        this.listarEnfermedadEx();
     }
 });
 
@@ -81983,7 +82587,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayEnfermedad,
+                  data: _vm.arrayEnfermedadEx,
                   worksheet: "Enfermedades",
                   name: "enfermedad.xls"
                 }
@@ -81996,12 +82600,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayEnfermedad,
+                  data: _vm.arrayEnfermedadEx,
                   type: "csv",
                   name: "enfermedad.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
             )
           ],
           1
@@ -83786,6 +84407,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -83804,6 +84428,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             labores: '',
             motivo: '',
             arrayVocacion: [],
+            arrayVocacionEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -83862,6 +84487,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarVocacionEx: function listarVocacionEx() {
+            var me = this;
+            var url = 'vocacion/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayVocacionEx = respuesta.vocacions;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         selectProductor: function selectProductor() {
             var me = this;
             var url = 'productor/selectProductor';
@@ -83911,6 +84546,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/vocacion/listarPdf');
         },
         validarVocacion: function validarVocacion() {
             this.errorVocacion = 0;
@@ -83985,6 +84623,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarVocacion(1, this.buscar, this.criterio);
+        this.listarVocacionEx();
     }
 });
 
@@ -84029,7 +84668,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayVocacion,
+                  data: _vm.arrayVocacionEx,
                   worksheet: "Vocacion",
                   name: "vocacion.xls"
                 }
@@ -84042,12 +84681,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayVocacion,
+                  data: _vm.arrayVocacionEx,
                   type: "csv",
                   name: "vocacion.xls"
                 }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -85265,6 +85921,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -85281,6 +85940,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             dosisAplicacionCal: 0,
             frecuenciaHerbicida: 0,
             arraySuelo: [],
+            arraySueloEx: [],
             modal: 0,
             tituloModal: '',
             tipoAccion: 0,
@@ -85339,6 +85999,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarSueloEx: function listarSueloEx() {
+            var me = this;
+            var url = 'suelo/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arraySueloEx = respuesta.suelos;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         selectProductor: function selectProductor() {
             var me = this;
             var url = 'productor/selectProductor';
@@ -85386,6 +86056,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/suelo/listarPdf');
         },
         validarSuelo: function validarSuelo() {
             this.errorSuelo = 0;
@@ -85451,6 +86124,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarSuelo(1, this.buscar, this.criterio);
+        this.listarSueloEx();
     }
 });
 
@@ -85495,7 +86169,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arraySuelo,
+                  data: _vm.arraySueloEx,
                   worksheet: "Suelos",
                   name: "suelo.xls"
                 }
@@ -85507,9 +86181,30 @@ var render = function() {
               "export-excel",
               {
                 staticClass: "button btn btn-success",
-                attrs: { data: _vm.arraySuelo, type: "csv", name: "suelo.xls" }
+                attrs: {
+                  data: _vm.arraySueloEx,
+                  type: "csv",
+                  name: "suelo.xls"
+                }
               },
               [_vm._v("\n                    csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -87245,6 +87940,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -87257,6 +87955,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             errorProductoFitosanitario: 0,
             errorMostrarMsjProductoFitosanitario: [],
             arrayProductoFitosanitario: [],
+            arrayProductoFitosanitarioEx: [],
             pagination: {
                 'total': 0,
                 'current_page': 0,
@@ -87307,6 +88006,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error);
             });
         },
+        listarProductoFitosanitarioEx: function listarProductoFitosanitarioEx() {
+            var me = this;
+            var url = 'producto/excel';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayProductoFitosanitarioEx = respuesta.productoFitosanitarios;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
         cambiarPagina: function cambiarPagina(page, buscar, criterio) {
             var me = this;
             //Actualiza a la pagina actual
@@ -87327,6 +88036,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 console.log(error);
             });
+        },
+        cargarPdf: function cargarPdf() {
+            window.open('http://localhost/asofrut/public/producto/listarPdf');
         },
         actualizarProductoFitosanitario: function actualizarProductoFitosanitario() {
             if (this.validarProductoFitosanitario()) {
@@ -87389,6 +88101,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.listarProductoFitosanitario(1, this.buscar, this.criterio);
+        this.listarProductoFitosanitarioEx();
     }
 });
 
@@ -87433,7 +88146,7 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayProductoFitosanitario,
+                  data: _vm.arrayProductoFitosanitarioEx,
                   worksheet: "Productos Fitosanitarios",
                   name: "productos.xls"
                 }
@@ -87446,12 +88159,29 @@ var render = function() {
               {
                 staticClass: "button btn btn-success",
                 attrs: {
-                  data: _vm.arrayProductoFitosanitario,
+                  data: _vm.arrayProductoFitosanitarioEx,
                   type: "csv",
                   name: "productos.xls"
                 }
               },
               [_vm._v("\n                csv\n                ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n                ")
+              ]
             )
           ],
           1
@@ -101523,7 +102253,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       nombre_finca: '',
       latitud: 0,
       longitud: 0,
-      arrayGps: []
+      arrayGps: [],
+      arrayPuntos: []
     };
   },
 
@@ -101556,6 +102287,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       axios.get(url).then(function (response) {
         var respuesta = response.data;
         me.arrayGps = respuesta.gps;
+        me.arrayPuntos = me.arrayGps['data'];
       }).catch(function (error) {
         console.log(error);
       });
@@ -101563,7 +102295,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var markers = [];
       // remove this after lat long received from api.
       var tempLatLong = [{ lat: 2.954829514, lng: -76.269498922 }, { lat: 2.964829514, lng: -76.279498922 }];
-      for (var i = 0; i < me.arrayGps['data'].length; i++) {
+
+      for (var i = 0; i < me.arrayPuntos.length; i++) {
         markers.push({
           position: { lat: parseFloat(me.arrayGps['data'][i]['latitud']), lng: parseFloat(me.arrayGps['data'][i]['longitud']) },
           title: me.arrayGps['data'][i]['nombre_finca'],
@@ -101624,6 +102357,309 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-39d63ca8", module.exports)
+  }
+}
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(308)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(310)
+/* template */
+var __vue_template__ = __webpack_require__(311)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Backup.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6f8759b9", Component.options)
+  } else {
+    hotAPI.reload("data-v-6f8759b9", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(309);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("4692c01b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6f8759b9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Backup.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6f8759b9\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Backup.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.modal-content{\n    width: 100% !important;\n    position: absolute !important;\n}\n.mostrar{\n    display: list-item !important;\n    opacity: 1 !important;\n    position: absolute !important;\n    background-color: #3c29297a !important;\n}\n.div-error{\n    display: flex;\n    justify-content: center;\n}\n.text-error{\n    color: red !important;\n    font-weight: bold;\n}\n@media (min-width: 600px) {\n.btnagregar {\n        margin-top: 2rem;\n}\n}\n.modal-dialog{\noverflow-y: initial !important\n}\n.modal-body{\nheight: 250px;\noverflow-y: auto;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 310 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_select___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_select__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            venta_id: 0,
+            productor_id: 0,
+            productor: '',
+            linea_id: 0,
+            linea: '',
+            lugarVenta_id: 0,
+            lugarVenta: '',
+            totalKilos: 0.0,
+            totalVenta: 0.0,
+            totalImpuesto: 0.0,
+            totalParcial: 0.0,
+            arrayVenta: [],
+            arrayProductor: [],
+            arrayLugarVenta: [],
+            arrayLinea: [],
+            arrayDetalle: [],
+            listado: 1,
+            modal: 0,
+            tituloModal: '',
+            tipoAccion: 0,
+            errorVenta: 0,
+            errorMostrarMsjVenta: [],
+            pagination: {
+                'total': 0,
+                'current_page': 0,
+                'per_page': 0,
+                'last_page': 0,
+                'from': 0,
+                'to': 0
+            },
+            offset: 3,
+            criterio: 'personas',
+            buscar: '',
+            criterioA: 'nombre',
+            buscarA: 'Mora',
+            arrayCategoriaMoras: [],
+            categoria_id: 0,
+            categoria: '',
+            codigo: 0,
+            peso: 0,
+            valorUnitario: 0,
+            ValorDonacion: 0,
+            valorTransporte: 0,
+            valorAsohof: 0,
+            valorCuatroPorMil: 0,
+            totalSinDescuento: 0,
+            totalDonacion: 0,
+            totalTransporte: 0,
+            totalAsohof: 0,
+            totalCuatroXmil: 0,
+            subtotal: 0,
+            estado: '',
+            fechaVenta: ''
+        };
+    },
+
+    components: {
+        vSelect: __WEBPACK_IMPORTED_MODULE_0_vue_select___default.a
+    },
+    computed: {
+        isActived: function isActived() {
+            return this.pagination.current_page;
+        },
+        //Calcula los elementos de la paginación
+        pagesNumber: function pagesNumber() {
+            if (!this.pagination.to) {
+                return [];
+            }
+
+            var from = this.pagination.current_page - this.offset;
+            if (from < 1) {
+                from = 1;
+            }
+
+            var to = from + this.offset * 2;
+            if (to >= this.pagination.last_page) {
+                to = this.pagination.last_page;
+            }
+
+            var pagesArray = [];
+            while (from <= to) {
+                pagesArray.push(from);
+                from++;
+            }
+            return pagesArray;
+        }
+    },
+    methods: {
+        backupBD: function backupBD() {
+            window.open('/asofrut/public/backup');
+        },
+        cambiarPagina: function cambiarPagina(page, buscar, criterio) {
+            var me = this;
+            //Actualiza la página actual
+            me.pagination.current_page = page;
+            //Envia la petición para visualizar la data de esa página
+        },
+        encuentra: function encuentra(id) {
+            var sw = 0;
+            for (var i = 0; i < this.arrayDetalle.length; i++) {
+                if (this.arrayDetalle[i].categoria_id == id) {
+                    sw = true;
+                }
+            }
+            return sw;
+        },
+        cerrarModal: function cerrarModal() {
+            this.modal = 0;
+            this.tituloModal = '';
+        },
+        abrirModal: function abrirModal() {
+            this.arrayCategoriaMoras = [];
+            this.modal = 1;
+            this.tituloModal = 'Seleccione uno o varios artículos';
+        }
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("main", { staticClass: "main" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header" }, [
+          _c("i", { staticClass: "fa fa-align-justify" }),
+          _vm._v(" Base de datos\n                "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-info",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.backupBD()
+                }
+              }
+            },
+            [
+              _c("i", { staticClass: "icon-doc" }),
+              _vm._v(" Descargar copia\n                ")
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ol", { staticClass: "breadcrumb" }, [
+      _c("li", { staticClass: "breadcrumb-item" }, [
+        _c("a", { attrs: { href: "/" } }, [_vm._v("Escritorio")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6f8759b9", module.exports)
   }
 }
 

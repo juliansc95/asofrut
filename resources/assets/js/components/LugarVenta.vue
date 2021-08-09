@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arraylugarVenta
+                            :data   = arraylugarVentaEx
                             worksheet = "Lugar Venta"
                             name    = "lugarVenta.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arraylugarVenta
+                            :data   = arraylugarVentaEx
                             type="csv"
                             name    = "lugarVenta.xls">
                             csv
                         </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -128,6 +131,7 @@
                 errorlugarVenta : 0,
                 errorMostrarMsjlugarVenta:[],
                 arraylugarVenta:[],
+                arraylugarVentaEx:[],
                 pagination:{
                     'total' : 0,
                     'current_page' : 0,
@@ -177,7 +181,18 @@
                 .catch(function (error) {
                     console.log(error);
                 });
-            },          
+            },
+             listarLugarVentaEx(){
+                let me =this;
+                var url ='lugarVenta/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arraylugarVentaEx= respuesta.lugarVentas;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },                  
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza a la pagina actual
@@ -201,6 +216,9 @@
                 });
 
         },
+        cargarPdf(){
+                window.open('http://localhost/asofrut/public/lugarVenta/listarPdf');
+            },
             actualizarLugarVenta(){
             if(this.validarLugarVenta()){
                 return;
@@ -261,6 +279,7 @@
         },        
         mounted() {
            this.listarLugarVenta(1,this.buscar,this.criterio);
+           this.listarLugarVentaEx();
         }
     }
 </script>

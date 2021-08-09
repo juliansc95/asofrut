@@ -20,14 +20,14 @@
                         </button>
                          <export-excel
                         class   = "button btn btn-success"
-                        :data   = arrayVenta
+                        :data   = arrayVentaEx
                         worksheet = "Ventas"
                         name    = "ventas.xls">
                         Excel
                         </export-excel>
                         <export-excel
                         class   = "button btn btn-success"
-                        :data   = arrayVenta
+                        :data   = arrayVentaEx
                         type="csv"
                         name    = "ventas.xls">
                         csv
@@ -461,6 +461,7 @@
                 totalImpuesto: 0.0,
                 totalParcial: 0.0,
                 arrayVenta : [],
+                arrayVentaEx : [],
                 arrayProductor: [],
                 arrayLugarVenta: [],
                 arrayLinea:[],
@@ -590,6 +591,17 @@
                     var respuesta= response.data;
                     me.arrayVenta = respuesta.ventas.data;
                     me.pagination= respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarVentaEx (page,buscar,criterio){
+                let me=this;
+                var url= 'venta/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.arrayVentaEx = respuesta.ventas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -1064,6 +1076,7 @@
         },
         mounted() {
             this.listarVenta(1,this.buscar,this.criterio);
+            this.listarVentaEx();
         }
     }
 </script>

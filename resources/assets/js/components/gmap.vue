@@ -31,6 +31,7 @@ export default {
                 latitud:0,
                 longitud:0,              
                 arrayGps:[],
+                arrayPuntos : []
             }
         },
   name: "SiteMap",
@@ -62,6 +63,7 @@ export default {
         axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayGps= respuesta.gps;
+                    me.arrayPuntos= me.arrayGps['data'];
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -73,7 +75,9 @@ export default {
           { lat: 2.954829514, lng:-76.269498922},
           { lat: 2.964829514, lng:-76.279498922}
         ];
-       for(let i=0;i<me.arrayGps['data'].length;i++){
+
+        
+       for(let i=0;i<me.arrayPuntos.length;i++){
           markers.push({
               position:  { lat: parseFloat(me.arrayGps['data'][i]['latitud']), lng:parseFloat(me.arrayGps['data'][i]['longitud'])},
               title:me.arrayGps['data'][i]['nombre_finca'],

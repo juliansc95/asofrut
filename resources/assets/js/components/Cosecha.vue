@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayCosecha
+                            :data   = arrayCosechaEx
                             worksheet = "Cosechas"
                             name    = "cosecha.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayCosecha
+                            :data   = arrayCosechaEx
                             type="csv"
                             name    = "cosecha.xls">
                             csv
                         </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -251,6 +254,7 @@ import vSelect from 'vue-select';
                 tiempoPago:'Seleccione',
                 tipoPago:'Seleccione',
                 arrayCosecha: [],
+                arrayCosechaEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -304,6 +308,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayCosecha= respuesta.cosechas.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarCosechaEx(){
+                let me =this;
+                var url ='cosecha/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayCosechaEx= respuesta.cosechas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -364,7 +379,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://localhost/asofrut/public/cosecha/listarPdf');
+            },    
             validarCosecha(){
             this.errorCosecha=0;
             this.errorMostrarMsjCosecha=[];
@@ -443,7 +461,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarCosecha(1,this.buscar,this.criterio);
-           
+           this.listarCosechaEx();
         }
     }
 </script>

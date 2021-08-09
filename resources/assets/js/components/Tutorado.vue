@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayTutorado
+                            :data   = arrayTutoradoEx
                             worksheet = "Tutorado"
                             name    = "tutorado.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayTutorado
+                            :data   = arrayTutoradoEx
                             type="csv"
                             name    = "tutorado.xls">
                             csv
                         </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -185,6 +188,7 @@ import vSelect from 'vue-select';
                 tipoTutorado:'Seleccione',
                 tipoMadera:'Seleccione',             
                 arrayTutorado: [],
+                arrayTutorado2: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -243,6 +247,17 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
             },
+            listarTutoradoEx(){
+                let me =this;
+                var url ='tutorado/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayTutoradoEx= respuesta.tutorados;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             selectProductor(){
                 let me =this;
                 var url ='productor/selectProductor';
@@ -291,7 +306,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://localhost/asofrut/public/tutorado/listarPdf');
+            },    
             validarTutorado(){
             this.errorTutorado=0;
             this.errorMostrarMsjTutorado=[];
@@ -347,6 +365,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarTutorado(1,this.buscar,this.criterio);
+           this.listarTutoradoEx();
            
         }
     }

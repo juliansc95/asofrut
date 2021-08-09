@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayPlaga
+                            :data   = arrayPlagaEx
                             worksheet = "Plaga"
                             name    = "plaga.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayPlaga
+                            :data   = arrayPlagaEx
                             type="csv"
                             name    = "plaga.xls">
                             csv
                         </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -348,6 +351,7 @@ import vSelect from 'vue-select';
                 tipoManejoCochinilla:'Seleccione',
                 frecuenciaAplicacionCochinilla:0,
                 arrayPlaga: [],
+                arrayPlagaEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -401,6 +405,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayPlaga= respuesta.plagas.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+             listarPlagaEx(){
+                let me =this;
+                var url ='plaga/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayPlagaEx= respuesta.plagas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -471,7 +486,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+         cargarPdf(){
+                window.open('http://localhost/asofrut/public/plaga/listarPdf');
+            },    
             validarPlaga(){
             this.errorPlaga=0;
             this.errorMostrarMsjPlaga=[];
@@ -580,7 +598,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarPlaga(1,this.buscar,this.criterio);
-           
+           this.listarPlagaEx();
         }
     }
 </script>

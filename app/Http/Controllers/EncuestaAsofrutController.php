@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\EncuestaAsofrut;
 use App\Persona;
+use Carbon\Carbon;
+
 
 class EncuestaAsofrutController extends Controller
 {
@@ -136,5 +138,51 @@ class EncuestaAsofrutController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=EncuestaAsofrut::count();
+        $encuestas= EncuestaAsofrut::join('personas','encuestaAsofruts.productor_id','=','personas.id')
+        ->join('productors','encuestaAsofruts.productor_id','=','productors.id')
+        ->join('fincas','encuestaAsofruts.finca_id','=','fincas.id')
+        ->select('personas.nombre','encuestaAsofruts.productor_id','encuestaAsofruts.finca_id','fincas.nombre as nombre_finca',
+        'encuestaAsofruts.certificacion1','encuestaAsofruts.certificacion2','encuestaAsofruts.ecosistemas1','encuestaAsofruts.ecosistemas2',
+        'encuestaAsofruts.ecosistemas3','encuestaAsofruts.ecosistemas4','encuestaAsofruts.ecosistemas5','encuestaAsofruts.ecosistemas6',
+        'encuestaAsofruts.ecosistemas7','encuestaAsofruts.ecosistemas8','encuestaAsofruts.silvestre1',
+        'encuestaAsofruts.silvestre2','encuestaAsofruts.silvestre3','encuestaAsofruts.silvestre4','encuestaAsofruts.silvestre5',
+        'encuestaAsofruts.silvestre6','encuestaAsofruts.silvestre7','encuestaAsofruts.silvestre8',
+        'encuestaAsofruts.silvestre9','encuestaAsofruts.silvestre10','encuestaAsofruts.silvestre11','encuestaAsofruts.silvestre12',
+        'encuestaAsofruts.silvestre13','encuestaAsofruts.silvestre14','encuestaAsofruts.silvestre15','encuestaAsofruts.silvestre16',
+        'encuestaAsofruts.silvestre17','encuestaAsofruts.silvestre18','encuestaAsofruts.silvestre19','encuestaAsofruts.silvestre20',
+        'encuestaAsofruts.conservacion1','encuestaAsofruts.conservacion2','encuestaAsofruts.conservacion3','encuestaAsofruts.conservacion4',
+        'encuestaAsofruts.conservacion5','encuestaAsofruts.conservacion6','encuestaAsofruts.desechos1','encuestaAsofruts.desechos2',
+        'encuestaAsofruts.desechos3','encuestaAsofruts.desechos4','encuestaAsofruts.cultivo','encuestaAsofruts.created_at')
+        ->orderBy('encuestaAsofruts.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.encuesta',['encuestas'=>$encuestas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('encuesta.pdf');   
+    }
+
+    public function excel(Request $request)
+    {
+        $encuestas= EncuestaAsofrut::join('personas','encuestaAsofruts.productor_id','=','personas.id')
+        ->join('productors','encuestaAsofruts.productor_id','=','productors.id')
+        ->join('fincas','encuestaAsofruts.finca_id','=','fincas.id')
+        ->select('personas.nombre','encuestaAsofruts.productor_id','encuestaAsofruts.finca_id','fincas.nombre as nombre_finca',
+        'encuestaAsofruts.certificacion1','encuestaAsofruts.certificacion2','encuestaAsofruts.ecosistemas1','encuestaAsofruts.ecosistemas2',
+        'encuestaAsofruts.ecosistemas3','encuestaAsofruts.ecosistemas4','encuestaAsofruts.ecosistemas5','encuestaAsofruts.ecosistemas6',
+        'encuestaAsofruts.ecosistemas7','encuestaAsofruts.ecosistemas8','encuestaAsofruts.silvestre1',
+        'encuestaAsofruts.silvestre2','encuestaAsofruts.silvestre3','encuestaAsofruts.silvestre4','encuestaAsofruts.silvestre5',
+        'encuestaAsofruts.silvestre6','encuestaAsofruts.silvestre7','encuestaAsofruts.silvestre8',
+        'encuestaAsofruts.silvestre9','encuestaAsofruts.silvestre10','encuestaAsofruts.silvestre11','encuestaAsofruts.silvestre12',
+        'encuestaAsofruts.silvestre13','encuestaAsofruts.silvestre14','encuestaAsofruts.silvestre15','encuestaAsofruts.silvestre16',
+        'encuestaAsofruts.silvestre17','encuestaAsofruts.silvestre18','encuestaAsofruts.silvestre19','encuestaAsofruts.silvestre20',
+        'encuestaAsofruts.conservacion1','encuestaAsofruts.conservacion2','encuestaAsofruts.conservacion3','encuestaAsofruts.conservacion4',
+        'encuestaAsofruts.conservacion5','encuestaAsofruts.conservacion6','encuestaAsofruts.desechos1','encuestaAsofruts.desechos2',
+        'encuestaAsofruts.desechos3','encuestaAsofruts.desechos4','encuestaAsofruts.cultivo','encuestaAsofruts.created_at')
+        ->orderBy('encuestaAsofruts.id','desc')->get();
+        return ['encuestas'=>$encuestas];
+        
     }
 }

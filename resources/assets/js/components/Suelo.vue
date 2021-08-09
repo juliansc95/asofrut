@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arraySuelo
+                            :data   = arraySueloEx
                             worksheet = "Suelos"
                             name    = "suelo.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arraySuelo
+                            :data   = arraySueloEx
                             type="csv"
                             name    = "suelo.xls">
                             csv
                         </export-excel>
+                         <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -211,6 +214,7 @@ import vSelect from 'vue-select';
                 dosisAplicacionCal:0,
                 frecuenciaHerbicida:0,
                 arraySuelo: [],
+                arraySueloEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -269,6 +273,17 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
             },
+            listarSueloEx(){
+                let me =this;
+                var url ='suelo/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arraySueloEx= respuesta.suelos;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             selectProductor(){
                 let me =this;
                 var url ='productor/selectProductor';
@@ -320,7 +335,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+            cargarPdf(){
+                window.open('http://localhost/asofrut/public/suelo/listarPdf');
+            },    
             validarSuelo(){
             this.errorSuelo=0;
             this.errorMostrarMsjSuelo=[];
@@ -386,7 +404,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarSuelo(1,this.buscar,this.criterio);
-           
+           this.listarSueloEx();
         }
     }
 </script>

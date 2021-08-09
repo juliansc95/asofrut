@@ -14,18 +14,21 @@
                         </button>
                         <export-excel
                         class   = "button btn btn-success"
-                        :data   = arrayEncuesta
+                        :data   = arrayEncuestaEx
                         worksheet = "Control Fitosanitario"
                         name    = "fitosanitario.xls">
                         Excel
                         </export-excel>
                         <export-excel
                         class   = "button btn btn-success"
-                        :data   = arrayEncuesta
+                        :data   = arrayEncuestaEx
                         type="csv"
                         name    = "fitosanitario.xls">
                         csv
                         </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -264,6 +267,7 @@ import vSelect from 'vue-select';
                 equipo_aplicaciones_id:0,
                 metodo_aplicaciones_id:0,
                 arrayEncuesta: [],
+                arrayEncuestaEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -323,6 +327,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayEncuesta= respuesta.encuestas.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarEncuestaEx(){
+                let me =this;
+                var url ='fitosanitaria/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayEncuestaEx= respuesta.encuestas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -462,7 +477,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://localhost/asofrut/public/fitosanitaria/listarPdf');
+            },    
             validarEncuesta(){
             this.errorEncuesta=0;
             this.errorMostrarMsjEncuesta=[];
@@ -535,7 +553,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarEncuesta(1,this.buscar,this.criterio);
-           
+           this.listarEncuestaEx();
         }
     }
 </script>

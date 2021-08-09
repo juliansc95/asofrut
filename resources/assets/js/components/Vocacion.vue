@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayVocacion
+                            :data   = arrayVocacionEx
                             worksheet = "Vocacion"
                             name    = "vocacion.xls">
                             Excel
                             </export-excel>
                             <export-excel
                             class   = "button btn btn-success"
-                            :data   = arrayVocacion
+                            :data   = arrayVocacionEx
                             type="csv"
                             name    = "vocacion.xls">
                             csv
                         </export-excel>
+                         <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -225,6 +228,7 @@ import vSelect from 'vue-select';
                 labores:'',
                 motivo:'',  
                 arrayVocacion: [],
+                arrayVocacionEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -283,6 +287,17 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
             },
+            listarVocacionEx(){
+                let me =this;
+                var url ='vocacion/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayVocacionEx= respuesta.vocacions;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
             selectProductor(){
                 let me =this;
                 var url ='productor/selectProductor';
@@ -336,7 +351,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://localhost/asofrut/public/vocacion/listarPdf');
+            },    
             validarVocacion(){
             this.errorVocacion=0;
             this.errorMostrarMsjVocacion=[];
@@ -408,6 +426,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarVocacion(1,this.buscar,this.criterio);
+           this.listarVocacionEx();
            
         }
     }

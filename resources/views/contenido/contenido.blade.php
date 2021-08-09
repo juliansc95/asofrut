@@ -39,6 +39,10 @@
                 <rol></rol>
             </template>
 
+            <template v-if="menu==26">
+                <backup></backup>
+            </template>
+
             <template v-if="menu==9">
                 <predio></predio>
             </template>
@@ -96,7 +100,9 @@
             <template v-if="menu==21">
                <gmap></gmap>
             </template> 
-
+            <template v-if="menu==25">
+              prueba 
+            </template>
             <template v-if="menu==23">
                 <lugarventa></lugarventa>
             </template>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Cosecha;
+use Carbon\Carbon;
+
 
 class CosechaController extends Controller
 {
@@ -78,5 +80,33 @@ class CosechaController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Cosecha::count();
+        $cosechas= Cosecha::join('personas','cosechas.productor_id','=','personas.id')
+        ->join('productors','cosechas.productor_id','=','productors.id')
+        ->join('fincas','cosechas.finca_id','=','fincas.id')
+        ->select('personas.nombre','cosechas.productor_id','cosechas.finca_id','fincas.nombre as nombre_finca',
+        'cosechas.frecuencia','cosechas.clasificacion','cosechas.empaque','cosechas.transporte','cosechas.kilogramoMoraPrimera',
+        'cosechas.kilogramoMoraSegunda','cosechas.mesesProduccion','cosechas.clientes','cosechas.tiempoPago','cosechas.tipoPago')
+        ->orderBy('cosechas.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.cosecha',['cosechas'=>$cosechas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('cosecha.pdf');   
+    }
+
+    public function excel(Request $request)
+    {
+        $cosechas= Cosecha::join('personas','cosechas.productor_id','=','personas.id')
+        ->join('productors','cosechas.productor_id','=','productors.id')
+        ->join('fincas','cosechas.finca_id','=','fincas.id')
+        ->select('personas.nombre','cosechas.productor_id','cosechas.finca_id','fincas.nombre as nombre_finca',
+        'cosechas.frecuencia','cosechas.clasificacion','cosechas.empaque','cosechas.transporte','cosechas.kilogramoMoraPrimera',
+        'cosechas.kilogramoMoraSegunda','cosechas.mesesProduccion','cosechas.clientes','cosechas.tiempoPago','cosechas.tipoPago')
+        ->orderBy('cosechas.id','desc')->get();
+        return['cosechas'=>$cosechas];
+       
     }
 }

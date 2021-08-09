@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\LugarVenta;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class LugarVentaController extends Controller
 {
     public function selectLugarVenta(Request $request){
@@ -79,6 +80,27 @@ class LugarVentaController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');    
+        $lugarVentas = LugarVenta::select('id','nombre')
+        ->orderBy('id','asc')->get();
+        $cont=LugarVenta::count();
+
+        $pdf = \PDF::loadView('pdf.lugarVenta',['lugarVentas'=>$lugarVentas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('lugarVenta.pdf');
+        
+    }
+
+    public function excel(Request $request)
+    {    
+        $lugarVentas = LugarVenta::select('id','nombre')
+        ->orderBy('id','asc')->get();
+        return [
+            'lugarVentas'=>$lugarVentas
+        ];
     }
 
 }

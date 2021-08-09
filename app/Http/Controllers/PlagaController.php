@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Plaga;
@@ -104,4 +104,44 @@ class PlagaController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Plaga::count();
+        $plagas= Plaga::join('personas','plagas.productor_id','=','personas.id')
+        ->join('productors','plagas.productor_id','=','productors.id')
+        ->join('fincas','plagas.finca_id','=','fincas.id')
+        ->select('personas.nombre','plagas.productor_id','plagas.finca_id','fincas.nombre as nombre_finca',
+        'plagas.monitoreo','plagas.frecuenciaMonitoreo','plagas.perlaTierra','plagas.tipoManejoPerla','plagas.frecuenciaAplicacionPerla',
+        'plagas.barrenadorCultivo','plagas.tipoManejoBarrenador','plagas.frecuenciaAplicacionPerla','plagas.barrenadorCultivo',
+        'plagas.tipoManejoBarrenador','plagas.frecuenciaAplicacionBarrenador','plagas.tripsCultivo','plagas.tipoManejoTrips',
+        'plagas.frecuenciaAplicacionTrips',
+        'plagas.afidiosCultivos','plagas.tipoManejoAfidios','plagas.frecuenciaAplicacionAfidios','plagas.acarosCultivos',
+        'plagas.tipoManejoAcaros','plagas.frecuenciaAplicacionAcaros','plagas.cochinillaCultivos','plagas.tipoManejoCochinilla',
+        'plagas.frecuenciaAplicacionCochinilla')
+        ->orderBy('plagas.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.plagas',['plagas'=>$plagas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('plagas.pdf');
+    }
+
+    public function excel(Request $request)
+    {
+        $plagas= Plaga::join('personas','plagas.productor_id','=','personas.id')
+        ->join('productors','plagas.productor_id','=','productors.id')
+        ->join('fincas','plagas.finca_id','=','fincas.id')
+        ->select('personas.nombre','plagas.productor_id','plagas.finca_id','fincas.nombre as nombre_finca',
+        'plagas.monitoreo','plagas.frecuenciaMonitoreo','plagas.perlaTierra','plagas.tipoManejoPerla','plagas.frecuenciaAplicacionPerla',
+        'plagas.barrenadorCultivo','plagas.tipoManejoBarrenador','plagas.frecuenciaAplicacionPerla','plagas.barrenadorCultivo',
+        'plagas.tipoManejoBarrenador','plagas.frecuenciaAplicacionBarrenador','plagas.tripsCultivo','plagas.tipoManejoTrips',
+        'plagas.frecuenciaAplicacionTrips',
+        'plagas.afidiosCultivos','plagas.tipoManejoAfidios','plagas.frecuenciaAplicacionAfidios','plagas.acarosCultivos',
+        'plagas.tipoManejoAcaros','plagas.frecuenciaAplicacionAcaros','plagas.cochinillaCultivos','plagas.tipoManejoCochinilla',
+        'plagas.frecuenciaAplicacionCochinilla')
+        ->orderBy('plagas.id','desc')->get();
+        return [
+            'plagas' => $plagas
+        ];
+    }
+        
 }

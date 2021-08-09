@@ -86,4 +86,39 @@ class PredioCultivoController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=PredioCultivo::count();    
+        $predios= PredioCultivo::join('personas','predioCultivos.productor_id','=','personas.id')
+            ->join('productors','predioCultivos.productor_id','=','productors.id')
+            ->join('fincas','predioCultivos.finca_id','=','fincas.id')
+            ->join('veredas','predioCultivos.vereda_id','=','veredas.id')
+            ->select('personas.nombre','predioCultivos.productor_id','predioCultivos.finca_id','fincas.nombre as nombre_finca',
+            'predioCultivos.areaSembradaPredio','predioCultivos.fechaSiembra','predioCultivos.numeroPlantasTotales','predioCultivos.numeroPlantasProduccion',
+            'predioCultivos.plantasErradicadas','predioCultivos.plantasLevante','predioCultivos.TipoMora','predioCultivos.vereda_id','veredas.nombre as nombre_vereda',
+            'predioCultivos.tipoReproduccion','predioCultivos.bolsa')
+            ->orderBy('predioCultivos.id','desc')->get();
+            $pdf = \PDF::loadView('pdf.predioCultivo',['predios'=>$predios,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+            return $pdf->download('predioCultivo.pdf');
+    
+    }  
+
+    public function excel(Request $request)
+    {   
+        $predios= PredioCultivo::join('personas','predioCultivos.productor_id','=','personas.id')
+            ->join('productors','predioCultivos.productor_id','=','productors.id')
+            ->join('fincas','predioCultivos.finca_id','=','fincas.id')
+            ->join('veredas','predioCultivos.vereda_id','=','veredas.id')
+            ->select('personas.nombre','predioCultivos.productor_id','predioCultivos.finca_id','fincas.nombre as nombre_finca',
+            'predioCultivos.areaSembradaPredio','predioCultivos.fechaSiembra','predioCultivos.numeroPlantasTotales','predioCultivos.numeroPlantasProduccion',
+            'predioCultivos.plantasErradicadas','predioCultivos.plantasLevante','predioCultivos.TipoMora','predioCultivos.vereda_id','veredas.nombre as nombre_vereda',
+            'predioCultivos.tipoReproduccion','predioCultivos.bolsa')
+            ->orderBy('predioCultivos.id','desc')->get();
+            return [
+                'predios' => $predios
+            ];
+    
+    } 
 }

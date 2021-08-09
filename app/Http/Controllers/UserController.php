@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Persona;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -129,4 +130,34 @@ class UserController extends Controller
         $user->condicion = '1';
         $user->save();
     }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=User::count();
+        $personas= User::join('personas','users.id','=','personas.id')
+            ->join('roles','users.idrol','=','roles.id')
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento',
+            'personas.direccion','personas.telefono','personas.email','users.usuario','users.password',
+            'users.condicion','users.idrol','roles.nombre as rol')
+            ->orderBy('personas.id','desc')->get();
+            $pdf = \PDF::loadView('pdf.usuarios',['personas'=>$personas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+            return $pdf->download('usuarios.pdf');
+       
+    }
+
+    public function excel(Request $request)
+    {
+        $personas= User::join('personas','users.id','=','personas.id')
+            ->join('roles','users.idrol','=','roles.id')
+            ->select('personas.id','personas.nombre','personas.tipo_id','personas.num_documento',
+            'personas.direccion','personas.telefono','personas.email','users.usuario','users.password',
+            'users.condicion','users.idrol','roles.nombre as rol')
+            ->orderBy('personas.id','desc')->get();
+            return [
+                'personas' => $personas
+            ];
+    }
+
+
 }

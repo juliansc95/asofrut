@@ -14,18 +14,21 @@
                         </button>
                          <export-excel
                         class   = "button btn btn-success"
-                        :data   = arrayProductoFitosanitario
+                        :data   = arrayProductoFitosanitarioEx
                         worksheet = "Productos Fitosanitarios"
                         name    = "productos.xls">
                         Excel
                         </export-excel>
                         <export-excel
                         class   = "button btn btn-success"
-                        :data   = arrayProductoFitosanitario
+                        :data   = arrayProductoFitosanitarioEx
                         type="csv"
                         name    = "productos.xls">
                         csv
                         </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -128,6 +131,7 @@
                 errorProductoFitosanitario : 0,
                 errorMostrarMsjProductoFitosanitario:[],
                 arrayProductoFitosanitario:[],
+                arrayProductoFitosanitarioEx:[],
                 pagination:{
                     'total' : 0,
                     'current_page' : 0,
@@ -177,6 +181,17 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+            },   
+            listarProductoFitosanitarioEx(){
+                let me =this;
+                var url ='producto/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayProductoFitosanitarioEx= respuesta.productoFitosanitarios;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             },          
             cambiarPagina(page,buscar,criterio){
                 let me = this;
@@ -201,6 +216,9 @@
                 });
 
         },
+        cargarPdf(){
+                window.open('http://localhost/asofrut/public/producto/listarPdf');
+            },
             actualizarProductoFitosanitario(){
             if(this.validarProductoFitosanitario()){
                 return;
@@ -261,6 +279,7 @@
         },        
         mounted() {
            this.listarProductoFitosanitario(1,this.buscar,this.criterio);
+           this.listarProductoFitosanitarioEx();
         }
     }
 </script>
