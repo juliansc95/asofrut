@@ -52,7 +52,7 @@ Vue.component('dashboard', require('./components/Dashboard.vue'));
 Vue.component('gpx', require('./components/GpxUpload.vue'));
 Vue.component('fitosanitario', require('./components/ProductoFitosanitario.vue'));
 Vue.component('backup', require('./components/Backup.vue'));
-//Vue.component('area', require('./components/Area.vue'));
+Vue.component('gpxzone', require('./components/GpxZone.vue'));
 
 //Vistas Productor
 Vue.component('fincaproductor', require('./components/FincaProductor.vue'));

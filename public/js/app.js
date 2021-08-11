@@ -5780,7 +5780,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('dashboard', __webpack_req
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('gpx', __webpack_require__(266));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('fitosanitario', __webpack_require__(269));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('backup', __webpack_require__(307));
-//Vue.component('area', require('./components/Area.vue'));
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('gpxzone', __webpack_require__(315));
 
 //Vistas Productor
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('fincaproductor', __webpack_require__(274));
@@ -48988,7 +48988,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/productor/listarPdf');
+            window.open('http://gestion.asofrut.org/productor/listarPdf');
         },
         actualizarProductor: function actualizarProductor() {
             if (this.validarProductor()) {
@@ -51460,7 +51460,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/user/listarPdf');
+            window.open('http://gestion.asofrut.org/user/listarPdf');
         },
         actualizarPersona: function actualizarPersona() {
             if (this.validarPersona()) {
@@ -53139,7 +53139,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/finca/listarPdf');
+            window.open('http://gestion.asofrut.org/finca/listarPdf');
         },
         actualizarFinca: function actualizarFinca() {
             if (this.validarFinca()) {
@@ -54973,7 +54973,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/cultivo/listarPdf');
+            window.open('http://gestion.asofrut.org/cultivo/listarPdf');
         },
         actualizarCultivo: function actualizarCultivo() {
             if (this.validarCultivo()) {
@@ -56440,7 +56440,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/mora/listarPdf');
+            window.open('http://gestion.asofrut.org/mora/listarPdf');
         },
         actualizarCategoriaMora: function actualizarCategoriaMora() {
             if (this.validarCategoriaMora()) {
@@ -60548,7 +60548,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/lugarVenta/listarPdf');
+            window.open('http://gestion.asofrut.org/lugarVenta/listarPdf');
         },
         actualizarLugarVenta: function actualizarLugarVenta() {
             if (this.validarLugarVenta()) {
@@ -61699,7 +61699,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/fitosanitaria/listarPdf');
+            window.open('http://gestion.asofrut.org/fitosanitaria/listarPdf');
         },
         validarEncuesta: function validarEncuesta() {
             this.errorEncuesta = 0;
@@ -63756,7 +63756,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/encuesta/listarPdf');
+            window.open('http://gestion.asofrut.org/encuesta/listarPdf');
         },
         validarEncuesta: function validarEncuesta() {
             this.errorEncuesta = 0;
@@ -67256,7 +67256,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/cosecha/listarPdf');
+            window.open('http://gestion.asofrut.org/cosecha/listarPdf');
         },
         validarCosecha: function validarCosecha() {
             this.errorCosecha = 0;
@@ -68962,7 +68962,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/predioCultivo/listarPdf');
+            window.open('http://gestion.asofrut.org/predioCultivo/listarPdf');
         },
         validarPredioCultivo: function validarPredioCultivo() {
             this.errorPredioCultivo = 0;
@@ -70563,7 +70563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/poda/listarPdf');
+            window.open('http://gestion.asofrut.org/poda/listarPdf');
         },
         validarPoda: function validarPoda() {
             this.errorPoda = 0;
@@ -72267,7 +72267,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/plaga/listarPdf');
+            window.open('http://gestion.asofrut.org/plaga/listarPdf');
         },
         validarPlaga: function validarPlaga() {
             this.errorPlaga = 0;
@@ -74616,7 +74616,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/nutricion/listarPdf');
+            window.open('http://gestion.asofrut.org/nutricion/listarPdf');
         },
         validarNutricion: function validarNutricion() {
             this.errorNutricion = 0;
@@ -76605,7 +76605,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/tutorado/listarPdf');
+            window.open('http://gestion.asofrut.org/tutorado/listarPdf');
         },
         validarTutorado: function validarTutorado() {
             this.errorTutorado = 0;
@@ -77939,7 +77939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/riego/listarPdf');
+            window.open('http://gestion.asofrut.org/riego/listarPdf');
         },
         validarRiego: function validarRiego() {
             this.errorRiego = 0;
@@ -79711,7 +79711,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/practica/listarPdf');
+            window.open('http://gestion.asofrut.org/practica/listarPdf');
         },
         validarPractica: function validarPractica() {
             this.errorPractica = 0;
@@ -82439,7 +82439,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/enfermedad/listarPdf');
+            window.open('http://gestion.asofrut.org/enfermedad/listarPdf');
         },
         validarEnfermedad: function validarEnfermedad() {
             this.errorEnfermedad = 0;
@@ -84548,7 +84548,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/vocacion/listarPdf');
+            window.open('http://gestion.asofrut.org/vocacion/listarPdf');
         },
         validarVocacion: function validarVocacion() {
             this.errorVocacion = 0;
@@ -86058,7 +86058,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/suelo/listarPdf');
+            window.open('http://gestion.asofrut.org/suelo/listarPdf');
         },
         validarSuelo: function validarSuelo() {
             this.errorSuelo = 0;
@@ -87531,7 +87531,7 @@ var render = function() {
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-header" }, [
-            _vm._v("Cargar ubicacion finca archivo gpx")
+            _vm._v("Cargar ubicacion finca archivo gpx (Waypoint_)")
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
@@ -88038,7 +88038,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         cargarPdf: function cargarPdf() {
-            window.open('http://localhost/asofrut/public/producto/listarPdf');
+            window.open('http://gestion.asofrut.org/producto/listarPdf');
         },
         actualizarProductoFitosanitario: function actualizarProductoFitosanitario() {
             if (this.validarProductoFitosanitario()) {
@@ -88947,6 +88947,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -89271,7 +89288,53 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "card" }, [
-        _vm._m(1),
+        _c(
+          "div",
+          { staticClass: "card-header" },
+          [
+            _c("i", { staticClass: "fa fa-align-justify" }),
+            _vm._v(" Fincas\n                 "),
+            _c(
+              "export-excel",
+              {
+                staticClass: "button btn btn-success",
+                attrs: {
+                  data: _vm.arrayFinca,
+                  worksheet: "Fincas",
+                  name: "fincas.xls"
+                }
+              },
+              [_vm._v("\n            Excel\n           ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "export-excel",
+              {
+                staticClass: "button btn btn-success",
+                attrs: { data: _vm.arrayFinca, type: "csv", name: "fincas.xls" }
+              },
+              [_vm._v("\n            csv\n           ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    return _vm.cargarPdf()
+                  }
+                }
+              },
+              [
+                _c("i", { staticClass: "icon-doc" }),
+                _vm._v(" PDF\n            ")
+              ]
+            )
+          ],
+          1
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
           _c("div", { staticClass: "form-group row" }, [
@@ -89365,7 +89428,7 @@ var render = function() {
               "table",
               { staticClass: "table table-bordered table-striped table-sm" },
               [
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -90373,15 +90436,6 @@ var staticRenderFns = [
       _c("li", { staticClass: "breadcrumb-item" }, [
         _c("a", { attrs: { href: "/" } }, [_vm._v("Escritorio")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("i", { staticClass: "fa fa-align-justify" }),
-      _vm._v(" Fincas\n            ")
     ])
   },
   function() {
@@ -102242,6 +102296,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -102254,7 +102312,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       latitud: 0,
       longitud: 0,
       arrayGps: [],
-      arrayPuntos: []
+      arrayPuntos: [],
+      arrayZonas: [],
+      arrayLinea: [],
+      arrayPrueba: []
     };
   },
 
@@ -102304,11 +102365,41 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       }
       return markers;
+    },
+    getPolygons: function getPolygons() {
+      var me = this;
+      var url = 'gpxzones';
+      axios.get(url).then(function (response) {
+        var respuesta = response.data;
+        me.arrayZonas = respuesta.gps;
+        //me.arrayPrueba = [{lat:3.4298101533 ,lng: -76.5247765370},{lat:3.4298083931 ,lng: -76.5247526485},{lat:3.4298121650 ,lng: -76.5247606952},{lat:3.4298414178 ,lng: -76.5247724298}];
+        //me.arrayPrueba=  [{ lat: 3.429555, lng:-76.524206},
+        //                  { lat: 3.429565, lng:-76.524216}];
+        //var temp = '';
+        //temp = (me.arrayZonas[0]['linea']);
+        //for (let i = 0; i < me.arrayZonas.length; i++) {
+        //  me.arrayLinea[i] = $.parseJSON(me.arrayZonas[i]['linea']);
+        //  }
+        //me.arrayLinea= $.parseJSON(temp);
+        //console.log(me.arrayLinea);
+        //var flightPlanCoordinates = [];
+
+        //var ind = 0;
+        //for (let x of me.arrayLinea) {
+        //flightPlanCoordinates[ind]=new google.maps.LatLng(x.lat, x.lng);
+        //ind++;
+        //}
+        //console.log(flightPlanCoordinates);
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   },
   components: {},
   created: function created() {},
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.getPolygons();
+  }
 });
 
 /***/ }),
@@ -102330,24 +102421,33 @@ var render = function() {
         id: "googleMap"
       }
     },
-    _vm._l(_vm.getMarkers(), function(m, index) {
-      return _c("GmapMarker", {
-        key: index,
-        attrs: {
-          position: m.position,
-          clickable: true,
-          draggable: false,
-          title: m.title,
-          icon: m.icon
-        },
-        on: {
-          click: function($event) {
-            return _vm.clicked()
+    [
+      _vm._l(_vm.getMarkers(), function(m, index) {
+        return _c("GmapMarker", {
+          key: index,
+          attrs: {
+            position: m.position,
+            clickable: true,
+            draggable: false,
+            title: m.title,
+            icon: m.icon
+          },
+          on: {
+            click: function($event) {
+              return _vm.clicked()
+            }
           }
-        }
+        })
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.arrayZonas, function(linea) {
+        return _c("gmap-polygon", {
+          key: linea.id,
+          attrs: { paths: JSON.parse(linea.linea) }
+        })
       })
-    }),
-    1
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -102660,6 +102760,380 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-6f8759b9", module.exports)
+  }
+}
+
+/***/ }),
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(316)
+/* template */
+var __vue_template__ = __webpack_require__(317)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/GpxZone.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-802d40d8", Component.options)
+  } else {
+    hotAPI.reload("data-v-802d40d8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 316 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    mounted: function mounted() {
+        console.log('Component mounted.');
+        this.selectProductor();
+        this.selectFinca(this.productor_id);
+    },
+    data: function data() {
+        return {
+            name: '',
+            productor_id: 0,
+            finca_id: 0,
+            file: '',
+            success: '',
+            arrayProductor: [],
+            arrayFinca: []
+        };
+    },
+
+    methods: {
+        selectProductor: function selectProductor() {
+            var me = this;
+            var url = 'productor/selectProductor';
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayProductor = respuesta.personas;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        selectFinca: function selectFinca(id) {
+            var me = this;
+            var url = 'finca/selectFinca/' + id;
+            axios.get(url).then(function (response) {
+                var respuesta = response.data;
+                me.arrayFinca = respuesta.fincas;
+            }).catch(function (error) {
+                console.log(error);
+            });
+        },
+        onFileChange: function onFileChange(e) {
+            console.log(e.target.files[0]);
+            this.file = e.target.files[0];
+        },
+        formSubmit: function formSubmit(e) {
+            e.preventDefault();
+            var currentObj = this;
+
+            var config = {
+                headers: { 'content-type': 'multipart/form-data' }
+            };
+
+            var formData = new FormData();
+            formData.append('file', this.file);
+            formData.append('productor_id', this.productor_id);
+            formData.append('finca_id', this.finca_id);
+
+            axios.post('gpxzonesubmit', formData, config).then(function (response) {
+                currentObj.success = response.data.success;
+            }).catch(function (error) {
+                currentObj.output = error;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 317 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Cargar area finca archivo gpx(Track_2021)")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _vm.success != ""
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "alert alert-success",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                      " +
+                        _vm._s(_vm.success) +
+                        "\n                    "
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                attrs: { enctype: "multipart/form-data" },
+                on: { submit: _vm.formSubmit }
+              },
+              [
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-3 form-control-label",
+                      attrs: { for: "text-input" }
+                    },
+                    [_vm._v("Productor")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-9" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.productor_id,
+                            expression: "productor_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          click: function($event) {
+                            return _vm.selectFinca(_vm.productor_id)
+                          },
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.productor_id = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function($event) {
+                              return _vm.selectFinca(_vm.productor_id)
+                            }
+                          ]
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "0", disabled: "" } }, [
+                          _vm._v("Seleccione")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.arrayProductor, function(productor) {
+                          return _c("option", {
+                            key: productor.id,
+                            domProps: {
+                              value: productor.id,
+                              textContent: _vm._s(productor.nombre)
+                            }
+                          })
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-3 form-control-label",
+                      attrs: { for: "text-input" }
+                    },
+                    [_vm._v("Finca")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-9" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.finca_id,
+                            expression: "finca_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.finca_id = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "0", disabled: "" } }, [
+                          _vm._v("Seleccione")
+                        ]),
+                        _vm._v(" "),
+                        _vm._l(_vm.arrayFinca, function(finca) {
+                          return _c("option", {
+                            key: finca.id,
+                            domProps: {
+                              value: finca.id,
+                              textContent: _vm._s(finca.nombre)
+                            }
+                          })
+                        })
+                      ],
+                      2
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group row" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "col-md-3 form-control-label",
+                      attrs: { for: "text-input" }
+                    },
+                    [_vm._v("Archivo GPX")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-9" }, [
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "file" },
+                      on: { change: _vm.onFileChange }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("button", { staticClass: "btn btn-success" }, [
+                  _vm._v("Submit")
+                ])
+              ]
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-802d40d8", module.exports)
   }
 }
 

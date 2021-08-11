@@ -217,7 +217,7 @@
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/producto/listarPdf');
+                window.open('http://gestion.asofrut.org/producto/listarPdf');
             },
             actualizarProductoFitosanitario(){
             if(this.validarProductoFitosanitario()){

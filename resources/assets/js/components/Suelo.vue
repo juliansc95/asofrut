@@ -337,7 +337,7 @@ import vSelect from 'vue-select';
 
         },
             cargarPdf(){
-                window.open('http://localhost/asofrut/public/suelo/listarPdf');
+                window.open('http://gestion.asofrut.org/suelo/listarPdf');
             },    
             validarSuelo(){
             this.errorSuelo=0;

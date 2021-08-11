@@ -364,7 +364,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/riego/listarPdf');
+                window.open('http://gestion.asofrut.org/riego/listarPdf');
             },    
             validarRiego(){
             this.errorRiego=0;

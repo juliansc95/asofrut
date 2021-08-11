@@ -371,7 +371,7 @@ import Datepicker from 'vuejs-datepicker';
 
         },
          cargarPdf(){
-                window.open('http://localhost/asofrut/public/cultivo/listarPdf');
+                window.open('http://gestion.asofrut.org/cultivo/listarPdf');
             },
             actualizarCultivo(){
             if(this.validarCultivo()){

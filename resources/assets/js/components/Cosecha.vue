@@ -381,7 +381,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/cosecha/listarPdf');
+                window.open('http://gestion.asofrut.org/cosecha/listarPdf');
             },    
             validarCosecha(){
             this.errorCosecha=0;

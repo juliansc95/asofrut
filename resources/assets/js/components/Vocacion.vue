@@ -353,7 +353,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/vocacion/listarPdf');
+                window.open('http://gestion.asofrut.org/vocacion/listarPdf');
             },    
             validarVocacion(){
             this.errorVocacion=0;

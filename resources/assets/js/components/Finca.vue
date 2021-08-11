@@ -455,7 +455,7 @@
 
         },
             cargarPdf(){
-                window.open('http://localhost/asofrut/public/finca/listarPdf');
+                window.open('http://gestion.asofrut.org/finca/listarPdf');
             },
             actualizarFinca(){
             if(this.validarFinca()){

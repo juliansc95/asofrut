@@ -545,7 +545,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/practica/listarPdf');
+                window.open('http://gestion.asofrut.org/practica/listarPdf');
             },    
             validarPractica(){
             this.errorPractica=0;

@@ -458,7 +458,7 @@ import vSelect from 'vue-select';
 
         }, 
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/enfermedad/listarPdf');
+                window.open('http://gestion.asofrut.org/enfermedad/listarPdf');
             },   
             validarEnfermedad(){
             this.errorEnfermedad=0;

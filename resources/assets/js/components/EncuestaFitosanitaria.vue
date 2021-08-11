@@ -479,7 +479,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/fitosanitaria/listarPdf');
+                window.open('http://gestion.asofrut.org/fitosanitaria/listarPdf');
             },    
             validarEncuesta(){
             this.errorEncuesta=0;

@@ -447,7 +447,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/nutricion/listarPdf');
+                window.open('http://gestion.asofrut.org/nutricion/listarPdf');
             },    
             validarNutricion(){
             this.errorNutricion=0;

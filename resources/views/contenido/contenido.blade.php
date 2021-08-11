@@ -101,7 +101,7 @@
                <gmap></gmap>
             </template> 
             <template v-if="menu==25">
-              prueba 
+              <gpxzone></gpxzone> 
             </template>
             <template v-if="menu==23">
                 <lugarventa></lugarventa>

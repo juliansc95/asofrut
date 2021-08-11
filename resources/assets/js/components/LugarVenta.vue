@@ -217,7 +217,7 @@
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/lugarVenta/listarPdf');
+                window.open('http://gestion.asofrut.org/lugarVenta/listarPdf');
             },
             actualizarLugarVenta(){
             if(this.validarLugarVenta()){

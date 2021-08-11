@@ -106,6 +106,10 @@ Route::group(['middleware'=>['auth']],function(){
     Route::post('/cosecha/registrar', 'CosechaController@store');
 
     Route::post('/formSubmit','GpxUploadController@formSubmit');
+    Route::post('/gpxzonesubmit','GpxZonesController@formSubmit');
+    Route::get('/gpxzones','GpxZonesController@index');
+
+
 
      Route::group(['middleware'=>['Productor']],function(){
         Route::get('/cultivoP','CultivoController@indexProductor');   

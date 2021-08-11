@@ -267,7 +267,7 @@
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/mora/listarPdf');
+                window.open('http://gestion.asofrut.org/mora/listarPdf');
             },
             actualizarCategoriaMora(){
             if(this.validarCategoriaMora()){

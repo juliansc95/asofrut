@@ -494,7 +494,7 @@ import Datepicker from 'vuejs-datepicker';
 
         },
          cargarPdf(){
-                window.open('http://localhost/asofrut/public/productor/listarPdf');
+                window.open('http://gestion.asofrut.org/productor/listarPdf');
         },
             actualizarProductor(){
             if(this.validarProductor()){

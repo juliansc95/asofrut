@@ -698,7 +698,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/encuesta/listarPdf');
+                window.open('http://gestion.asofrut.org/encuesta/listarPdf');
             },    
             validarEncuesta(){
             this.errorEncuesta=0;

@@ -488,7 +488,7 @@ import vSelect from 'vue-select';
 
         },
          cargarPdf(){
-                window.open('http://localhost/asofrut/public/plaga/listarPdf');
+                window.open('http://gestion.asofrut.org/plaga/listarPdf');
             },    
             validarPlaga(){
             this.errorPlaga=0;

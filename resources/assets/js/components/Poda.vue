@@ -360,7 +360,7 @@ import vSelect from 'vue-select';
 
         },
          cargarPdf(){
-                window.open('http://localhost/asofrut/public/poda/listarPdf');
+                window.open('http://gestion.asofrut.org/poda/listarPdf');
             },    
             validarPoda(){
             this.errorPoda=0;

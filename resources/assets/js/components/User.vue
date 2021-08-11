@@ -352,7 +352,7 @@
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/user/listarPdf');
+                window.open('http://gestion.asofrut.org/user/listarPdf');
             },
             actualizarPersona(){
             if(this.validarPersona()){

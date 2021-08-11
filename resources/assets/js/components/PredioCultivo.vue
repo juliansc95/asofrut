@@ -379,7 +379,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/predioCultivo/listarPdf');
+                window.open('http://gestion.asofrut.org/predioCultivo/listarPdf');
             },    
             validarPredioCultivo(){
             this.errorPredioCultivo=0;

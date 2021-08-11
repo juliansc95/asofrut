@@ -308,7 +308,7 @@ import vSelect from 'vue-select';
 
         },
         cargarPdf(){
-                window.open('http://localhost/asofrut/public/tutorado/listarPdf');
+                window.open('http://gestion.asofrut.org/tutorado/listarPdf');
             },    
             validarTutorado(){
             this.errorTutorado=0;
