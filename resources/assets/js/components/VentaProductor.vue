@@ -9,6 +9,20 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Ventas
+                         <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayVentaEx
+                        worksheet = "Ventas"
+                        name    = "ventas.xls">
+                        Excel
+                        </export-excel>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayVentaEx
+                        type="csv"
+                        name    = "ventas.xls">
+                        csv
+                        </export-excel>
                     </div>
                     <!-- Listado-->
                     <template v-if="listado==1">
@@ -413,6 +427,7 @@
                 totalImpuesto: 0.0,
                 totalParcial: 0.0,
                 arrayVenta : [],
+                arrayVentaEx : [],
                 arrayProductor: [],
                 arrayLugarVenta: [],
                 arrayLinea:[],
@@ -542,6 +557,17 @@
                     var respuesta= response.data;
                     me.arrayVenta = respuesta.ventas.data;
                     me.pagination= respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarVentaEx (){
+                let me=this;
+                var url= 'venta/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.arrayVentaEx = respuesta.ventas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -1016,6 +1042,7 @@
         },
         mounted() {
             this.listarVenta(1,this.buscar,this.criterio);
+            this.listarVentaEx();
         }
     }
 </script>

@@ -14,8 +14,8 @@ class GpxZonesController extends Controller
         $fileName = time().$name.'.'.$request->file->getClientOriginalExtension();
         $request->file->move(public_path('upload'), $fileName);
         $slash='/';
-       // $feed = file_get_contents('/home/asofruto/Developer/asofrutf/public/upload'.$slash.$fileName);
-       $feed = file_get_contents('C:\xampp\htdocs\asofrut\public\upload'.$slash.$fileName);
+       $feed = file_get_contents('/home/asofruto/Developer/asofrutf/public/upload'.$slash.$fileName);
+       //$feed = file_get_contents('C:\xampp\htdocs\asofrut\public\upload'.$slash.$fileName);
        $gpx = simplexml_load_string($feed);
        
        $linea ="[";
@@ -45,7 +45,7 @@ class GpxZonesController extends Controller
             ->join('personas','gpxzones.productor_id','=','personas.id')
             ->join('fincas','gpxzones.finca_id','=','fincas.id')
             ->select('gpxzones.id','gpxzones.productor_id','gpxzones.finca_id',
-           'personas.nombre as nombre_persona','fincas.nombre as nombre_finca','gpxzones.linea',)
+           'personas.nombre as nombre_persona','fincas.nombre as nombre_finca','gpxzones.linea')
             ->orderBy('gpxzones.id', 'desc')->get();          
             return [
             'gps' => $gps

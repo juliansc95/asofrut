@@ -14,7 +14,7 @@ class GpxUploadController extends Controller
         $fileName = time().$name.'.'.$request->file->getClientOriginalExtension();
         $request->file->move(public_path('upload'), $fileName);
         $slash='/';
-        $feed = file_get_contents('/home/asofrutf/Developer/asofrut/public/upload'.$slash.$fileName);
+        $feed = file_get_contents('/home/asofruto/Developer/asofrutf/public/upload'.$slash.$fileName);
        //$feed = file_get_contents('C:\xampp\htdocs\asofrut\public\upload'.$slash.$fileName);
         $gpx = simplexml_load_string($feed);
         

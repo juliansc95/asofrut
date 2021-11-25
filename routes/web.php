@@ -26,6 +26,9 @@ Route::group(['middleware'=>['auth']],function(){
         return view('contenido/contenido');
     })->name('main');
     
+
+    
+
      //Rutas de los select
      Route::get('/tipoId/selectTipoId','TipoIdController@selectTipoId');
      Route::get('/sexo/selectSexo','SexoController@selectSexo');
@@ -116,6 +119,9 @@ Route::group(['middleware'=>['auth']],function(){
         Route::get('/productorP','ProductorController@indexProductor');
         Route::get('/fincaP','FincaController@indexProductor');
         Route::get('/ventaP','ventaController@indexProductor');
+        Route::get('/finca/listarPdf','FincaController@listarPdf')->name('fincas_pdf');
+        Route::get('/fitosanitaria/listarPdf','EncuestaFitosanitariaController@listarPdf')->name('fitosanitaria_pdf');
+        Route::get('/fitosanitaria/excel','EncuestaFitosanitariaController@excel');
        });
 
        Route::group(['middleware'=>['Contador']],function(){
@@ -267,12 +273,20 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/venta/obtenerDetalles', 'VentaController@obtenerVentaCategoria');
     Route::put('/venta/pasarFacturacion', 'VentaController@pasarFacturacion');    
     Route::put('/venta/pasarDisponiblePago', 'VentaController@pasarDisponiblePago');    
-    Route::put('/venta/pasarPagado', 'VentaController@pasarPagado'); 
+    Route::put('/venta/pasarPagado', 'VentaController@pasarPagado');
+    Route::get('/venta/pdf/{id}','VentaController@pdf')->name('venta_pdf');
+    Route::get('/venta/listarPdf','VentaController@listarPdf')->name('ventas_pdf');
+    Route::get('/venta/listarDiario','VentaController@listarPdfDiario')->name('ventas_dia_pdf');
+    
+    
     
      //Rutas Categoria Moras
     Route::get('/categoriaMora','CategoriaMoraController@index');
     Route::get('/categoriaMora/buscarCategoria','CategoriaMoraController@buscarCategoria');
-    Route::get('/categoriaMora/listarCategoria','CategoriaMoraController@listarCategoria');      
+    Route::get('/categoriaMora/listarCategoria','CategoriaMoraController@listarCategoria'); 
+    
+     //Rutas Excel
+     Route::get('/venta/excel','VentaController@excel');
     });
 
     Route::group(['middleware'=>['TecnicoExtensionista']],function(){
@@ -290,6 +304,52 @@ Route::group(['middleware'=>['auth']],function(){
         Route::get('/productor','ProductorController@index');
         Route::post('/productor/registrar','ProductorController@store');
         Route::put('/productor/actualizar','ProductorController@update');
+
+        //Rutas PDF
+    Route::get('/finca/listarPdf','FincaController@listarPdf')->name('fincas_pdf');
+    Route::get('/cultivo/listarPdf','CultivoController@listarPdf')->name('cultivos_pdf');
+    Route::get('/productor/listarPdf','ProductorController@listarPdf')->name('productores_pdf');           
+    Route::get('/fitosanitaria/listarPdf','EncuestaFitosanitariaController@listarPdf')->name('fitosanitaria_pdf');
+    Route::get('/producto/listarPdf','ProductoFitosanitarioController@listarPdf')->name('producto_pdf');
+    Route::get('/mora/listarPdf','CategoriaMoraController@listarPdf')->name('mora_pdf');
+    Route::get('/lugarVenta/listarPdf','LugarVentaController@listarPdf')->name('lugarVenta_pdf');
+    Route::get('/user/listarPdf','UserController@listarPdf')->name('users_pdf');
+    Route::get('/predioCultivo/listarPdf','PredioCultivoController@listarPdf')->name('predioCultivo_pdf');
+    Route::get('/poda/listarPdf','PodaController@listarPdf')->name('poda_pdf');
+    Route::get('/plaga/listarPdf','PlagaController@listarPdf')->name('plaga_pdf');
+    Route::get('/nutricion/listarPdf','NutricionController@listarPdf')->name('nutricion_pdf');
+    Route::get('/tutorado/listarPdf','TutoradoController@listarPdf')->name('tutorado_pdf');
+    Route::get('/riego/listarPdf','RiegoController@listarPdf')->name('riego_pdf');
+    Route::get('/practica/listarPdf','PracticaController@listarPdf')->name('practica_pdf');
+    Route::get('/enfermedad/listarPdf','EnfermedadController@listarPdf')->name('enfermedad_pdf');
+    Route::get('/suelo/listarPdf','SueloController@listarPdf')->name('suelo_pdf');
+    Route::get('/vocacion/listarPdf','VocacionController@listarPdf')->name('vocacion_pdf');
+    Route::get('/cosecha/listarPdf','CosechaController@listarPdf')->name('cosecha_pdf');
+    Route::get('/encuesta/listarPdf','EncuestaAsofrutController@listarPdf')->name('encuesta_pdf');
+
+
+    //Rutas Excel
+    Route::get('/finca/excel','FincaController@excel');
+    Route::get('/cultivo/excel','CultivoController@excel');
+    Route::get('/productor/excel','ProductorController@excel');
+    Route::get('/fitosanitaria/excel','EncuestaFitosanitariaController@excel');
+    Route::get('/producto/excel','ProductoFitosanitarioController@excel');
+    Route::get('/venta/excel','VentaController@excel');
+    Route::get('/mora/excel','CategoriaMoraController@excel');
+    Route::get('/lugarVenta/excel','LugarVentaController@excel');
+    Route::get('/user/excel','UserController@excel');
+    Route::get('/predioCultivo/excel','PredioCultivoController@excel');
+    Route::get('/poda/excel','PodaController@excel');
+    Route::get('/plaga/excel','PlagaController@excel');
+    Route::get('/nutricion/excel','NutricionController@excel');
+    Route::get('/tutorado/excel','TutoradoController@excel');
+    Route::get('/riego/excel','RiegoController@excel');
+    Route::get('/practica/excel','PracticaController@excel');
+    Route::get('/enfermedad/excel','EnfermedadController@excel');
+    Route::get('/suelo/excel','SueloController@excel');
+    Route::get('/vocacion/excel','VocacionController@excel');
+    Route::get('/cosecha/excel','CosechaController@excel');
+    Route::get('/encuesta/excel','EncuestaAsofrutController@excel');
     });
 
     

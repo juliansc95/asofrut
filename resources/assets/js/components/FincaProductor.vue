@@ -23,9 +23,6 @@
                     name    = "fincas.xls">
                     csv
                    </export-excel>
-                    <button type="button" @click="cargarPdf()" class="btn btn-info">
-                            <i class="icon-doc"></i>&nbsp;PDF
-                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -433,6 +430,9 @@
                 });
 
         },
+        cargarPdf(){
+                window.open('/asofrut/public/finca/listarPdf');
+            },
             actualizarFinca(){
             if(this.validarFinca()){
                 return;

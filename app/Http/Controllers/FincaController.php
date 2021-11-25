@@ -107,7 +107,7 @@ class FincaController extends Controller
 
     public function indexProductor(Request $request)
     {
-        if (!$request->ajax()) return redirect('/');
+        //if (!$request->ajax()) return redirect('/');
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         $id = \Auth::user()->id;

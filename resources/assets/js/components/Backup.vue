@@ -113,7 +113,7 @@
         },
         methods : {
             backupBD(){
-                window.open('/asofrut/public/backup');
+                window.open('/backup');
             },
             cambiarPagina(page,buscar,criterio){
                 let me = this;

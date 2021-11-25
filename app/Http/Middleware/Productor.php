@@ -13,7 +13,7 @@ class Productor
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+  /*  public function handle($request, Closure $next)
     {
         
         if (auth()->user()->idrol==4){
@@ -23,5 +23,13 @@ class Productor
             return redirect('/');
             }
         
+    }*/
+    public function handle($request, Closure $next)
+    {
+        if (auth()->check() && auth()->user()->idrol==4)
+        return $next($request);
+ 
+        return redirect('/');
+ 
     }
 }

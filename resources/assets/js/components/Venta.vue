@@ -596,7 +596,7 @@
                     console.log(error);
                 });
             },
-            listarVentaEx (page,buscar,criterio){
+            listarVentaEx (){
                 let me=this;
                 var url= 'venta/excel';
                 axios.get(url).then(function (response) {
