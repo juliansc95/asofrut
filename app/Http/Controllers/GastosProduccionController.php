@@ -67,6 +67,70 @@ class GastosProduccionController extends Controller
         ];
     }
 
+    public function indexProductor(Request $request)
+    {
+        //if (!$request->ajax()) return redirect('/');
+
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        $user = \Auth::user()->id;
+        
+        if ($buscar==''){
+            $id = $request->id;
+            $gastos = ProduccionConcepto::join('gastosproduccions','produccionconceptos.gastosProduccion_id','=','gastosproduccions.id')
+            ->join('conceptogastos','produccionconceptos.conceptoGasto_id','=','conceptogastos.id')
+            ->join('personas','gastosproduccions.productor_id','=','personas.id')
+            ->join('fincas','gastosproduccions.finca_id','=','fincas.id')
+            ->select('produccionconceptos.id','produccionconceptos.gastosProduccion_id',
+            'produccionconceptos.conceptoGasto_id','produccionconceptos.descripcion','produccionconceptos.otro',
+            'produccionconceptos.valorTotal','gastosproduccions.productor_id','gastosproduccions.finca_id','gastosproduccions.fechaRegistro',
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
+            ->where('gastosproduccions.productor_id','=',$user)
+            ->orderBy('produccionconceptos.id', 'asc')->paginate(10);
+        }
+        if($criterio == 'personas'){
+            $gastos = ProduccionConcepto::join('gastosproduccions','produccionconceptos.gastosProduccion_id','=','gastosproduccions.id')
+            ->join('conceptogastos','produccionconceptos.conceptoGasto_id','=','conceptogastos.id')
+            ->join('personas','gastosproduccions.productor_id','=','personas.id')
+            ->join('fincas','gastosproduccions.finca_id','=','fincas.id')
+            ->select('produccionconceptos.id','produccionconceptos.gastosProduccion_id',
+            'produccionconceptos.conceptoGasto_id','produccionconceptos.descripcion','produccionconceptos.otro',
+            'produccionconceptos.valorTotal','gastosproduccions.productor_id','gastosproduccions.finca_id','gastosproduccions.fechaRegistro',
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
+            ->where('gastosproduccions.productor_id','=',$user)
+            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->orderBy('produccionconceptos.id', 'asc')->paginate(10);
+        }
+        else{
+            $gastos = ProduccionConcepto::join('gastosproduccions','produccionconceptos.gastosProduccion_id','=','gastosproduccions.id')
+            ->join('conceptogastos','produccionconceptos.conceptoGasto_id','=','conceptogastos.id')
+            ->join('personas','gastosproduccions.productor_id','=','personas.id')
+            ->join('fincas','gastosproduccions.finca_id','=','fincas.id')
+            ->select('produccionconceptos.id','produccionconceptos.gastosProduccion_id',
+            'produccionconceptos.conceptoGasto_id','produccionconceptos.descripcion','produccionconceptos.otro',
+            'produccionconceptos.valorTotal','gastosproduccions.productor_id','gastosproduccions.finca_id','gastosproduccions.fechaRegistro',
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')  
+            //->where('establecimientoconceptos.'.$criterio, 'like', '%'. $buscar . '%')
+            ->where('gastosproduccions.productor_id','=',$user)
+            ->orderBy('produccionconceptos.id', 'asc')->paginate(10);
+        }
+        
+        return [
+            'pagination' => [
+                'total'        => $gastos->total(),
+                'current_page' => $gastos->currentPage(),
+                'per_page'     => $gastos->perPage(),
+                'last_page'    => $gastos->lastPage(),
+                'from'         => $gastos->firstItem(),
+                'to'           => $gastos->lastItem(),
+            ],
+            'gastos' => $gastos
+        ];
+    }
+
+
+
+
     public function store(Request $request)
     {
         if (!$request->ajax()) return redirect('/');

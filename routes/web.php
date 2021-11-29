@@ -116,16 +116,19 @@ Route::group(['middleware'=>['auth']],function(){
 
     //Rutas Gastos Establecimiento
     Route::get('/gastos', 'GastosEstablecimientoController@index');
+    Route::get('/gastosPro', 'GastosEstablecimientoController@indexProductor');
     Route::post('/gastos/registrar', 'GastosEstablecimientoController@store');
     Route::get('/gastos/excel', 'GastosEstablecimientoController@excel');
 
     //Rutas Gastos Adecuacion Renovacion
     Route::get('/renovacion', 'AdecuacionRenovacionController@index');
+    Route::get('/renovacionPro', 'AdecuacionRenovacionController@indexProductor');
     Route::post('/renovacion/registrar', 'AdecuacionRenovacionController@store');
     Route::get('/renovacion/excel', 'AdecuacionRenovacionController@excel');
   
     //Rutas Gastos Produccion
     Route::get('/produccion', 'GastosProduccionController@index');
+    Route::get('/produccionPro', 'GastosProduccionController@indexProductor');
     Route::post('/produccion/registrar', 'GastosProduccionController@store');
     Route::get('/produccion/excel', 'GastosProduccionController@excel');
 

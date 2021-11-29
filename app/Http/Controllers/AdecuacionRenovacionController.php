@@ -67,6 +67,68 @@ class AdecuacionRenovacionController extends Controller
         ];
     }
 
+    public function indexProductor(Request $request)
+    {
+        //if (!$request->ajax()) return redirect('/');
+        
+        $buscar = $request->buscar;
+        $criterio = $request->criterio;
+        $user = \Auth::user()->id;
+
+        if ($buscar==''){
+            $id = $request->id;
+            $gastos = RenovacionConcepto::join('adecuacionrenovacions','renovacionconceptos.adecuacionrenovacion_id','=','adecuacionrenovacions.id')
+            ->join('conceptogastos','renovacionconceptos.conceptoGasto_id','=','conceptogastos.id')
+            ->join('personas','adecuacionrenovacions.productor_id','=','personas.id')
+            ->join('fincas','adecuacionrenovacions.finca_id','=','fincas.id')
+            ->select('renovacionconceptos.id','renovacionconceptos.adecuacionrenovacion_id',
+            'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
+            'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
+            ->where('adecuacionrenovacions.productor_id','=',$user) 
+            ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
+        }
+        if($criterio == 'personas'){
+            $gastos = RenovacionConcepto::join('adecuacionrenovacions','renovacionconceptos.adecuacionrenovacion_id','=','adecuacionrenovacions.id')
+            ->join('conceptogastos','renovacionconceptos.conceptoGasto_id','=','conceptogastos.id')
+            ->join('personas','adecuacionrenovacions.productor_id','=','personas.id')
+            ->join('fincas','adecuacionrenovacions.finca_id','=','fincas.id')
+            ->select('renovacionconceptos.id','renovacionconceptos.adecuacionrenovacion_id',
+            'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
+            'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')   
+            ->where('adecuacionrenovacions.productor_id','=',$user) 
+            ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
+            ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
+        }
+        else{
+            $gastos = RenovacionConcepto::join('adecuacionrenovacions','renovacionconceptos.adecuacionrenovacion_id','=','adecuacionrenovacions.id')
+            ->join('conceptogastos','renovacionconceptos.conceptoGasto_id','=','conceptogastos.id')
+            ->join('personas','adecuacionrenovacions.productor_id','=','personas.id')
+            ->join('fincas','adecuacionrenovacions.finca_id','=','fincas.id')
+            ->select('renovacionconceptos.id','renovacionconceptos.adecuacionrenovacion_id',
+            'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
+            'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca') 
+            ->where('adecuacionrenovacions.productor_id','=',$user) 
+            //->where('establecimientoconceptos.'.$criterio, 'like', '%'. $buscar . '%')
+            ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
+        }
+        
+        return [
+            'pagination' => [
+                'total'        => $gastos->total(),
+                'current_page' => $gastos->currentPage(),
+                'per_page'     => $gastos->perPage(),
+                'last_page'    => $gastos->lastPage(),
+                'from'         => $gastos->firstItem(),
+                'to'           => $gastos->lastItem(),
+            ],
+            'gastos' => $gastos
+        ];
+    }
+
+
     public function store(Request $request)
     {
         if (!$request->ajax()) return redirect('/');
