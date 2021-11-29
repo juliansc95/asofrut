@@ -109,6 +109,15 @@
             <template v-if="menu==24">
                 <fitosanitario></fitosanitario>
             </template>
+            <template v-if="menu==27">
+                <gastos></gastos>
+            </template>
+            <template v-if="menu==28">
+                <adecuacion></adecuacion>
+            </template>
+            <template v-if="menu==29">
+                <produccion></produccion>
+            </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
                 <ventatecnico></ventatecnico>

@@ -53,6 +53,8 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/unidadAplicacion/selectUnidad','EquipoAplicacionController@selectUnidad');
      Route::get('/unidadDosis/selectDosis','EquipoAplicacionController@selectDosis');
      Route::get('/producto/selectProducto2','EquipoAplicacionController@selectProducto2');
+     Route::get('/concepto/selectConcepto','ConceptoGastoController@selectConcepto');
+
 
      //Rutas Encuesta fitosanitaria
      Route::get('/fitosanitaria', 'EncuestaFitosanitariaController@index');
@@ -112,6 +114,20 @@ Route::group(['middleware'=>['auth']],function(){
     Route::post('/gpxzonesubmit','GpxZonesController@formSubmit');
     Route::get('/gpxzones','GpxZonesController@index');
 
+    //Rutas Gastos Establecimiento
+    Route::get('/gastos', 'GastosEstablecimientoController@index');
+    Route::post('/gastos/registrar', 'GastosEstablecimientoController@store');
+    Route::get('/gastos/excel', 'GastosEstablecimientoController@excel');
+
+    //Rutas Gastos Adecuacion Renovacion
+    Route::get('/renovacion', 'AdecuacionRenovacionController@index');
+    Route::post('/renovacion/registrar', 'AdecuacionRenovacionController@store');
+    Route::get('/renovacion/excel', 'AdecuacionRenovacionController@excel');
+  
+    //Rutas Gastos Produccion
+    Route::get('/produccion', 'GastosProduccionController@index');
+    Route::post('/produccion/registrar', 'GastosProduccionController@store');
+    Route::get('/produccion/excel', 'GastosProduccionController@excel');
 
 
      Route::group(['middleware'=>['Productor']],function(){

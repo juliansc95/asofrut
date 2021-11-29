@@ -53,6 +53,9 @@ Vue.component('gpx', require('./components/GpxUpload.vue'));
 Vue.component('fitosanitario', require('./components/ProductoFitosanitario.vue'));
 Vue.component('backup', require('./components/Backup.vue'));
 Vue.component('gpxzone', require('./components/GpxZone.vue'));
+Vue.component('gastos', require('./components/GastosEstablecimiento.vue'));
+Vue.component('adecuacion', require('./components/GastosAdecuacion.vue'));
+Vue.component('produccion', require('./components/GastosProduccion.vue'));
 
 //Vistas Productor
 Vue.component('fincaproductor', require('./components/FincaProductor.vue'));
