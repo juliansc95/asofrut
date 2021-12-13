@@ -133,6 +133,11 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/produccion/excel', 'GastosProduccionController@excel');
 
 
+    //Resumen
+    Route::get('/resumen', 'ResumenController@index');
+    Route::get('/resumenP', 'ResumenController@indexProductor');
+
+
      Route::group(['middleware'=>['Productor']],function(){
         Route::get('/cultivoP','CultivoController@indexProductor');   
         Route::get('/productorP','ProductorController@indexProductor');
