@@ -19,7 +19,7 @@
                                 <div class="input-group">
                                     <select class="form-control col-md-3" v-model="criterio">
                                       <option value="personas">Productor</option>
-                                      
+
                                     </select>
                                     <input type="text" v-model="buscar" @keyup.enter="listarPlaga(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
                                     <button type="submit" @click="listarPlaga(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
@@ -43,29 +43,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+
                                 <tr v-for="plaga in arrayPlaga" :key="plaga.id">
                                     <td>
                                         <button type="button" @click="abrirModal('plaga','actualizar',plaga)" class="btn btn-warning btn-sm">
                                           <i class="icon-eye"></i>
                                         </button> &nbsp;
-                                    </td> 
+                                    </td>
                                     <td v-text="plaga.nombre"></td>
-                                    <td v-text="plaga.nombre_finca"></td> 
-                                    <td v-text="plaga.monitoreo"></td> 
-                                    <td v-text="plaga.perlaTierra"></td> 
-                                    <td v-text="plaga.barrenadorCultivo"></td> 
-                                    <td v-text="plaga.tripsCultivo"></td> 
-                                    <td v-text="plaga.afidiosCultivos"></td>  
+                                    <td v-text="plaga.nombre_finca"></td>
+                                    <td v-text="plaga.monitoreo"></td>
+                                    <td v-text="plaga.perlaTierra"></td>
+                                    <td v-text="plaga.barrenadorCultivo"></td>
+                                    <td v-text="plaga.tripsCultivo"></td>
+                                    <td v-text="plaga.afidiosCultivos"></td>
                                     <td v-text="plaga.acarosCultivos"></td>
-                                    <td v-text="plaga.cochinillaCultivos"></td>                                     
+                                    <td v-text="plaga.cochinillaCultivos"></td>
                                 </tr>
                             </tbody>
                         </table>
                         </div>
                         <nav>
                             <ul class="pagination">
-                                <li class="page-item" v-if="pagination.current_page > 1"> 
+                                <li class="page-item" v-if="pagination.current_page > 1">
                                     <a class="page-link" href="#" @click.prevent="cambiarPagina(pagination.current_page - 1,buscar,criterio)">Ant</a>
                                 </li>
                                 <li class="page-item" v-for="page in pagesNumber" :key="page" :class="[page==isActived ? 'active' : '']">
@@ -98,16 +98,16 @@
                                       <select class="form-control" v-model="productor_id" @click="selectFinca(productor_id)" @change="selectFinca(productor_id)">
                                             <option value="0" disabled>Seleccione</option>
                                             <option v-for="productor in arrayProductor" :key="productor.id" :value="productor.id" v-text="productor.nombre" ></option>
-                                      </select>  
+                                      </select>
                                     </div>
-                                </div>                                  
+                                </div>
                                  <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Finca</label>
                                     <div class="col-md-9">
                                       <select class="form-control" v-model="finca_id">
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option v-for="finca in arrayFinca" :key="finca.id" :value="finca.id" v-text="finca.nombre" ></option>
-                                      </select>  
+                                      </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -117,7 +117,7 @@
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option value="Si">Si</option>
                                             <option value="No">No</option>
-                                      </select>  
+                                      </select>
                                     </div>
                                     <label class="col-md-3 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-3">
@@ -132,7 +132,7 @@
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option value="Si">Si</option>
                                             <option value="No">No</option>
-                                      </select>  
+                                      </select>
                                     </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Tipo de Manejo</label>
                                     <div class="col-md-2">
@@ -144,13 +144,13 @@
                                             <option value="Caldos minerales">Caldos minerales</option>
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
-                                    </div> 
+                                    </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionPerla"  class="form-control" placeholder="">
                                     </div>
-                                </div>     
-                                       
+                                </div>
+
 
                                 <div class="form-group row">
                                     <label class="col-md-2 form-control-label" for="text-input">Presencia de barrenador en el cultivo</label>
@@ -159,7 +159,7 @@
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option value="Si">Si</option>
                                             <option value="No">No</option>
-                                      </select>  
+                                      </select>
                                     </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Tipo de Manejo</label>
                                     <div class="col-md-2">
@@ -171,12 +171,12 @@
                                             <option value="Caldos minerales">Caldos minerales</option>
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
-                                    </div> 
+                                    </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionBarrenador"  class="form-control" placeholder="">
                                     </div>
-                                </div> 
+                                </div>
 
                                  <div class="form-group row">
                                     <label class="col-md-2 form-control-label" for="text-input">Presencia de trips en el cultivo</label>
@@ -185,7 +185,7 @@
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option value="Si">Si</option>
                                             <option value="No">No</option>
-                                      </select>  
+                                      </select>
                                     </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Tipo de Manejo</label>
                                     <div class="col-md-2">
@@ -197,12 +197,12 @@
                                             <option value="Caldos minerales">Caldos minerales</option>
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
-                                    </div> 
+                                    </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionTrips"  class="form-control" placeholder="">
                                     </div>
-                                </div> 
+                                </div>
 
                                  <div class="form-group row">
                                     <label class="col-md-2 form-control-label" for="text-input">Presencia de Afidios o pulgones en el cultivo</label>
@@ -211,7 +211,7 @@
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option value="Si">Si</option>
                                             <option value="No">No</option>
-                                      </select>  
+                                      </select>
                                     </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Tipo de Manejo</label>
                                     <div class="col-md-2">
@@ -223,12 +223,12 @@
                                             <option value="Caldos minerales">Caldos minerales</option>
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
-                                    </div> 
+                                    </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionAfidios"  class="form-control" placeholder="">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="form-group row">
                                     <label class="col-md-2 form-control-label" for="text-input">Presencia Ácaros en el cultivo</label>
@@ -237,7 +237,7 @@
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option value="Si">Si</option>
                                             <option value="No">No</option>
-                                      </select>  
+                                      </select>
                                     </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Tipo de Manejo</label>
                                     <div class="col-md-2">
@@ -249,12 +249,12 @@
                                             <option value="Caldos minerales">Caldos minerales</option>
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
-                                    </div> 
+                                    </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionAcaros"  class="form-control" placeholder="">
                                     </div>
-                                </div> 
+                                </div>
                                    <div class="form-group row">
                                     <label class="col-md-2 form-control-label" for="text-input">Presencia Cochinilla en el cultivo</label>
                                     <div class="col-md-2">
@@ -262,7 +262,7 @@
                                             <option value="Seleccione" disabled>Seleccione</option>
                                             <option value="Si">Si</option>
                                             <option value="No">No</option>
-                                      </select>  
+                                      </select>
                                     </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Tipo de Manejo</label>
                                     <div class="col-md-2">
@@ -274,13 +274,13 @@
                                             <option value="Caldos minerales">Caldos minerales</option>
                                             <option value="Agroquimicos">Agroquimicos</option>
                                       </select>
-                                    </div> 
+                                    </div>
                                     <label class="col-md-2 form-control-label" for="text-input">Frecuencia Aplicacion(Meses)</label>
                                     <div class="col-md-2">
                                        <input type="number" v-model="frecuenciaAplicacionCochinilla"  class="form-control" placeholder="">
                                     </div>
-                                </div> 
-                             
+                                </div>
+
 
                                 <div v-show="errorPlaga" class="form-group row div-error">
                                     <div class="text-center text-error">
@@ -313,11 +313,11 @@ import vSelect from 'vue-select';
                 plaga_id:0,
                 productor_id:0,
                 finca_id:0,
-                monitoreo:'Seleccione', 
+                monitoreo:'Seleccione',
                 frecuenciaMonitoreo:0,
-                perlaTierra:'Seleccione', 
+                perlaTierra:'Seleccione',
                 tipoManejoPerla:'Seleccione',
-                frecuenciaAplicacionPerla:0, 
+                frecuenciaAplicacionPerla:0,
                 barrenadorCultivo:'Seleccione',
                 tipoManejoBarrenador:'Seleccione',
                 frecuenciaAplicacionBarrenador:0,
@@ -325,11 +325,11 @@ import vSelect from 'vue-select';
                 tipoManejoTrips:'Seleccione',
                 frecuenciaAplicacionTrips:0,
                 afidiosCultivos:'Seleccione',
-                tipoManejoAfidios:'Seleccione', 
-                frecuenciaAplicacionAfidios:0,            
-                acarosCultivos:'Seleccione', 
+                tipoManejoAfidios:'Seleccione',
+                frecuenciaAplicacionAfidios:0,
+                acarosCultivos:'Seleccione',
                 tipoManejoAcaros:'Seleccione',
-                frecuenciaAplicacionAcaros:0, 
+                frecuenciaAplicacionAcaros:0,
                 cochinillaCultivos:'Seleccione',
                 tipoManejoCochinilla:'Seleccione',
                 frecuenciaAplicacionCochinilla:0,
@@ -351,7 +351,7 @@ import vSelect from 'vue-select';
                 criterio: 'personas',
                 buscar: '',
                 arrayProductor : [],
-                arrayFinca : []                  
+                arrayFinca : []
             }
         },
         computed:{
@@ -413,7 +413,7 @@ import vSelect from 'vue-select';
                 .catch(function (error) {
                     console.log(error);
                 })
-            },          
+            },
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza a la pagina actual
@@ -429,23 +429,23 @@ import vSelect from 'vue-select';
             axios.post('plaga/registrar',{
                 'productor_id':this.productor_id,
                 'finca_id':this.finca_id,
-                'monitoreo':this.monitoreo, 
+                'monitoreo':this.monitoreo,
                 'frecuenciaMonitoreo':this.frecuenciaMonitoreo,
-                'perlaTierra':this.perlaTierra, 
+                'perlaTierra':this.perlaTierra,
                 'tipoManejoPerla':this.tipoManejoPerla,
-                'frecuenciaAplicacionPerla':this.frecuenciaAplicacionPerla, 
+                'frecuenciaAplicacionPerla':this.frecuenciaAplicacionPerla,
                 'barrenadorCultivo':this.barrenadorCultivo,
                 'tipoManejoBarrenador':this.tipoManejoBarrenador,
                 'frecuenciaAplicacionBarrenador':this.frecuenciaAplicacionBarrenador,
                 'tripsCultivo':this.tripsCultivo,
                 'tipoManejoTrips':this.tipoManejoTrips,
                 'frecuenciaAplicacionTrips':this.frecuenciaAplicacionTrips,
-                'afidiosCultivos':this.afidiosCultivos, 
-                'tipoManejoAfidios':this.tipoManejoAfidios, 
-                'frecuenciaAplicacionAfidios':this.frecuenciaAplicacionAfidios,            
-                'acarosCultivos':this.acarosCultivos, 
+                'afidiosCultivos':this.afidiosCultivos,
+                'tipoManejoAfidios':this.tipoManejoAfidios,
+                'frecuenciaAplicacionAfidios':this.frecuenciaAplicacionAfidios,
+                'acarosCultivos':this.acarosCultivos,
                 'tipoManejoAcaros':this.tipoManejoAcaros,
-                'frecuenciaAplicacionAcaros':this.frecuenciaAplicacionAcaros, 
+                'frecuenciaAplicacionAcaros':this.frecuenciaAplicacionAcaros,
                 'cochinillaCultivos':this.cochinillaCultivos,
                 'tipoManejoCochinilla':this.tipoManejoCochinilla,
                 'frecuenciaAplicacionCochinilla':this.frecuenciaAplicacionCochinilla
@@ -457,7 +457,7 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
             validarPlaga(){
             this.errorPlaga=0;
             this.errorMostrarMsjPlaga=[];
@@ -472,23 +472,23 @@ import vSelect from 'vue-select';
                         this.tituloModal='';
                         this.productor_id=0;
                         this.finca_id=0;
-                        this.monitoreo='Seleccione', 
+                        this.monitoreo='Seleccione',
                         this.frecuenciaMonitoreo=0,
-                        this.perlaTierra='Seleccione', 
+                        this.perlaTierra='Seleccione',
                         this.tipoManejoPerla='Seleccione',
-                        this.frecuenciaAplicacionPerla=0, 
+                        this.frecuenciaAplicacionPerla=0,
                         this.barrenadorCultivo='Seleccione',
                         this.tipoManejoBarrenador='Seleccione',
                         this.frecuenciaAplicacionBarrenador=0,
                         this.tripsCultivo='Seleccione',
                         this.tipoManejoTrips='Seleccione',
                         this.frecuenciaAplicacionTrips=0,
-                        this.afidiosCultivos='Seleccione', 
-                        this.tipoManejoAfidios='Seleccione', 
-                        this.frecuenciaAplicacionAfidios=0,            
-                        this.acarosCultivos='Seleccione', 
+                        this.afidiosCultivos='Seleccione',
+                        this.tipoManejoAfidios='Seleccione',
+                        this.frecuenciaAplicacionAfidios=0,
+                        this.acarosCultivos='Seleccione',
                         this.tipoManejoAcaros='Seleccione',
-                        this.frecuenciaAplicacionAcaros=0, 
+                        this.frecuenciaAplicacionAcaros=0,
                         this.cochinillaCultivos='Seleccione',
                         this.tipoManejoCochinilla='Seleccione',
                         this.frecuenciaAplicacionCochinilla=0
@@ -497,7 +497,7 @@ import vSelect from 'vue-select';
             abrirModal(modelo,accion,data = []){
             switch (modelo) {
                 case "plaga":
-                {    
+                {
                 switch (accion) {
                     case 'registrar':
                     {
@@ -505,26 +505,26 @@ import vSelect from 'vue-select';
                         this.tituloModal = 'Registrar control de plagas';
                         this.productor_id=0;
                         this.finca_id=0;
-                        this.monitoreo='Seleccione', 
+                        this.monitoreo='Seleccione',
                         this.frecuenciaMonitoreo=0,
-                        this.perlaTierra='Seleccione', 
+                        this.perlaTierra='Seleccione',
                         this.tipoManejoPerla='Seleccione',
-                        this.frecuenciaAplicacionPerla=0, 
+                        this.frecuenciaAplicacionPerla=0,
                         this.barrenadorCultivo='Seleccione',
                         this.tipoManejoBarrenador='Seleccione',
                         this.frecuenciaAplicacionBarrenador=0,
                         this.tripsCultivo='Seleccione',
                         this.tipoManejoTrips='Seleccione',
                         this.frecuenciaAplicacionTrips=0,
-                        this.afidiosCultivos='Seleccione', 
-                        this.tipoManejoAfidios='Seleccione', 
-                        this.frecuenciaAplicacionAfidios=0,            
-                        this.acarosCultivos='Seleccione', 
+                        this.afidiosCultivos='Seleccione',
+                        this.tipoManejoAfidios='Seleccione',
+                        this.frecuenciaAplicacionAfidios=0,
+                        this.acarosCultivos='Seleccione',
                         this.tipoManejoAcaros='Seleccione',
-                        this.frecuenciaAplicacionAcaros=0, 
+                        this.frecuenciaAplicacionAcaros=0,
                         this.cochinillaCultivos='Seleccione',
                         this.tipoManejoCochinilla='Seleccione',
-                        this.frecuenciaAplicacionCochinilla=0     
+                        this.frecuenciaAplicacionCochinilla=0
                         this.tipoAccion=1;
                         break;
                     }  case 'actualizar':
@@ -546,9 +546,9 @@ import vSelect from 'vue-select';
                         this.tripsCultivo=data['tripsCultivo'];
                         this.tipoManejoTrips=data['tipoManejoTrips'];
                         this.frecuenciaAplicacionTrips=data['frecuenciaAplicacionTrips'];
-                        this.afidiosCultivos=data['afidiosCultivos']; 
+                        this.afidiosCultivos=data['afidiosCultivos'];
                         this.tipoManejoAfidios=data['tipoManejoAfidios'];
-                        this.frecuenciaAplicacionAfidios=data['frecuenciaAplicacionAfidios'];         
+                        this.frecuenciaAplicacionAfidios=data['frecuenciaAplicacionAfidios'];
                         this.acarosCultivos=data['acarosCultivos'];
                         this.tipoManejoAcaros=data['tipoManejoAcaros'];
                         this.frecuenciaAplicacionAcaros=data['frecuenciaAplicacionAcaros'];
@@ -556,17 +556,17 @@ import vSelect from 'vue-select';
                         this.tipoManejoCochinilla=data['tipoManejoCochinilla'];
                         this.frecuenciaAplicacionCochinilla=data['frecuenciaAplicacionCochinilla'];
                         break;
-                    }       
+                    }
                 }
                 }
             }
             this.selectProductor();
-            this.selectFinca(this.productor_id);   
+            this.selectFinca(this.productor_id);
         }
-        },        
+        },
         mounted() {
            this.listarPlaga(1,this.buscar,this.criterio);
-           
+
         }
     }
 </script>
