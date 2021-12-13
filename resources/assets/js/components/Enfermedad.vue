@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('enfermedad','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayEnfermedadEx
+                            worksheet = "Enfermedades"
+                            name    = "enfermedad.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayEnfermedadEx
+                            type="csv"
+                            name    = "enfermedad.xls">
+                            csv
+                        </export-excel>
+                         <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -307,6 +324,7 @@ import vSelect from 'vue-select';
                 nombreAdherente:'',
                 dosisAplicacion:0,               
                 arrayEnfermedad: [],
+                arrayEnfermedadEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -360,6 +378,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayEnfermedad= respuesta.enfermedads.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+             listarEnfermedadEx(){
+                let me =this;
+                var url ='enfermedad/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayEnfermedadEx= respuesta.enfermedads;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -427,7 +456,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        }, 
+        cargarPdf(){
+                window.open('http://gestion.asofrut.org/enfermedad/listarPdf');
+            },   
             validarEnfermedad(){
             this.errorEnfermedad=0;
             this.errorMostrarMsjPractica=[];
@@ -527,7 +559,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarEnfermedad(1,this.buscar,this.criterio);
-           
+           this.listarEnfermedadEx();
         }
     }
 </script>

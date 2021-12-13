@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('persona','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arraypersonaEx
+                            worksheet = "Usuarios"
+                            name    = "usuarios.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arraypersonaEx
+                            type="csv"
+                            name    = "usuarios.xls">
+                            csv
+                        </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -209,6 +226,7 @@
                 password:'',
                 idrol:0,  
                 arraypersona: [],
+                arraypersonaEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -262,6 +280,17 @@
                     var respuesta = response.data;
                     me.arraypersona= respuesta.personas.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarPersonaEx(){
+                let me =this;
+                var url ='user/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arraypersonaEx= respuesta.personas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -322,6 +351,9 @@
                 });
 
         },
+        cargarPdf(){
+                window.open('http://gestion.asofrut.org/user/listarPdf');
+            },
             actualizarPersona(){
             if(this.validarPersona()){
                 return;
@@ -504,6 +536,7 @@
         },        
         mounted() {
            this.listarPersona(1,this.buscar,this.criterio);
+           this.listarPersonaEx();
         }
     }
 </script>

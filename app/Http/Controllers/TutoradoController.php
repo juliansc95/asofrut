@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Tutorado;
+use Carbon\Carbon;
 
 
 class TutoradoController extends Controller
@@ -69,4 +70,31 @@ class TutoradoController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Tutorado::count();
+        $tutorados= Tutorado::join('personas','tutorados.productor_id','=','personas.id')
+        ->join('productors','tutorados.productor_id','=','productors.id')
+        ->join('fincas','tutorados.finca_id','=','fincas.id')
+        ->select('personas.nombre','tutorados.productor_id','tutorados.finca_id','fincas.nombre as nombre_finca',
+        'tutorados.tutorado','tutorados.tipoTutorado','tutorados.tipoMadera')
+        ->orderBy('tutorados.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.tutorado',['tutorados'=>$tutorados,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('tutorado.pdf');     
+    }
+
+    public function excel(Request $request)
+    {
+        $tutorados= Tutorado::join('personas','tutorados.productor_id','=','personas.id')
+        ->join('productors','tutorados.productor_id','=','productors.id')
+        ->join('fincas','tutorados.finca_id','=','fincas.id')
+        ->select('personas.nombre','tutorados.productor_id','tutorados.finca_id','fincas.nombre as nombre_finca',
+        'tutorados.tutorado','tutorados.tipoTutorado','tutorados.tipoMadera')
+        ->orderBy('tutorados.id','desc')->get();
+        return [
+            'tutorados' => $tutorados
+        ];
+    }    
 }

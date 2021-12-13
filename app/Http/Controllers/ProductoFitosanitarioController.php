@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\ProductoFitosanitario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class ProductoFitosanitarioController extends Controller
 {
     public function index(Request $request)
@@ -63,5 +64,26 @@ class ProductoFitosanitarioController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $productoFitosanitarios = ProductoFitosanitario::select('id','nombre')
+        ->orderBy('id','asc')->get();
+        $cont=ProductoFitosanitario::count();
+
+        $pdf = \PDF::loadView('pdf.producto',['productoFitosanitarios'=>$productoFitosanitarios,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('producto.pdf');
+        
+    }
+
+    public function excel(Request $request)
+    {
+        $productoFitosanitarios = ProductoFitosanitario::select('id','nombre')
+        ->orderBy('id','asc')->get();
+        return [
+            'productoFitosanitarios'=>$productoFitosanitarios
+        ];
     }
 }

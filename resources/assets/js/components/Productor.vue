@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('productor','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayProductorEx
+                        worksheet = "Productores"
+                        name    = "productores.xls">
+                        Excel
+                    </export-excel>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayProductorEx
+                        type="csv"
+                        name    = "productores.xls">
+                        csv
+                    </export-excel>
+                    <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -272,6 +289,7 @@ import Datepicker from 'vuejs-datepicker';
                 fechaIngreso:'',
                 fotocopiaCedula:'',   
                 arrayProductor: [],
+                arrayProductorEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -331,6 +349,17 @@ import Datepicker from 'vuejs-datepicker';
                     var respuesta = response.data;
                     me.arrayProductor= respuesta.personas.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarProductorEx(){
+                let me =this;
+                var url ='productor/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayProductorEx= respuesta.personas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -463,6 +492,9 @@ import Datepicker from 'vuejs-datepicker';
                     console.log(error);
                 });
 
+        },
+         cargarPdf(){
+                window.open('http://gestion.asofrut.org/productor/listarPdf');
         },
             actualizarProductor(){
             if(this.validarProductor()){
@@ -608,6 +640,7 @@ import Datepicker from 'vuejs-datepicker';
         },        
         mounted() {
            this.listarProductor(1,this.buscar,this.criterio);
+           this.listarProductorEx();
         }
     }
 </script>

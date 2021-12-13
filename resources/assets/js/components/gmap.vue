@@ -17,6 +17,10 @@
             @click="clicked()"
         >
         </GmapMarker>
+
+        <gmap-polygon v-for="linea in arrayZonas" :key="linea.id"
+         :paths="JSON.parse(linea.linea)">
+         </gmap-polygon>
     </GmapMap>
 </template>
 <script>
@@ -31,6 +35,10 @@ export default {
                 latitud:0,
                 longitud:0,              
                 arrayGps:[],
+                arrayPuntos : [],
+                arrayZonas:[],
+                arrayLinea:[],
+                arrayPrueba:[]
             }
         },
   name: "SiteMap",
@@ -62,6 +70,7 @@ export default {
         axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayGps= respuesta.gps;
+                    me.arrayPuntos= me.arrayGps['data'];
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -73,7 +82,9 @@ export default {
           { lat: 2.954829514, lng:-76.269498922},
           { lat: 2.964829514, lng:-76.279498922}
         ];
-       for(let i=0;i<me.arrayGps['data'].length;i++){
+
+        
+       for(let i=0;i<me.arrayPuntos.length;i++){
           markers.push({
               position:  { lat: parseFloat(me.arrayGps['data'][i]['latitud']), lng:parseFloat(me.arrayGps['data'][i]['longitud'])},
               title:me.arrayGps['data'][i]['nombre_finca'],
@@ -82,10 +93,41 @@ export default {
         }
         return markers;      
     },
+    getPolygons() {
+       let me =this;
+       var url ='gpxzones';
+        axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayZonas= respuesta.gps;
+                    //me.arrayPrueba = [{lat:3.4298101533 ,lng: -76.5247765370},{lat:3.4298083931 ,lng: -76.5247526485},{lat:3.4298121650 ,lng: -76.5247606952},{lat:3.4298414178 ,lng: -76.5247724298}];
+                    //me.arrayPrueba=  [{ lat: 3.429555, lng:-76.524206},
+                    //                  { lat: 3.429565, lng:-76.524216}];
+                    //var temp = '';
+                    //temp = (me.arrayZonas[0]['linea']);
+                    //for (let i = 0; i < me.arrayZonas.length; i++) {
+                      //  me.arrayLinea[i] = $.parseJSON(me.arrayZonas[i]['linea']);
+                      //  }
+                    //me.arrayLinea= $.parseJSON(temp);
+                    //console.log(me.arrayLinea);
+                   //var flightPlanCoordinates = [];
+          
+                   //var ind = 0;
+                   //for (let x of me.arrayLinea) {
+                   //flightPlanCoordinates[ind]=new google.maps.LatLng(x.lat, x.lng);
+                   //ind++;
+                    //}
+            //console.log(flightPlanCoordinates);
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });   
+    },
   },
   components: {},
   created() {},
   mounted() {
+    this.getPolygons();
   }
 };
 </script>

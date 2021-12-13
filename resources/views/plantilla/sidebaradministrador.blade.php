@@ -22,6 +22,9 @@
                             <li @click="menu=21" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-bag"></i> Mapa fincas</a>
                             </li>
+                            <li @click="menu=25" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-bag"></i>Cargar Area</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">
@@ -35,6 +38,15 @@
                             </li>
                             <li @click="menu=24" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i> Productos Fitosanitarios</a>
+                            </li>
+                            <li @click="menu=27" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i> Gastos establecimiento</a>
+                            </li>
+                            <li @click="menu=28" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i>Gastos adecuacion y renovacion</a>
+                            </li>
+                            <li @click="menu=29" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i>Gastos produccion,cosecha y postcosecha</a>
                             </li>
                         </ul>
                     </li>
@@ -60,6 +72,9 @@
                             </li>
                             <li @click="menu=8" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-user-following"></i> Roles</a>
+                            </li>
+                            <li @click="menu=26" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-user-following"></i> Copia de seguridad</a>
                             </li>
                         </ul>
                     </li>

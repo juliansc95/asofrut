@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('predio','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayPredioCultivoEx
+                            worksheet = "Predio Cultivo"
+                            name    = "predioCultivo.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayPredioCultivoEx
+                            type="csv"
+                            name    = "predioCultivo.xls">
+                            csv
+                        </export-excel>
+                         <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -223,6 +240,7 @@ import vSelect from 'vue-select';
                 tipoReproduccion:'',
                 bolsa:'Seleccione',                
                 arrayPredioCultivo: [],
+                arrayPredioCultivoEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -277,6 +295,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayPredioCultivo= respuesta.predios.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarPredioCultivoEx(page,buscar,criterio){
+                let me =this;
+                var url ='predioCultivo/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayPredioCultivoEx= respuesta.predios;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -348,7 +377,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://gestion.asofrut.org/predioCultivo/listarPdf');
+            },    
             validarPredioCultivo(){
             this.errorPredioCultivo=0;
             this.errorMostrarMsjCultivo=[];
@@ -427,7 +459,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarPredioCultivo(1,this.buscar,this.criterio);
-           
+           this.listarPredioCultivoEx();
         }
     }
 </script>

@@ -178,4 +178,45 @@ class CultivoController extends Controller
         $cultivo->lugarVenta_id = $request->lugarVenta_id;
         $cultivo->save();
     }
+
+    public function listarPdf(Request $request)
+    {      
+            $ahora= Carbon::now('America/Bogota');
+            $cultivos= Cultivo::join('productors','cultivos.productor_id','=','productors.id')
+            ->join('personas','cultivos.productor_id','=','personas.id')
+            ->join('fincas','cultivos.finca_id','=','fincas.id')
+            ->join('cadenas','cultivos.cadena_id','=','cadenas.id')
+            ->join('lugarVentas','cultivos.lugarVenta_id','=','lugarVentas.id')
+            ->select('cultivos.id','cultivos.productor_id','cultivos.cadena_id','cultivos.areaSembrada',
+            'cultivos.fechaSiembra','cultivos.numeroPlantulasArboles','cultivos.totalVentasKgAnioAnterior',
+            'cultivos.precioPromedio','cultivos.TotalVentasAnioAnterior','cultivos.lugarVenta_id',
+            'personas.nombre as nombre_persona','fincas.nombre as nombre_finca','cadenas.nombre as nombre_cadena',
+            'lugarVentas.nombre as nombre_lugarVenta')
+            ->orderBy('cultivos.id','desc')->get();
+            $cont=Cultivo::count();
+
+            $pdf = \PDF::loadView('pdf.cultivos',['cultivos'=>$cultivos,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+            return $pdf->download('cultivos.pdf'); 
+       
+        
+    }
+
+    public function excel(Request $request)
+    {      
+            $cultivos= Cultivo::join('productors','cultivos.productor_id','=','productors.id')
+            ->join('personas','cultivos.productor_id','=','personas.id')
+            ->join('fincas','cultivos.finca_id','=','fincas.id')
+            ->join('cadenas','cultivos.cadena_id','=','cadenas.id')
+            ->join('lugarVentas','cultivos.lugarVenta_id','=','lugarVentas.id')
+            ->select('cultivos.id','cultivos.productor_id','cultivos.cadena_id','cultivos.areaSembrada',
+            'cultivos.fechaSiembra','cultivos.numeroPlantulasArboles','cultivos.totalVentasKgAnioAnterior',
+            'cultivos.precioPromedio','cultivos.TotalVentasAnioAnterior','cultivos.lugarVenta_id',
+            'personas.nombre as nombre_persona','fincas.nombre as nombre_finca','cadenas.nombre as nombre_cadena',
+            'lugarVentas.nombre as nombre_lugarVenta')
+            ->orderBy('cultivos.id','desc')->get();
+            return [
+                'cultivos' => $cultivos
+            ];
+    }
+
 }

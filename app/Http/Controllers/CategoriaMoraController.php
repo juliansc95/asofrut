@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CategoriaMora;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CategoriaMoraController extends Controller
@@ -114,4 +115,28 @@ class CategoriaMoraController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $categoriaMoras= CategoriaMora::select('id','nombre','valorUnitario','ValorDonacion','valorTransporte',
+        'valorAsohof','valorCuatroPorMil')
+        ->orderBy('id','asc')->get();
+        $cont=CategoriaMora::count();
+
+        $pdf = \PDF::loadView('pdf.mora',['categoriaMoras'=>$categoriaMoras,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('mora.pdf');
+    }
+
+    public function excel(Request $request)
+    {
+        $categoriaMoras= CategoriaMora::select('id','nombre','valorUnitario','ValorDonacion','valorTransporte',
+        'valorAsohof','valorCuatroPorMil')
+        ->orderBy('id','asc')->get();
+        return [
+            'categoriaMoras' => $categoriaMoras
+        ];
+        
+    }
+
 }

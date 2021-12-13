@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('practica','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayPracticaEx
+                            worksheet = "Practicas"
+                            name    = "practicas.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayPracticaEx
+                            type="csv"
+                            name    = "practicas.xls">
+                            csv
+                        </export-excel>
+                         <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -386,6 +403,7 @@ import vSelect from 'vue-select';
                 institucionCertificado:'',
                 tiempo:0,           
                 arrayPractica: [],
+                arrayPracticaEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -439,6 +457,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayPractica= respuesta.practicas.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+             listarPracticaEx(){
+                let me =this;
+                var url ='practica/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayPracticaEx= respuesta.practicas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -514,7 +543,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://gestion.asofrut.org/practica/listarPdf');
+            },    
             validarPractica(){
             this.errorPractica=0;
             this.errorMostrarMsjPractica=[];
@@ -638,6 +670,7 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarPractica(1,this.buscar,this.criterio);
+           this.listarPracticaEx();
            
         }
     }

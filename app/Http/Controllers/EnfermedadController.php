@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Enfermedad;
+use Carbon\Carbon;
+
 
 
 class EnfermedadController extends Controller
@@ -91,5 +93,38 @@ class EnfermedadController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Enfermedad::count();
+        $enfermedads= Enfermedad::join('personas','enfermedads.productor_id','=','personas.id')
+        ->join('productors','enfermedads.productor_id','=','productors.id')
+        ->join('fincas','enfermedads.finca_id','=','fincas.id')
+        ->select('personas.nombre','enfermedads.productor_id','enfermedads.finca_id','fincas.nombre as nombre_finca',
+        'enfermedads.monitoreo','enfermedads.frecuenciaMonitoreo','enfermedads.antracnosis','enfermedads.tipoManejoAntra','enfermedads.frecuenciaAntra',
+        'enfermedads.botritys','enfermedads.tipoManejoBotritys','enfermedads.frecuenciaBotritys','enfermedads.mildeo',
+        'enfermedads.tipoManejoMildeo','enfermedads.frecuenciaMildeo','enfermedads.mildeoVelloso','enfermedads.tipoManejoMildeoVelloso','enfermedads.frecuenciaMildeoVelloso',
+        'enfermedads.adherentes','enfermedads.nombreAdherente','enfermedads.dosisAplicacion')
+        ->orderBy('enfermedads.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.enfermedad',['enfermedads'=>$enfermedads,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('enfermedad.pdf');   
+    }
+
+    public function excel(Request $request)
+    {
+        $enfermedads= Enfermedad::join('personas','enfermedads.productor_id','=','personas.id')
+        ->join('productors','enfermedads.productor_id','=','productors.id')
+        ->join('fincas','enfermedads.finca_id','=','fincas.id')
+        ->select('personas.nombre','enfermedads.productor_id','enfermedads.finca_id','fincas.nombre as nombre_finca',
+        'enfermedads.monitoreo','enfermedads.frecuenciaMonitoreo','enfermedads.antracnosis','enfermedads.tipoManejoAntra','enfermedads.frecuenciaAntra',
+        'enfermedads.botritys','enfermedads.tipoManejoBotritys','enfermedads.frecuenciaBotritys','enfermedads.mildeo',
+        'enfermedads.tipoManejoMildeo','enfermedads.frecuenciaMildeo','enfermedads.mildeoVelloso','enfermedads.tipoManejoMildeoVelloso','enfermedads.frecuenciaMildeoVelloso',
+        'enfermedads.adherentes','enfermedads.nombreAdherente','enfermedads.dosisAplicacion')
+        ->orderBy('enfermedads.id','desc')->get();
+        return [
+            'enfermedads' => $enfermedads
+        ];
     }
 }

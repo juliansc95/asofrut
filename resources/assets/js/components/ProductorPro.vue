@@ -9,6 +9,20 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Productores
+                         <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayProductor
+                        worksheet = "Productores"
+                        name    = "productores.xls">
+                        Excel
+                    </export-excel>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayProductor
+                        type="csv"
+                        name    = "productores.xls">
+                        csv
+                    </export-excel>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">

@@ -39,6 +39,10 @@
                 <rol></rol>
             </template>
 
+            <template v-if="menu==26">
+                <backup></backup>
+            </template>
+
             <template v-if="menu==9">
                 <predio></predio>
             </template>
@@ -96,12 +100,23 @@
             <template v-if="menu==21">
                <gmap></gmap>
             </template> 
-
+            <template v-if="menu==25">
+              <gpxzone></gpxzone> 
+            </template>
             <template v-if="menu==23">
                 <lugarventa></lugarventa>
             </template>
             <template v-if="menu==24">
                 <fitosanitario></fitosanitario>
+            </template>
+            <template v-if="menu==27">
+                <gastos></gastos>
+            </template>
+            <template v-if="menu==28">
+                <adecuacion></adecuacion>
+            </template>
+            <template v-if="menu==29">
+                <produccion></produccion>
             </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">

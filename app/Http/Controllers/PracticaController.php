@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Practica;
+use Carbon\Carbon;
+
 
 class PracticaController extends Controller
 {
@@ -105,4 +107,43 @@ class PracticaController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {   
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Practica::count();    
+        $practicas= Practica::join('personas','practicas.productor_id','=','personas.id')
+        ->join('productors','practicas.productor_id','=','productors.id')
+        ->join('fincas','practicas.finca_id','=','fincas.id')
+        ->select('personas.nombre','practicas.productor_id','practicas.finca_id','fincas.nombre as nombre_finca',
+        'practicas.vivenda','practicas.viveSitio','practicas.bateriaSanitaria','practicas.pozoSeptico','practicas.zonaBarbecho',
+        'practicas.usaBarbecho','practicas.agroquimicos','practicas.mezclaAgroquimicos','practicas.usaAgroquimicos',
+        'practicas.bodegaMateriales','practicas.usaBodega','practicas.canastillas','practicas.usaCanastillas','practicas.trajeProteccion',
+        'practicas.usaTraje','practicas.puntoEcologico','practicas.usaPuntoEcologico','practicas.botiquin','practicas.usaBotiquin',
+        'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado',
+        'practicas.tiempo')
+        ->orderBy('practicas.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.practicas',['practicas'=>$practicas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('practicas.pdf');   
+    }
+
+    public function excel(Request $request)
+    {   
+        $practicas= Practica::join('personas','practicas.productor_id','=','personas.id')
+        ->join('productors','practicas.productor_id','=','productors.id')
+        ->join('fincas','practicas.finca_id','=','fincas.id')
+        ->select('personas.nombre','practicas.productor_id','practicas.finca_id','fincas.nombre as nombre_finca',
+        'practicas.vivenda','practicas.viveSitio','practicas.bateriaSanitaria','practicas.pozoSeptico','practicas.zonaBarbecho',
+        'practicas.usaBarbecho','practicas.agroquimicos','practicas.mezclaAgroquimicos','practicas.usaAgroquimicos',
+        'practicas.bodegaMateriales','practicas.usaBodega','practicas.canastillas','practicas.usaCanastillas','practicas.trajeProteccion',
+        'practicas.usaTraje','practicas.puntoEcologico','practicas.usaPuntoEcologico','practicas.botiquin','practicas.usaBotiquin',
+        'practicas.extintor','practicas.usaExtintor','practicas.capacitacionesBPA','practicas.certificadas','practicas.institucionCertificado',
+        'practicas.tiempo')
+        ->orderBy('practicas.id','desc')->get();
+        return [
+            'practicas' => $practicas
+        ];
+        
+    }
+           
 }

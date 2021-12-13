@@ -155,4 +155,59 @@ class EncuestaFitosanitariaController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');    
+        $encuestas= EncuestaFitosanitaria::join('personas','encuesta_fitosanitarias.productor_id','=','personas.id')
+            ->join('productors','encuesta_fitosanitarias.productor_id','=','productors.id')
+            ->join('fincas','encuesta_fitosanitarias.finca_id','=','fincas.id')
+            ->join('lineas','encuesta_fitosanitarias.linea_id','=','lineas.id')
+            ->join('producto_fitosanitarios','encuesta_fitosanitarias.producto_fitosanitario_id','=','producto_fitosanitarios.id')
+            ->join('unidad_dosis','encuesta_fitosanitarias.unidad_dosis_id','=','unidad_dosis.id')
+            ->join('unidad_aplicaciones','encuesta_fitosanitarias.unidad_aplicaciones_id','=','unidad_aplicaciones.id')
+            ->join('equipo_aplicaciones','encuesta_fitosanitarias.equipo_aplicaciones_id','=','equipo_aplicaciones.id')
+            ->join('metodo_aplicaciones','encuesta_fitosanitarias.metodo_aplicaciones_id','=','metodo_aplicaciones.id')
+            ->select('personas.nombre','encuesta_fitosanitarias.productor_id','encuesta_fitosanitarias.finca_id','fincas.nombre as nombre_finca',
+            'encuesta_fitosanitarias.fechaControl','encuesta_fitosanitarias.productoSembrado','encuesta_fitosanitarias.lote',
+            'encuesta_fitosanitarias.linea_id','lineas.nombre as nombre_linea','encuesta_fitosanitarias.numeroPlantas',
+            'encuesta_fitosanitarias.producto_fitosanitario_id','producto_fitosanitarios.nombre as nombre_producto','encuesta_fitosanitarias.cantidad_dosis',
+            'encuesta_fitosanitarias.unidad_dosis_id','unidad_dosis.nombre as unidad_dosis','encuesta_fitosanitarias.cantidad_aplicacion',
+            'encuesta_fitosanitarias.unidad_aplicaciones_id','unidad_aplicaciones.nombre as unidad_aplicaciones',
+            'encuesta_fitosanitarias.equipo_aplicaciones_id','equipo_aplicaciones.nombre as equipo_aplicaciones','encuesta_fitosanitarias.metodo_aplicaciones_id',
+            'metodo_aplicaciones.nombre as metodo_aplicaciones')
+            ->orderBy('encuesta_fitosanitarias.id','desc')->get();
+            $cont=EncuestaFitosanitaria::count();
+
+            $pdf = \PDF::loadView('pdf.fitosanitaria',['encuestas'=>$encuestas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+            return $pdf->download('fitosanitaria.pdf');
+        
+    }
+
+    public function excel(Request $request)
+    {  
+        $encuestas= EncuestaFitosanitaria::join('personas','encuesta_fitosanitarias.productor_id','=','personas.id')
+            ->join('productors','encuesta_fitosanitarias.productor_id','=','productors.id')
+            ->join('fincas','encuesta_fitosanitarias.finca_id','=','fincas.id')
+            ->join('lineas','encuesta_fitosanitarias.linea_id','=','lineas.id')
+            ->join('producto_fitosanitarios','encuesta_fitosanitarias.producto_fitosanitario_id','=','producto_fitosanitarios.id')
+            ->join('unidad_dosis','encuesta_fitosanitarias.unidad_dosis_id','=','unidad_dosis.id')
+            ->join('unidad_aplicaciones','encuesta_fitosanitarias.unidad_aplicaciones_id','=','unidad_aplicaciones.id')
+            ->join('equipo_aplicaciones','encuesta_fitosanitarias.equipo_aplicaciones_id','=','equipo_aplicaciones.id')
+            ->join('metodo_aplicaciones','encuesta_fitosanitarias.metodo_aplicaciones_id','=','metodo_aplicaciones.id')
+            ->select('personas.nombre','encuesta_fitosanitarias.productor_id','encuesta_fitosanitarias.finca_id','fincas.nombre as nombre_finca',
+            'encuesta_fitosanitarias.fechaControl','encuesta_fitosanitarias.productoSembrado','encuesta_fitosanitarias.lote',
+            'encuesta_fitosanitarias.linea_id','lineas.nombre as nombre_linea','encuesta_fitosanitarias.numeroPlantas',
+            'encuesta_fitosanitarias.producto_fitosanitario_id','producto_fitosanitarios.nombre as nombre_producto','encuesta_fitosanitarias.cantidad_dosis',
+            'encuesta_fitosanitarias.unidad_dosis_id','unidad_dosis.nombre as unidad_dosis','encuesta_fitosanitarias.cantidad_aplicacion',
+            'encuesta_fitosanitarias.unidad_aplicaciones_id','unidad_aplicaciones.nombre as unidad_aplicaciones',
+            'encuesta_fitosanitarias.equipo_aplicaciones_id','equipo_aplicaciones.nombre as equipo_aplicaciones','encuesta_fitosanitarias.metodo_aplicaciones_id',
+            'metodo_aplicaciones.nombre as metodo_aplicaciones')
+            ->orderBy('encuesta_fitosanitarias.id','desc')->get();
+            return [
+                'encuestas' => $encuestas
+            ];
+           
+        
+    }
 }

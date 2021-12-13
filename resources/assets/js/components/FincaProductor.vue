@@ -9,6 +9,20 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="fa fa-align-justify"></i> Fincas
+                         <export-excel
+                    class   = "button btn btn-success" 
+                    :data   = arrayFinca
+                    worksheet = "Fincas"
+                    name    = "fincas.xls">
+                    Excel
+                   </export-excel>
+                    <export-excel
+                    class   = "button btn btn-success"
+                    :data   = arrayFinca
+                    type="csv"
+                    name    = "fincas.xls">
+                    csv
+                   </export-excel>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -416,6 +430,9 @@
                 });
 
         },
+        cargarPdf(){
+                window.open('/asofrut/public/finca/listarPdf');
+            },
             actualizarFinca(){
             if(this.validarFinca()){
                 return;

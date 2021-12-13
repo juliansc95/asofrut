@@ -101,4 +101,39 @@ class NutricionController extends Controller
             DB::rollback();
         }
     }
+
+    public function listarPdf(Request $request)
+    {       
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Nutricion::count();
+        $nutricions= Nutricion::join('personas','nutricions.productor_id','=','personas.id')
+        ->join('productors','nutricions.productor_id','=','productors.id')
+        ->join('fincas','nutricions.finca_id','=','fincas.id')
+        ->select('personas.nombre','nutricions.productor_id','nutricions.finca_id','fincas.nombre as nombre_finca',
+        'nutricions.analisis','nutricions.fechaAnalisis','nutricions.fertilizaAnalisis','nutricions.aplicacionesCal','nutricions.aplicoSiembraCal',
+        'nutricions.dosisAplicacionCal','nutricions.formaAplicacionCal','nutricions.frecuenciaAplicacionCal','nutricions.fechaCal',
+        'nutricions.aplicacionesMateriaOrganica','nutricions.aplicoSiembraMateriaOrganica','nutricions.dosisAplicacionMateriaOrganica',
+        'nutricions.formaAplicacionMateriaOrganica','nutricions.frecuenciaAplicacionMateriaOrganica',
+        'nutricions.fechaMateriaOrganica','nutricions.fechaUltimaFertilizacion','nutricions.formaAplicacionFert','nutricions.frecuenciaAplicacionFert')
+        ->orderBy('nutricions.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.nutricion',['nutricions'=>$nutricions,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('nutricion.pdf');   
+    }
+
+    public function excel(Request $request)
+    {       
+        $nutricions= Nutricion::join('personas','nutricions.productor_id','=','personas.id')
+        ->join('productors','nutricions.productor_id','=','productors.id')
+        ->join('fincas','nutricions.finca_id','=','fincas.id')
+        ->select('personas.nombre','nutricions.productor_id','nutricions.finca_id','fincas.nombre as nombre_finca',
+        'nutricions.analisis','nutricions.fechaAnalisis','nutricions.fertilizaAnalisis','nutricions.aplicacionesCal','nutricions.aplicoSiembraCal',
+        'nutricions.dosisAplicacionCal','nutricions.formaAplicacionCal','nutricions.frecuenciaAplicacionCal','nutricions.fechaCal',
+        'nutricions.aplicacionesMateriaOrganica','nutricions.aplicoSiembraMateriaOrganica','nutricions.dosisAplicacionMateriaOrganica',
+        'nutricions.formaAplicacionMateriaOrganica','nutricions.frecuenciaAplicacionMateriaOrganica',
+        'nutricions.fechaMateriaOrganica','nutricions.fechaUltimaFertilizacion','nutricions.formaAplicacionFert','nutricions.frecuenciaAplicacionFert')
+        ->orderBy('nutricions.id','desc')->get();
+        return [
+            'nutricions' => $nutricions
+        ];
+    }
 }

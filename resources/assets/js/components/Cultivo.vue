@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('cultivo','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayCultivoEx
+                        worksheet = "Cultivo"
+                        name    = "cultivos.xls">
+                        Excel
+                        </export-excel>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayCultivoEx
+                        type="csv"
+                        name    = "cultivos.xls">
+                        csv
+                        </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -204,6 +221,7 @@ import Datepicker from 'vuejs-datepicker';
                 TotalVentasAnioAnterior:0,
                 lugarVenta_id:0,
                 arrayCultivo: [],
+                arrayCultivoEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -259,6 +277,17 @@ import Datepicker from 'vuejs-datepicker';
                     var respuesta = response.data;
                     me.arrayCultivo= respuesta.cultivos.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+             listarCultivoEx(){
+                let me =this;
+                var url ='cultivo/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayCultivoEx= respuesta.cultivos;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -341,6 +370,9 @@ import Datepicker from 'vuejs-datepicker';
                 });
 
         },
+         cargarPdf(){
+                window.open('http://gestion.asofrut.org/cultivo/listarPdf');
+            },
             actualizarCultivo(){
             if(this.validarCultivo()){
                 return;
@@ -448,7 +480,7 @@ import Datepicker from 'vuejs-datepicker';
         },        
         mounted() {
            this.listarCultivo(1,this.buscar,this.criterio);
-           
+           this.listarCultivoEx();
         }
     }
 </script>

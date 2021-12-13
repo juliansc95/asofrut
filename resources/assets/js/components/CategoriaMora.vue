@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('categoriaMora','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                          <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arraycategoriaMoraEx
+                            worksheet = "Categoria Moras"
+                            name    = "categoriasMora.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arraycategoriaMoraEx
+                            type="csv"
+                            name    = "categoriasMora.xls">
+                            csv
+                            </export-excel>
+                         <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -159,6 +176,7 @@
                 errorcategoriaMora : 0,
                 errorMostrarMsjcategoriaMora:[],
                 arraycategoriaMora:[],
+                arraycategoriaMoraEx:[],
                 pagination:{
                     'total' : 0,
                     'current_page' : 0,
@@ -208,7 +226,18 @@
                 .catch(function (error) {
                     console.log(error);
                 });
-            },          
+            },      
+            listarCategoriaMoraEx(){
+                let me =this;
+                var url ='mora/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arraycategoriaMoraEx= respuesta.categoriaMoras;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },            
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza a la pagina actual
@@ -237,6 +266,9 @@
                 });
 
         },
+        cargarPdf(){
+                window.open('http://gestion.asofrut.org/mora/listarPdf');
+            },
             actualizarCategoriaMora(){
             if(this.validarCategoriaMora()){
                 return;
@@ -317,6 +349,7 @@
         },        
         mounted() {
            this.listarCategoriaMora(1,this.buscar,this.criterio);
+           this.listarCategoriaMoraEx();
         }
     }
 </script>

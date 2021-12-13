@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('finca','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                    <export-excel
+                    class   = "button btn btn-success" 
+                    :data   = arrayFincaEx
+                    worksheet = "Fincas"
+                    name    = "fincas.xls">
+                    Excel
+                   </export-excel>
+                    <export-excel
+                    class   = "button btn btn-success"
+                    :data   = arrayFincaEx
+                    type="csv"
+                    name    = "fincas.xls">
+                    csv
+                   </export-excel>
+                    <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -249,6 +266,7 @@
                 distanciaLoteVia:0,
                 coordenadasFinca:'',   
                 arrayFinca: [],
+                arrayFincaEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -306,6 +324,17 @@
                     var respuesta = response.data;
                     me.arrayFinca= respuesta.fincas.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarFincaEx(){
+                let me =this;
+                var url ='finca/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayFincaEx= respuesta.fincas;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -425,6 +454,9 @@
                 });
 
         },
+            cargarPdf(){
+                window.open('http://gestion.asofrut.org/finca/listarPdf');
+            },
             actualizarFinca(){
             if(this.validarFinca()){
                 return;
@@ -559,7 +591,10 @@
         }
         },        
         mounted() {
+           this.listarFincaEx(); 
            this.listarFinca(1,this.buscar,this.criterio);
+           
+          
         }
     }
 </script>

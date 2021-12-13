@@ -324,4 +324,25 @@ class VentaController extends Controller
         $venta->save();
     }
 
+    public function excel(){
+        $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
+        ->join('productors','ventas.productor_id','=','productors.id')
+        ->join('estadoVentas','ventas.estado_id','=','estadoVentas.id')
+        ->join('lugarVentas','ventas.lugarVenta_id','=','lugarVentas.id')
+        ->join('lineas','ventas.linea_id','=','lineas.id')
+        ->select('ventas.id','ventas.productor_id','ventas.linea_id',
+        'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
+        'ventas.estado_id','ventas.totalDonacion','ventas.totalTransporte',
+        'ventas.totalAsohof','ventas.totalCuatroXmil',
+        'personas.nombre as nombre_persona','personas.num_documento as num_documento',
+        'estadoVentas.nombre as nombre_estadoVenta','personas.direccion as direccion',
+        'personas.telefono as telefono', 'personas.telefono as telefono','personas.email as email',
+        'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
+        ->orderBy('ventas.id', 'desc')->get();
+        return [
+            'ventas' => $ventas
+        ];
+        
+    }
+
 }

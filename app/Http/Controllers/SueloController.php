@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Suelo;
+use Carbon\Carbon;
+
 
 
 class SueloController extends Controller
@@ -74,5 +76,34 @@ class SueloController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {      
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Suelo::count();
+        $suelos= Suelo::join('personas','suelos.productor_id','=','personas.id')
+        ->join('productors','suelos.productor_id','=','productors.id')
+        ->join('fincas','suelos.finca_id','=','fincas.id')
+        ->select('personas.nombre','suelos.productor_id','suelos.finca_id','fincas.nombre as nombre_finca',
+        'suelos.curvasNivel','suelos.controlArvenses','suelos.frecuencia','suelos.herbicida','suelos.dosisAplicacionCal',
+        'suelos.frecuenciaHerbicida')
+        ->orderBy('suelos.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.suelo',['suelos'=>$suelos,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('suelo.pdf');   
+    }
+
+    public function excel(Request $request)
+    {      
+        $suelos= Suelo::join('personas','suelos.productor_id','=','personas.id')
+        ->join('productors','suelos.productor_id','=','productors.id')
+        ->join('fincas','suelos.finca_id','=','fincas.id')
+        ->select('personas.nombre','suelos.productor_id','suelos.finca_id','fincas.nombre as nombre_finca',
+        'suelos.curvasNivel','suelos.controlArvenses','suelos.frecuencia','suelos.herbicida','suelos.dosisAplicacionCal',
+        'suelos.frecuenciaHerbicida')
+        ->orderBy('suelos.id','desc')->get();
+        return [
+            'suelos' => $suelos
+        ];
     }
 }

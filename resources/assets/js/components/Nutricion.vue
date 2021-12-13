@@ -12,6 +12,23 @@
                         <button type="button" @click="abrirModal('nutricion','registrar')" class="btn btn-secondary">
                             <i class="icon-plus"></i>&nbsp;Nuevo
                         </button>
+                         <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayNutricionEx
+                            worksheet = "Nutricion"
+                            name    = "nutricion.xls">
+                            Excel
+                            </export-excel>
+                            <export-excel
+                            class   = "button btn btn-success"
+                            :data   = arrayNutricionEx
+                            type="csv"
+                            name    = "nutricion.xls">
+                            csv
+                        </export-excel>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;PDF
+                    </button>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -295,6 +312,7 @@ import vSelect from 'vue-select';
                 formaAplicacionFert:'Seleccione',
                 frecuenciaAplicacionFert:0,
                 arrayNutricion: [],
+                arrayNutricionEx: [],
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -348,6 +366,17 @@ import vSelect from 'vue-select';
                     var respuesta = response.data;
                     me.arrayNutricion= respuesta.nutricions.data;
                     me.pagination=respuesta.pagination;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            listarNutricionEx(){
+                let me =this;
+                var url ='nutricion/excel';
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arrayNutricionEx= respuesta.nutricions;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -416,7 +445,10 @@ import vSelect from 'vue-select';
                     console.log(error);
                 });
 
-        },    
+        },
+        cargarPdf(){
+                window.open('http://gestion.asofrut.org/nutricion/listarPdf');
+            },    
             validarNutricion(){
             this.errorNutricion=0;
             this.errorMostrarMsjNutricion=[];
@@ -519,6 +551,8 @@ import vSelect from 'vue-select';
         },        
         mounted() {
            this.listarNutricion(1,this.buscar,this.criterio);
+           this.listarNutricionEx();
+
            
         }
     }

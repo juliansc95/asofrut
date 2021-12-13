@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Poda;
@@ -76,5 +76,35 @@ class PodaController extends Controller
         }catch(Exception $e){
             DB::rollback();
         }
+    }
+
+    public function listarPdf(Request $request)
+    {
+        $ahora= Carbon::now('America/Bogota');
+        $cont=Poda::count();
+        $podas= Poda::join('personas','podas.productor_id','=','personas.id')
+        ->join('productors','podas.productor_id','=','productors.id')
+        ->join('fincas','podas.finca_id','=','fincas.id')
+        ->select('personas.nombre','podas.productor_id','podas.finca_id','fincas.nombre as nombre_finca',
+        'podas.estadoVegetativo','podas.podaFormacion','podas.podaAclareo','podas.frecuenciaAclareo','podas.podaMantenimiento',
+        'podas.frecuenciaMantenimiento','podas.podaFitosanitaria','podas.frecuenciaFitosanitaria')
+        ->orderBy('podas.id','desc')->get();
+        $pdf = \PDF::loadView('pdf.podas',['podas'=>$podas,'cont'=>$cont,'ahora'=>$ahora])->setPaper('a4', 'landscape');
+        return $pdf->download('podas.pdf');
+       
+    }
+
+    public function excel(Request $request)
+    {
+        $podas= Poda::join('personas','podas.productor_id','=','personas.id')
+        ->join('productors','podas.productor_id','=','productors.id')
+        ->join('fincas','podas.finca_id','=','fincas.id')
+        ->select('personas.nombre','podas.productor_id','podas.finca_id','fincas.nombre as nombre_finca',
+        'podas.estadoVegetativo','podas.podaFormacion','podas.podaAclareo','podas.frecuenciaAclareo','podas.podaMantenimiento',
+        'podas.frecuenciaMantenimiento','podas.podaFitosanitaria','podas.frecuenciaFitosanitaria')
+        ->orderBy('podas.id','desc')->get();
+        return [
+            'podas' => $podas
+        ];
     }
 }
