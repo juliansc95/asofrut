@@ -48,6 +48,9 @@
                             <li @click="menu=29" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i>Gastos produccion,cosecha y postcosecha</a>
                             </li>
+                            <li @click="menu=30" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i>Resumen gastos e ingresos</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">

@@ -56,6 +56,8 @@ Vue.component('gpxzone', require('./components/GpxZone.vue'));
 Vue.component('gastos', require('./components/GastosEstablecimiento.vue'));
 Vue.component('adecuacion', require('./components/GastosAdecuacion.vue'));
 Vue.component('produccion', require('./components/GastosProduccion.vue'));
+Vue.component('resumen', require('./components/Resumen.vue'));
+
 
 //Vistas Productor
 Vue.component('fincaproductor', require('./components/FincaProductor.vue'));
