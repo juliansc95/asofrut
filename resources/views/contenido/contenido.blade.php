@@ -118,6 +118,9 @@
             <template v-if="menu==29">
                 <produccion></produccion>
             </template>
+            <template v-if="menu==30">
+                <resumen></resumen>
+            </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
                 <ventatecnico></ventatecnico>
