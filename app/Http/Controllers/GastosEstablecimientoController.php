@@ -12,14 +12,14 @@ use App\ProduccionConcepto;
 
 class GastosEstablecimientoController extends Controller
 {
-    
+
     public function index(Request $request)
     {
         //if (!$request->ajax()) return redirect('/');
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
-        
+
         if ($buscar==''){
             $id = $request->id;
             $gastos = EstablecimientoConcepto::join('gastosestablecimientos','establecimientoconceptos.gastosEstablecimiento_id','=','gastosestablecimientos.id')
@@ -56,7 +56,7 @@ class GastosEstablecimientoController extends Controller
             //->where('establecimientoconceptos.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('establecimientoconceptos.id', 'asc')->paginate(10);
         }
-        
+
         return [
             'pagination' => [
                 'total'        => $gastos->total(),
@@ -88,7 +88,7 @@ class GastosEstablecimientoController extends Controller
             'establecimientoconceptos.conceptoGasto_id','establecimientoconceptos.descripcion','establecimientoconceptos.otro',
             'establecimientoconceptos.valorTotal','gastosestablecimientos.productor_id','gastosestablecimientos.finca_id','gastosestablecimientos.fechaRegistro',
             'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
-            ->where('gastosestablecimientos.productor_id','=',$user)  
+            ->where('gastosestablecimientos.productor_id','=',$user)
             ->orderBy('establecimientoconceptos.id', 'asc')->paginate(10);
         }
         if($criterio == 'personas'){
@@ -100,7 +100,7 @@ class GastosEstablecimientoController extends Controller
             'establecimientoconceptos.conceptoGasto_id','establecimientoconceptos.descripcion','establecimientoconceptos.otro',
             'establecimientoconceptos.valorTotal','gastosestablecimientos.productor_id','gastosestablecimientos.finca_id','gastosestablecimientos.fechaRegistro',
             'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
-            ->where('gastosestablecimientos.productor_id','=',$user)  
+            ->where('gastosestablecimientos.productor_id','=',$user)
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
             ->orderBy('establecimientoconceptos.id', 'asc')->paginate(10);
         }
@@ -113,11 +113,11 @@ class GastosEstablecimientoController extends Controller
             'establecimientoconceptos.conceptoGasto_id','establecimientoconceptos.descripcion','establecimientoconceptos.otro',
             'establecimientoconceptos.valorTotal','gastosestablecimientos.productor_id','gastosestablecimientos.finca_id','gastosestablecimientos.fechaRegistro',
             'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
-            ->where('gastosestablecimientos.productor_id','=',$user)  
+            ->where('gastosestablecimientos.productor_id','=',$user)
             //->where('establecimientoconceptos.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('establecimientoconceptos.id', 'asc')->paginate(10);
         }
-        
+
         return [
             'pagination' => [
                 'total'        => $gastos->total(),
@@ -156,9 +156,46 @@ class GastosEstablecimientoController extends Controller
                 $establecimientoConcepto->conceptoGasto_id = $establecimiento['conceptoGasto_id'];
                 $establecimientoConcepto->descripcion = $establecimiento['descripcion'];
                 $establecimientoConcepto->otro = $establecimiento['otro'];
-                $establecimientoConcepto->valorTotal = $establecimiento['valorTotal'];    
+                $establecimientoConcepto->valorTotal = $establecimiento['valorTotal'];
                 $establecimientoConcepto->save();
-            }          
+            }
+
+            DB::commit();
+            return[
+                'id'=>$gasto->id
+            ];
+        } catch (Exception $e){
+            DB::rollBack();
+        }
+    }
+    public function store2(Request $request)
+    {
+        //if (!$request->ajax()) return redirect('/');
+
+        try{
+            DB::beginTransaction();
+
+            $mytime= Carbon::now('America/Lima');
+
+            $gasto = new GastosEstablecimiento();
+            $gasto->productor_id = $request->productor_id;
+            $gasto->finca_id = $request->finca_id;
+            $gasto->fechaRegistro = $mytime->toDateTimeString();
+            $gasto->save();
+
+            $establecimientoConceptos = json_decode($request->data, true);//Array de detalles
+            //Recorro todos los elementos
+
+            foreach($establecimientoConceptos as $establecimiento)
+            {
+                $establecimientoConcepto = new EstablecimientoConcepto();
+                $establecimientoConcepto->gastosEstablecimiento_id = $gasto->id;
+                $establecimientoConcepto->conceptoGasto_id = $establecimiento['conceptoGasto_id'];
+                $establecimientoConcepto->descripcion = $establecimiento['descripcion'];
+                $establecimientoConcepto->otro = $establecimiento['otro'];
+                $establecimientoConcepto->valorTotal = $establecimiento['valorTotal'];
+                $establecimientoConcepto->save();
+            }
 
             DB::commit();
             return[
@@ -182,9 +219,9 @@ class GastosEstablecimientoController extends Controller
         return [
             'gastos' => $gastos
         ];
-        
+
     }
-    
+
 
 
 }

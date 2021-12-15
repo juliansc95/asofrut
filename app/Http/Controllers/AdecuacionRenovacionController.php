@@ -16,7 +16,7 @@ class AdecuacionRenovacionController extends Controller
 
         $buscar = $request->buscar;
         $criterio = $request->criterio;
-        
+
         if ($buscar==''){
             $id = $request->id;
             $gastos = RenovacionConcepto::join('adecuacionrenovacions','renovacionconceptos.adecuacionrenovacion_id','=','adecuacionrenovacions.id')
@@ -37,7 +37,7 @@ class AdecuacionRenovacionController extends Controller
             ->select('renovacionconceptos.id','renovacionconceptos.adecuacionrenovacion_id',
             'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
             'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
-            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')   
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
             ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
         }
@@ -49,11 +49,11 @@ class AdecuacionRenovacionController extends Controller
             ->select('renovacionconceptos.id','renovacionconceptos.adecuacionrenovacion_id',
             'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
             'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
-            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca') 
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
             //->where('establecimientoconceptos.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
         }
-        
+
         return [
             'pagination' => [
                 'total'        => $gastos->total(),
@@ -70,7 +70,7 @@ class AdecuacionRenovacionController extends Controller
     public function indexProductor(Request $request)
     {
         //if (!$request->ajax()) return redirect('/');
-        
+
         $buscar = $request->buscar;
         $criterio = $request->criterio;
         $user = \Auth::user()->id;
@@ -85,7 +85,7 @@ class AdecuacionRenovacionController extends Controller
             'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
             'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
             'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
-            ->where('adecuacionrenovacions.productor_id','=',$user) 
+            ->where('adecuacionrenovacions.productor_id','=',$user)
             ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
         }
         if($criterio == 'personas'){
@@ -96,8 +96,8 @@ class AdecuacionRenovacionController extends Controller
             ->select('renovacionconceptos.id','renovacionconceptos.adecuacionrenovacion_id',
             'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
             'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
-            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')   
-            ->where('adecuacionrenovacions.productor_id','=',$user) 
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
+            ->where('adecuacionrenovacions.productor_id','=',$user)
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
             ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
         }
@@ -109,12 +109,12 @@ class AdecuacionRenovacionController extends Controller
             ->select('renovacionconceptos.id','renovacionconceptos.adecuacionrenovacion_id',
             'renovacionconceptos.conceptoGasto_id','renovacionconceptos.descripcion','renovacionconceptos.otro',
             'renovacionconceptos.valorTotal','adecuacionrenovacions.productor_id','adecuacionrenovacions.finca_id','adecuacionrenovacions.fechaRegistro',
-            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca') 
-            ->where('adecuacionrenovacions.productor_id','=',$user) 
+            'conceptogastos.nombre as conceptoGasto','personas.nombre as nombreProductor','fincas.nombre as nombreFinca')
+            ->where('adecuacionrenovacions.productor_id','=',$user)
             //->where('establecimientoconceptos.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('renovacionconceptos.id', 'asc')->paginate(10);
         }
-        
+
         return [
             'pagination' => [
                 'total'        => $gastos->total(),
@@ -154,9 +154,46 @@ class AdecuacionRenovacionController extends Controller
                 $renovacionConcepto->conceptoGasto_id = $renovacion['conceptoGasto_id'];
                 $renovacionConcepto->descripcion = $renovacion['descripcion'];
                 $renovacionConcepto->otro = $renovacion['otro'];
-                $renovacionConcepto->valorTotal = $renovacion['valorTotal'];    
+                $renovacionConcepto->valorTotal = $renovacion['valorTotal'];
                 $renovacionConcepto->save();
-            }          
+            }
+
+            DB::commit();
+            return[
+                'id'=>$gasto->id
+            ];
+        } catch (Exception $e){
+            DB::rollBack();
+        }
+    }
+    public function store2(Request $request)
+    {
+        //if (!$request->ajax()) return redirect('/');
+
+        try{
+            DB::beginTransaction();
+
+            $mytime= Carbon::now('America/Lima');
+
+            $gasto = new AdecuacionRenovacion();
+            $gasto->productor_id = $request->productor_id;
+            $gasto->finca_id = $request->finca_id;
+            $gasto->fechaRegistro = $mytime->toDateTimeString();
+            $gasto->save();
+
+            $renovacionConceptos = json_decode($request->data, true);
+            //Recorro todos los elementos
+
+            foreach($renovacionConceptos as $ep=>$renovacion)
+            {
+                $renovacionConcepto = new RenovacionConcepto();
+                $renovacionConcepto->adecuacionrenovacion_id = $gasto->id;
+                $renovacionConcepto->conceptoGasto_id = $renovacion['conceptoGasto_id'];
+                $renovacionConcepto->descripcion = $renovacion['descripcion'];
+                $renovacionConcepto->otro = $renovacion['otro'];
+                $renovacionConcepto->valorTotal = $renovacion['valorTotal'];
+                $renovacionConcepto->save();
+            }
 
             DB::commit();
             return[
@@ -180,7 +217,7 @@ class AdecuacionRenovacionController extends Controller
         return [
             'gastos' => $gastos
         ];
-        
+
     }
 
 

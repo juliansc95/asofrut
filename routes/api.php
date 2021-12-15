@@ -13,11 +13,11 @@
     |
     */
 
-      
+
     Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
     });
- 
+
     Route::group([
 
         'middleware' => 'api',
@@ -56,6 +56,7 @@
     Route::get('/unidadAplicacion/selectUnidad','EquipoAplicacionController@selectUnidad');
     Route::get('/unidadDosis/selectDosis','EquipoAplicacionController@selectDosis');
     Route::get('/producto/selectProducto2','EquipoAplicacionController@selectProducto2');
+    Route::get('/concepto/selectConcepto','ConceptoGastoController@selectConcepto');
 
     Route::get('/finca','FincaController@indexApi');
     Route::post('/finca/registrar','FincaController@store');
@@ -91,3 +92,15 @@
     Route::post('/vocacion/registrar', 'VocacionController@store');
 
     Route::post('/cosecha/registrar', 'CosechaController@store');
+
+    Route::post('/gastos/registrar', 'GastosEstablecimientoController@store2');
+
+    Route::post('/renovacion/registrar', 'AdecuacionRenovacionController@store2');
+
+    Route::post('/produccion/registrar', 'GastosProduccionController@store2');
+
+    Route::get('/resumenP', 'ResumenController@indexProductor');
+
+    Route::get('/resumen', 'ResumenController@index');
+    Route::get('/resumenP', 'ResumenController@indexProductor');
+
