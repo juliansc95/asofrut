@@ -97103,6 +97103,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -97685,7 +97713,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosEnero"]
+                                  _vm.arrayGastos["EneroEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["EneroProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["EneroRenovacion"]
                                 )
                               }
                             }),
@@ -97713,7 +97757,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosFebrero"]
+                                  _vm.arrayGastos["FebreroEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["FebreroProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["FebreroRenovacion"]
                                 )
                               }
                             }),
@@ -97741,7 +97801,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosMarzo"]
+                                  _vm.arrayGastos["MarzoEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["MarzoProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["MarzoRenovacion"]
                                 )
                               }
                             }),
@@ -97769,7 +97845,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosAbril"]
+                                  _vm.arrayGastos["AbrilEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["AbrilProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["AbrilRenovacion"]
                                 )
                               }
                             }),
@@ -97797,7 +97889,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosMayo"]
+                                  _vm.arrayGastos["MayoEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["MayoProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["MayoRenovacion"]
                                 )
                               }
                             }),
@@ -97825,7 +97933,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosJunio"]
+                                  _vm.arrayGastos["JunioEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["JunioProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["JunioRenovacion"]
                                 )
                               }
                             }),
@@ -97853,7 +97977,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosJulio"]
+                                  _vm.arrayGastos["JulioEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["JulioProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["JulioRenovacion"]
                                 )
                               }
                             }),
@@ -97881,7 +98021,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosAgosto"]
+                                  _vm.arrayGastos["AgostoEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["AgostoProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["AgostoRenovacion"]
                                 )
                               }
                             }),
@@ -97909,7 +98065,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosSeptiembre"]
+                                  _vm.arrayGastos["SeptiembreEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["SeptiembreProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["SeptiembreRenovacion"]
                                 )
                               }
                             }),
@@ -97937,7 +98109,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosOctubre"]
+                                  _vm.arrayGastos["OctubreEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["OctubreProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["OctubreRenovacion"]
                                 )
                               }
                             }),
@@ -97965,7 +98153,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosNoviembre"]
+                                  _vm.arrayGastos["NoviembreEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["NoviembreProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["NoviembreRenovacion"]
                                 )
                               }
                             }),
@@ -97993,7 +98197,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["GastosDiciembre"]
+                                  _vm.arrayGastos["DiciembreEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["DiciembreProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["DiciembreRenovacion"]
                                 )
                               }
                             }),
@@ -98021,7 +98241,23 @@ var render = function() {
                             _c("td", {
                               domProps: {
                                 textContent: _vm._s(
-                                  _vm.arrayGastos["gastosTotal"]
+                                  _vm.arrayGastos["totalGastosEstablecimiento"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["totalGastosProduccion"]
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(
+                                  _vm.arrayGastos["totalGastosRenovacion"]
                                 )
                               }
                             }),
@@ -99067,7 +99303,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Total Ingresos($)")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Total Gastos($)")]),
+        _c("th", [_vm._v("Total Gastos Establecimiento($)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Gastos Produccion($)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total Gastos Renovacion($)")]),
         _vm._v(" "),
         _c("th", [_vm._v("Utilidad($)")])
       ])

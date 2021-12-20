@@ -200,63 +200,95 @@ class ResumenController extends Controller
             $utilidadDiciembre = $ventasDiciembre - $gastosDiciembre; 
 
             $totalIngresos = $ventasEnero+$ventasFebrero+$ventasMarzo+$ventasAbril+$ventasMayo+$ventasJunio+$ventasJulio+$ventasAgosto+$ventasSeptiembre+$ventasOctubre+$ventasNoviembre+$ventasDiciembre;
+            $totalGastosEstablecimiento = $EneroEstablecimiento+$FebreroEstablecimiento+$MarzoEstablecimiento+$AbrilEstablecimiento+$MayoEstablecimiento+$JunioEstablecimiento+$JulioEstablecimiento+$AgostoEstablecimiento+$SeptiembreEstablecimiento+$OctubreEstablecimiento+$NoviembreEstablecimiento+$DiciembreEstablecimiento;
+            $totalGastosProduccion = $EneroProduccion+$FebreroProduccion+$MarzoProduccion+$AbrilProduccion+$MayoProduccion+$JunioProduccion+$JulioProduccion+$AgostoProduccion+$SeptiembreProduccion+$OctubreProduccion+$NoviembreProduccion+$DiciembreProduccion;
+            $totalGastosRenovacion =$EneroRenovacion+$FebreroRenovacion+$MarzoRenovacion+$AbrilRenovacion+$MayoRenovacion+$JunioRenovacion+$JulioRenovacion+$AgostoRenovacion+$SeptiembreRenovacion+$OctubreRenovacion+$NoviembreRenovacion+$DiciembreRenovacion;
             $totalGastos = $gastosEnero+$gastosFebrero+$gastosMarzo+$gastosAbril+$gastosMayo+$gastosJunio+$gastosJulio+$gastosAgosto+$gastosSeptiembre+$gastosOctubre+$gastosNoviembre+$gastosDiciembre;
             $utilidadTotal = $utilidadEnero+$utilidadFebrero+$utilidadMarzo+$utilidadAbril+$utilidadMayo+$utilidadJunio+$utilidadJulio+$utilidadAgosto+$utilidadSeptiembre+$utilidadOctubre+$utilidadNoviembre+$utilidadDiciembre;
            
-        return [
+            return [
             
-            'GastosEnero' =>  $gastosEnero,
-            'ventasEnero'=>$ventasEnero,
-            'utilidadEnero'=>$utilidadEnero,
-
-            'GastosFebrero' =>  $gastosFebrero,
-            'ventasFebrero'=>$ventasFebrero,
-            'utilidadFebrero'=>$utilidadFebrero,
-
-            'GastosMarzo' =>  $gastosMarzo,
-            'ventasMarzo'=>$ventasMarzo,
-            'utilidadMarzo'=>$utilidadMarzo,
-
-            'GastosAbril' =>  $gastosAbril,
-            'ventasAbril'=>$ventasAbril,
-            'utilidadAbril'=>$utilidadAbril,
-
-            'GastosMayo' =>  $gastosMayo,
-            'ventasMayo'=>$ventasMayo,
-            'utilidadMayo'=>$utilidadMayo,
-
-            'GastosJunio' =>  $gastosJunio,
-            'ventasJunio'=>$ventasJunio,
-            'utilidadJunio'=>$utilidadJunio,
-
-            'GastosJulio' =>  $gastosJulio,
-            'ventasJulio'=>$ventasJulio,
-            'utilidadJulio'=>$utilidadJulio,
-
-            'GastosAgosto' =>  $gastosAgosto,
-            'ventasAgosto'=>$ventasAgosto,
-            'utilidadAgosto'=>$utilidadAgosto,
-
-            'GastosSeptiembre' =>  $gastosSeptiembre,
-            'ventasSeptiembre'=>$ventasSeptiembre,
-            'utilidadSeptiembre'=>$utilidadSeptiembre,
-
-            'GastosOctubre' =>  $gastosOctubre,
-            'ventasOctubre'=>$ventasOctubre,
-            'utilidadOctubre'=>$utilidadOctubre,
-
-            'GastosNoviembre' =>  $gastosNoviembre,
-            'ventasNoviembre'=>$ventasNoviembre,
-            'utilidadNoviembre'=>$utilidadNoviembre,
-
-            'GastosDiciembre' =>  $gastosDiciembre,
-            'ventasDiciembre'=>$ventasDiciembre,
-            'utilidadDiciembre'=>$utilidadDiciembre,
-
-            'ingresosTotal' =>  $totalIngresos,
-            'gastosTotal'=>$totalGastos,
-            'utilidadTotal'=>$utilidadTotal,
-        ];
+                'EneroEstablecimiento' =>  $EneroEstablecimiento,
+                'EneroProduccion' =>  $EneroProduccion,
+                'EneroRenovacion' =>  $EneroRenovacion,
+                'ventasEnero'=>$ventasEnero,
+                'utilidadEnero'=>$utilidadEnero,
+    
+                'FebreroEstablecimiento' =>  $FebreroEstablecimiento,
+                'FebreroProduccion' =>  $FebreroProduccion,
+                'FebreroRenovacion' =>  $FebreroRenovacion,
+                'ventasFebrero'=>$ventasFebrero,
+                'utilidadFebrero'=>$utilidadFebrero,
+    
+                'MarzoEstablecimiento' =>  $MarzoEstablecimiento,
+                'MarzoProduccion' =>  $MarzoProduccion,
+                'MarzoRenovacion' =>  $MarzoRenovacion,
+                'ventasMarzo'=>$ventasMarzo,
+                'utilidadMarzo'=>$utilidadMarzo,
+    
+                
+                'AbrilEstablecimiento' =>  $AbrilEstablecimiento,
+                'AbrilProduccion' =>  $AbrilProduccion,
+                'AbrilRenovacion' =>  $AbrilRenovacion,
+                'ventasAbril'=>$ventasAbril,
+                'utilidadAbril'=>$utilidadAbril,
+    
+                'MayoEstablecimiento' =>  $MayoEstablecimiento,
+                'MayoProduccion' =>  $MayoProduccion,
+                'MayoRenovacion' =>  $MayoRenovacion,
+                'ventasMayo'=>$ventasMayo,
+                'utilidadMayo'=>$utilidadMayo,
+    
+                'JunioEstablecimiento' =>  $JunioEstablecimiento,
+                'JunioProduccion' =>  $JunioProduccion,
+                'JunioRenovacion' =>  $JunioRenovacion,
+                'ventasJunio'=>$ventasJunio,
+                'utilidadJunio'=>$utilidadJunio,
+    
+                'JulioEstablecimiento' =>  $JulioEstablecimiento,
+                'JulioProduccion' =>  $JulioProduccion,
+                'JulioRenovacion' =>  $JulioRenovacion,
+                'ventasJulio'=>$ventasJulio,
+                'utilidadJulio'=>$utilidadJulio,
+    
+                'AgostoEstablecimiento' =>  $AgostoEstablecimiento,
+                'AgostoProduccion' =>  $AgostoProduccion,
+                'AgostoRenovacion' =>  $AgostoRenovacion,
+                'ventasAgosto'=>$ventasAgosto,
+                'utilidadAgosto'=>$utilidadAgosto,
+    
+                'SeptiembreEstablecimiento' =>  $SeptiembreEstablecimiento,
+                'SeptiembreProduccion' =>  $SeptiembreProduccion,
+                'SeptiembreRenovacion' =>  $SeptiembreRenovacion,
+                'ventasSeptiembre'=>$ventasSeptiembre,
+                'utilidadSeptiembre'=>$utilidadSeptiembre,
+    
+                'OctubreEstablecimiento' =>  $OctubreEstablecimiento,
+                'OctubreProduccion' =>  $OctubreProduccion,
+                'OctubreRenovacion' =>  $OctubreRenovacion,
+                'ventasOctubre'=>$ventasOctubre,
+                'utilidadOctubre'=>$utilidadOctubre,
+    
+                'NoviembreEstablecimiento' =>  $NoviembreEstablecimiento,
+                'NoviembreProduccion' =>  $NoviembreProduccion,
+                'NoviembreRenovacion' =>  $NoviembreRenovacion,
+                'ventasNoviembre'=>$ventasNoviembre,
+                'utilidadNoviembre'=>$utilidadNoviembre,
+    
+                
+                'DiciembreEstablecimiento' =>  $DiciembreEstablecimiento,
+                'DiciembreProduccion' =>  $DiciembreProduccion,
+                'DiciembreRenovacion' =>  $DiciembreRenovacion,
+                'ventasDiciembre'=>$ventasDiciembre,
+                'utilidadDiciembre'=>$utilidadDiciembre,
+    
+                'ingresosTotal' =>  $totalIngresos,
+                'totalGastosEstablecimiento'=>$totalGastosEstablecimiento,
+                'totalGastosProduccion'=>$totalGastosProduccion,
+                'totalGastosRenovacion'=>$totalGastosRenovacion,
+                'gastosTotal'=>$totalGastos,
+                'utilidadTotal'=>$utilidadTotal,
+            ];     
     }
     
     
@@ -495,62 +527,95 @@ class ResumenController extends Controller
         $utilidadDiciembre = $ventasDiciembre - $gastosDiciembre; 
 
         $totalIngresos = $ventasEnero+$ventasFebrero+$ventasMarzo+$ventasAbril+$ventasMayo+$ventasJunio+$ventasJulio+$ventasAgosto+$ventasSeptiembre+$ventasOctubre+$ventasNoviembre+$ventasDiciembre;
+        $totalGastosEstablecimiento = $EneroEstablecimiento+$FebreroEstablecimiento+$MarzoEstablecimiento+$AbrilEstablecimiento+$MayoEstablecimiento+$JunioEstablecimiento+$JulioEstablecimiento+$AgostoEstablecimiento+$SeptiembreEstablecimiento+$OctubreEstablecimiento+$NoviembreEstablecimiento+$DiciembreEstablecimiento;
+        $totalGastosProduccion = $EneroProduccion+$FebreroProduccion+$MarzoProduccion+$AbrilProduccion+$MayoProduccion+$JunioProduccion+$JulioProduccion+$AgostoProduccion+$SeptiembreProduccion+$OctubreProduccion+$NoviembreProduccion+$DiciembreProduccion;
+        $totalGastosRenovacion =$EneroRenovacion+$FebreroRenovacion+$MarzoRenovacion+$AbrilRenovacion+$MayoRenovacion+$JunioRenovacion+$JulioRenovacion+$AgostoRenovacion+$SeptiembreRenovacion+$OctubreRenovacion+$NoviembreRenovacion+$DiciembreRenovacion;
         $totalGastos = $gastosEnero+$gastosFebrero+$gastosMarzo+$gastosAbril+$gastosMayo+$gastosJunio+$gastosJulio+$gastosAgosto+$gastosSeptiembre+$gastosOctubre+$gastosNoviembre+$gastosDiciembre;
         $utilidadTotal = $utilidadEnero+$utilidadFebrero+$utilidadMarzo+$utilidadAbril+$utilidadMayo+$utilidadJunio+$utilidadJulio+$utilidadAgosto+$utilidadSeptiembre+$utilidadOctubre+$utilidadNoviembre+$utilidadDiciembre;
 
        
         return [
-        'GastosEnero' =>  $gastosEnero,
-        'ventasEnero'=>$ventasEnero,
-        'utilidadEnero'=>$utilidadEnero,
+            
+            'EneroEstablecimiento' =>  $EneroEstablecimiento,
+            'EneroProduccion' =>  $EneroProduccion,
+            'EneroRenovacion' =>  $EneroRenovacion,
+            'ventasEnero'=>$ventasEnero,
+            'utilidadEnero'=>$utilidadEnero,
 
-        'GastosFebrero' =>  $gastosFebrero,
-        'ventasFebrero'=>$ventasFebrero,
-        'utilidadFebrero'=>$utilidadFebrero,
+            'FebreroEstablecimiento' =>  $FebreroEstablecimiento,
+            'FebreroProduccion' =>  $FebreroProduccion,
+            'FebreroRenovacion' =>  $FebreroRenovacion,
+            'ventasFebrero'=>$ventasFebrero,
+            'utilidadFebrero'=>$utilidadFebrero,
 
-        'GastosMarzo' =>  $gastosMarzo,
-        'ventasMarzo'=>$ventasMarzo,
-        'utilidadMarzo'=>$utilidadMarzo,
+            'MarzoEstablecimiento' =>  $MarzoEstablecimiento,
+            'MarzoProduccion' =>  $MarzoProduccion,
+            'MarzoRenovacion' =>  $MarzoRenovacion,
+            'ventasMarzo'=>$ventasMarzo,
+            'utilidadMarzo'=>$utilidadMarzo,
 
-        'GastosAbril' =>  $gastosAbril,
-        'ventasAbril'=>$ventasAbril,
-        'utilidadAbril'=>$utilidadAbril,
+            
+            'AbrilEstablecimiento' =>  $AbrilEstablecimiento,
+            'AbrilProduccion' =>  $AbrilProduccion,
+            'AbrilRenovacion' =>  $AbrilRenovacion,
+            'ventasAbril'=>$ventasAbril,
+            'utilidadAbril'=>$utilidadAbril,
 
-        'GastosMayo' =>  $gastosMayo,
-        'ventasMayo'=>$ventasMayo,
-        'utilidadMayo'=>$utilidadMayo,
+            'MayoEstablecimiento' =>  $MayoEstablecimiento,
+            'MayoProduccion' =>  $MayoProduccion,
+            'MayoRenovacion' =>  $MayoRenovacion,
+            'ventasMayo'=>$ventasMayo,
+            'utilidadMayo'=>$utilidadMayo,
 
-        'GastosJunio' =>  $gastosJunio,
-        'ventasJunio'=>$ventasJunio,
-        'utilidadJunio'=>$utilidadJunio,
+            'JunioEstablecimiento' =>  $JunioEstablecimiento,
+            'JunioProduccion' =>  $JunioProduccion,
+            'JunioRenovacion' =>  $JunioRenovacion,
+            'ventasJunio'=>$ventasJunio,
+            'utilidadJunio'=>$utilidadJunio,
 
-        'GastosJulio' =>  $gastosJulio,
-        'ventasJulio'=>$ventasJulio,
-        'utilidadJulio'=>$utilidadJulio,
+            'JulioEstablecimiento' =>  $JulioEstablecimiento,
+            'JulioProduccion' =>  $JulioProduccion,
+            'JulioRenovacion' =>  $JulioRenovacion,
+            'ventasJulio'=>$ventasJulio,
+            'utilidadJulio'=>$utilidadJulio,
 
-        'GastosAgosto' =>  $gastosAgosto,
-        'ventasAgosto'=>$ventasAgosto,
-        'utilidadAgosto'=>$utilidadAgosto,
+            'AgostoEstablecimiento' =>  $AgostoEstablecimiento,
+            'AgostoProduccion' =>  $AgostoProduccion,
+            'AgostoRenovacion' =>  $AgostoRenovacion,
+            'ventasAgosto'=>$ventasAgosto,
+            'utilidadAgosto'=>$utilidadAgosto,
 
-        'GastosSeptiembre' =>  $gastosSeptiembre,
-        'ventasSeptiembre'=>$ventasSeptiembre,
-        'utilidadSeptiembre'=>$utilidadSeptiembre,
+            'SeptiembreEstablecimiento' =>  $SeptiembreEstablecimiento,
+            'SeptiembreProduccion' =>  $SeptiembreProduccion,
+            'SeptiembreRenovacion' =>  $SeptiembreRenovacion,
+            'ventasSeptiembre'=>$ventasSeptiembre,
+            'utilidadSeptiembre'=>$utilidadSeptiembre,
 
-        'GastosOctubre' =>  $gastosOctubre,
-        'ventasOctubre'=>$ventasOctubre,
-        'utilidadOctubre'=>$utilidadOctubre,
+            'OctubreEstablecimiento' =>  $OctubreEstablecimiento,
+            'OctubreProduccion' =>  $OctubreProduccion,
+            'OctubreRenovacion' =>  $OctubreRenovacion,
+            'ventasOctubre'=>$ventasOctubre,
+            'utilidadOctubre'=>$utilidadOctubre,
 
-        'GastosNoviembre' =>  $gastosNoviembre,
-        'ventasNoviembre'=>$ventasNoviembre,
-        'utilidadNoviembre'=>$utilidadNoviembre,
+            'NoviembreEstablecimiento' =>  $NoviembreEstablecimiento,
+            'NoviembreProduccion' =>  $NoviembreProduccion,
+            'NoviembreRenovacion' =>  $NoviembreRenovacion,
+            'ventasNoviembre'=>$ventasNoviembre,
+            'utilidadNoviembre'=>$utilidadNoviembre,
 
-        'GastosDiciembre' =>  $gastosDiciembre,
-        'ventasDiciembre'=>$ventasDiciembre,
-        'utilidadDiciembre'=>$utilidadDiciembre,
+            
+            'DiciembreEstablecimiento' =>  $DiciembreEstablecimiento,
+            'DiciembreProduccion' =>  $DiciembreProduccion,
+            'DiciembreRenovacion' =>  $DiciembreRenovacion,
+            'ventasDiciembre'=>$ventasDiciembre,
+            'utilidadDiciembre'=>$utilidadDiciembre,
 
-        'ingresosTotal' =>  $totalIngresos,
-        'gastosTotal'=>$totalGastos,
-        'utilidadTotal'=>$utilidadTotal,
+            'ingresosTotal' =>  $totalIngresos,
+            'totalGastosEstablecimiento'=>$totalGastosEstablecimiento,
+            'totalGastosProduccion'=>$totalGastosProduccion,
+            'totalGastosRenovacion'=>$totalGastosRenovacion,
+            'gastosTotal'=>$totalGastos,
+            'utilidadTotal'=>$utilidadTotal,
         ];
     }
 
@@ -739,60 +804,95 @@ class ResumenController extends Controller
        $utilidadDiciembre = $ventasDiciembre - $gastosDiciembre; 
 
        $totalIngresos = $ventasEnero+$ventasFebrero+$ventasMarzo+$ventasAbril+$ventasMayo+$ventasJunio+$ventasJulio+$ventasAgosto+$ventasSeptiembre+$ventasOctubre+$ventasNoviembre+$ventasDiciembre;
+       $totalGastosEstablecimiento = $EneroEstablecimiento+$FebreroEstablecimiento+$MarzoEstablecimiento+$AbrilEstablecimiento+$MayoEstablecimiento+$JunioEstablecimiento+$JulioEstablecimiento+$AgostoEstablecimiento+$SeptiembreEstablecimiento+$OctubreEstablecimiento+$NoviembreEstablecimiento+$DiciembreEstablecimiento;
+       $totalGastosProduccion = $EneroProduccion+$FebreroProduccion+$MarzoProduccion+$AbrilProduccion+$MayoProduccion+$JunioProduccion+$JulioProduccion+$AgostoProduccion+$SeptiembreProduccion+$OctubreProduccion+$NoviembreProduccion+$DiciembreProduccion;
+       $totalGastosRenovacion =$EneroRenovacion+$FebreroRenovacion+$MarzoRenovacion+$AbrilRenovacion+$MayoRenovacion+$JunioRenovacion+$JulioRenovacion+$AgostoRenovacion+$SeptiembreRenovacion+$OctubreRenovacion+$NoviembreRenovacion+$DiciembreRenovacion;
        $totalGastos = $gastosEnero+$gastosFebrero+$gastosMarzo+$gastosAbril+$gastosMayo+$gastosJunio+$gastosJulio+$gastosAgosto+$gastosSeptiembre+$gastosOctubre+$gastosNoviembre+$gastosDiciembre;
        $utilidadTotal = $utilidadEnero+$utilidadFebrero+$utilidadMarzo+$utilidadAbril+$utilidadMayo+$utilidadJunio+$utilidadJulio+$utilidadAgosto+$utilidadSeptiembre+$utilidadOctubre+$utilidadNoviembre+$utilidadDiciembre;
       
+
+
+
         return [
             
-            'GastosEnero' =>  $gastosEnero,
+            'EneroEstablecimiento' =>  $EneroEstablecimiento,
+            'EneroProduccion' =>  $EneroProduccion,
+            'EneroRenovacion' =>  $EneroRenovacion,
             'ventasEnero'=>$ventasEnero,
             'utilidadEnero'=>$utilidadEnero,
 
-            'GastosFebrero' =>  $gastosFebrero,
+            'FebreroEstablecimiento' =>  $FebreroEstablecimiento,
+            'FebreroProduccion' =>  $FebreroProduccion,
+            'FebreroRenovacion' =>  $FebreroRenovacion,
             'ventasFebrero'=>$ventasFebrero,
             'utilidadFebrero'=>$utilidadFebrero,
 
-            'GastosMarzo' =>  $gastosMarzo,
+            'MarzoEstablecimiento' =>  $MarzoEstablecimiento,
+            'MarzoProduccion' =>  $MarzoProduccion,
+            'MarzoRenovacion' =>  $MarzoRenovacion,
             'ventasMarzo'=>$ventasMarzo,
             'utilidadMarzo'=>$utilidadMarzo,
 
-            'GastosAbril' =>  $gastosAbril,
+            
+            'AbrilEstablecimiento' =>  $AbrilEstablecimiento,
+            'AbrilProduccion' =>  $AbrilProduccion,
+            'AbrilRenovacion' =>  $AbrilRenovacion,
             'ventasAbril'=>$ventasAbril,
             'utilidadAbril'=>$utilidadAbril,
 
-            'GastosMayo' =>  $gastosMayo,
+            'MayoEstablecimiento' =>  $MayoEstablecimiento,
+            'MayoProduccion' =>  $MayoProduccion,
+            'MayoRenovacion' =>  $MayoRenovacion,
             'ventasMayo'=>$ventasMayo,
             'utilidadMayo'=>$utilidadMayo,
 
-            'GastosJunio' =>  $gastosJunio,
+            'JunioEstablecimiento' =>  $JunioEstablecimiento,
+            'JunioProduccion' =>  $JunioProduccion,
+            'JunioRenovacion' =>  $JunioRenovacion,
             'ventasJunio'=>$ventasJunio,
             'utilidadJunio'=>$utilidadJunio,
 
-            'GastosJulio' =>  $gastosJulio,
+            'JulioEstablecimiento' =>  $JulioEstablecimiento,
+            'JulioProduccion' =>  $JulioProduccion,
+            'JulioRenovacion' =>  $JulioRenovacion,
             'ventasJulio'=>$ventasJulio,
             'utilidadJulio'=>$utilidadJulio,
 
-            'GastosAgosto' =>  $gastosAgosto,
+            'AgostoEstablecimiento' =>  $AgostoEstablecimiento,
+            'AgostoProduccion' =>  $AgostoProduccion,
+            'AgostoRenovacion' =>  $AgostoRenovacion,
             'ventasAgosto'=>$ventasAgosto,
             'utilidadAgosto'=>$utilidadAgosto,
 
-            'GastosSeptiembre' =>  $gastosSeptiembre,
+            'SeptiembreEstablecimiento' =>  $SeptiembreEstablecimiento,
+            'SeptiembreProduccion' =>  $SeptiembreProduccion,
+            'SeptiembreRenovacion' =>  $SeptiembreRenovacion,
             'ventasSeptiembre'=>$ventasSeptiembre,
             'utilidadSeptiembre'=>$utilidadSeptiembre,
 
-            'GastosOctubre' =>  $gastosOctubre,
+            'OctubreEstablecimiento' =>  $OctubreEstablecimiento,
+            'OctubreProduccion' =>  $OctubreProduccion,
+            'OctubreRenovacion' =>  $OctubreRenovacion,
             'ventasOctubre'=>$ventasOctubre,
             'utilidadOctubre'=>$utilidadOctubre,
 
-            'GastosNoviembre' =>  $gastosNoviembre,
+            'NoviembreEstablecimiento' =>  $NoviembreEstablecimiento,
+            'NoviembreProduccion' =>  $NoviembreProduccion,
+            'NoviembreRenovacion' =>  $NoviembreRenovacion,
             'ventasNoviembre'=>$ventasNoviembre,
             'utilidadNoviembre'=>$utilidadNoviembre,
 
-            'GastosDiciembre' =>  $gastosDiciembre,
+            
+            'DiciembreEstablecimiento' =>  $DiciembreEstablecimiento,
+            'DiciembreProduccion' =>  $DiciembreProduccion,
+            'DiciembreRenovacion' =>  $DiciembreRenovacion,
             'ventasDiciembre'=>$ventasDiciembre,
             'utilidadDiciembre'=>$utilidadDiciembre,
 
             'ingresosTotal' =>  $totalIngresos,
+            'totalGastosEstablecimiento'=>$totalGastosEstablecimiento,
+            'totalGastosProduccion'=>$totalGastosProduccion,
+            'totalGastosRenovacion'=>$totalGastosRenovacion,
             'gastosTotal'=>$totalGastos,
             'utilidadTotal'=>$utilidadTotal,
         ];       

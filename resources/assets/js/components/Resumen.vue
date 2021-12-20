@@ -19,7 +19,9 @@
                                     <tr>
                                         <th>Mes</th>
                                         <th>Total Ingresos($)</th>
-                                        <th>Total Gastos($)</th>
+                                        <th>Total Gastos Establecimiento($)</th>
+                                        <th>Total Gastos Produccion($)</th>
+                                        <th>Total Gastos Renovacion($)</th>
                                         <th>Utilidad($)</th>
                                     </tr>
                                 </thead>
@@ -27,79 +29,105 @@
                                     <tr>
                                         <td>Enero</td>
                                         <td v-text="arrayGastos['ventasEnero']"></td>
-                                        <td v-text="arrayGastos['GastosEnero']"></td>
+                                        <td v-text="arrayGastos['EneroEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['EneroProduccion']"></td>
+                                        <td v-text="arrayGastos['EneroRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadEnero']"></td>
                                     </tr>
                                     <tr>
                                         <td>Febrero</td>
                                         <td v-text="arrayGastos['ventasFebrero']"></td>
-                                        <td v-text="arrayGastos['GastosFebrero']"></td>
+                                        <td v-text="arrayGastos['FebreroEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['FebreroProduccion']"></td>
+                                        <td v-text="arrayGastos['FebreroRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadFebrero']"></td>
                                     </tr>      
                                     <tr>
                                         <td>Marzo</td>
                                         <td v-text="arrayGastos['ventasMarzo']"></td>
-                                        <td v-text="arrayGastos['GastosMarzo']"></td>
+                                        <td v-text="arrayGastos['MarzoEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['MarzoProduccion']"></td>
+                                        <td v-text="arrayGastos['MarzoRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadMarzo']"></td>
                                     </tr>      
                                     <tr>
                                         <td>Abril</td>
                                         <td v-text="arrayGastos['ventasAbril']"></td>
-                                        <td v-text="arrayGastos['GastosAbril']"></td>
+                                        <td v-text="arrayGastos['AbrilEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['AbrilProduccion']"></td>
+                                        <td v-text="arrayGastos['AbrilRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadAbril']"></td>
                                     </tr>      
                                     <tr>
                                         <td>Mayo</td>
                                         <td v-text="arrayGastos['ventasMayo']"></td>
-                                        <td v-text="arrayGastos['GastosMayo']"></td>
+                                        <td v-text="arrayGastos['MayoEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['MayoProduccion']"></td>
+                                        <td v-text="arrayGastos['MayoRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadMayo']"></td>
                                     </tr>      
                                     <tr>
                                         <td>Junio</td>
                                         <td v-text="arrayGastos['ventasJunio']"></td>
-                                        <td v-text="arrayGastos['GastosJunio']"></td>
+                                        <td v-text="arrayGastos['JunioEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['JunioProduccion']"></td>
+                                        <td v-text="arrayGastos['JunioRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadJunio']"></td>
                                     </tr>
                                     <tr>
                                         <td>Julio</td>
                                         <td v-text="arrayGastos['ventasJulio']"></td>
-                                        <td v-text="arrayGastos['GastosJulio']"></td>
+                                        <td v-text="arrayGastos['JulioEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['JulioProduccion']"></td>
+                                        <td v-text="arrayGastos['JulioRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadJulio']"></td>
                                     </tr>  
                                     <tr>
                                         <td>Agosto</td>
                                         <td v-text="arrayGastos['ventasAgosto']"></td>
-                                        <td v-text="arrayGastos['GastosAgosto']"></td>
+                                        <td v-text="arrayGastos['AgostoEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['AgostoProduccion']"></td>
+                                        <td v-text="arrayGastos['AgostoRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadAgosto']"></td>
                                     </tr>  
                                     <tr>
                                         <td>Septiembre</td>
                                         <td v-text="arrayGastos['ventasSeptiembre']"></td>
-                                        <td v-text="arrayGastos['GastosSeptiembre']"></td>
+                                        <td v-text="arrayGastos['SeptiembreEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['SeptiembreProduccion']"></td>
+                                        <td v-text="arrayGastos['SeptiembreRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadSeptiembre']"></td>
                                     </tr>  
                                     <tr>
                                         <td>Octubre</td>
                                         <td v-text="arrayGastos['ventasOctubre']"></td>
-                                        <td v-text="arrayGastos['GastosOctubre']"></td>
+                                        <td v-text="arrayGastos['OctubreEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['OctubreProduccion']"></td>
+                                        <td v-text="arrayGastos['OctubreRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadOctubre']"></td>
                                     </tr>  
                                     <tr>
                                         <td>Noviembre</td>
                                         <td v-text="arrayGastos['ventasNoviembre']"></td>
-                                        <td v-text="arrayGastos['GastosNoviembre']"></td>
+                                        <td v-text="arrayGastos['NoviembreEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['NoviembreProduccion']"></td>
+                                        <td v-text="arrayGastos['NoviembreRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadNoviembre']"></td>
                                     </tr>  
                                     <tr>
                                         <td>Diciembre</td>
                                         <td v-text="arrayGastos['ventasDiciembre']"></td>
-                                        <td v-text="arrayGastos['GastosDiciembre']"></td>
+                                        <td v-text="arrayGastos['DiciembreEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['DiciembreProduccion']"></td>
+                                        <td v-text="arrayGastos['DiciembreRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadDiciembre']"></td>
                                     </tr>
                                     <tr>
                                         <td>Total</td>
                                         <td v-text="arrayGastos['ingresosTotal']"></td>
-                                        <td v-text="arrayGastos['gastosTotal']"></td>
+                                        <td v-text="arrayGastos['totalGastosEstablecimiento']"></td>
+                                        <td v-text="arrayGastos['totalGastosProduccion']"></td>
+                                        <td v-text="arrayGastos['totalGastosRenovacion']"></td>
                                         <td v-text="arrayGastos['utilidadTotal']"></td>
                                     </tr>                            
                                 </tbody>

@@ -32,7 +32,7 @@ class ProductorController extends Controller
             'productors.departamento_id','departamentos.nombre as nombre_departamento','productors.municipio_id','municipios.nombre as nombre_municipio',
             'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
             'productors.fotocopiaCedula')
-            ->orderBy('productors.id','desc')->paginate(3);
+            ->orderBy('personas.nombre','asc')->paginate(10);
         }
         if($criterio == 'veredas' ||$criterio == 'resguardos'){
             $personas= Productor::join('personas','productors.id','=','personas.id')
@@ -50,7 +50,7 @@ class ProductorController extends Controller
             'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
             'productors.fotocopiaCedula')
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
-            ->orderBy('personas.id', 'desc')->paginate(3);
+            ->orderBy('personas.nombre', 'asc')->paginate(10);
         }
         else{
             $personas= Productor::join('personas','productors.id','=','personas.id')
@@ -68,7 +68,7 @@ class ProductorController extends Controller
             'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
             'productors.fotocopiaCedula')
             ->where('personas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('personas.id', 'desc')->paginate(3);
+            ->orderBy('personas.nombre', 'asc')->paginate(10);
         }
         return [
             'pagination' => [
@@ -106,7 +106,7 @@ class ProductorController extends Controller
             'productors.vereda_id','veredas.nombre as nombre_vereda','productors.resguardo_id','resguardos.nombre as nombre_resguardo','productors.fechaIngreso',
             'productors.fotocopiaCedula')
             ->where('productors.id','=',$id)
-            ->orderBy('productors.id','desc')->paginate(3);
+            ->orderBy('personas.nombre','asc')->paginate(10);
         }
         if($criterio == 'veredas' ||$criterio == 'resguardos'){
             $personas= Productor::join('personas','productors.id','=','personas.id')
@@ -125,7 +125,7 @@ class ProductorController extends Controller
             'productors.fotocopiaCedula')
             ->where('productors.id','=',$id)
             ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
-            ->orderBy('personas.id', 'desc')->paginate(3);
+            ->orderBy('personas.nombre', 'asc')->paginate(10);
         }
         else{
             $personas= Productor::join('personas','productors.id','=','personas.id')
@@ -144,7 +144,7 @@ class ProductorController extends Controller
             'productors.fotocopiaCedula')
             ->where('productors.id','=',$id)
             ->where('personas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('personas.id', 'desc')->paginate(3);
+            ->orderBy('personas.nombre', 'asc')->paginate(10);
         }
         return [
             'pagination' => [
