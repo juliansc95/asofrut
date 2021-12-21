@@ -65,6 +65,12 @@
                             <li  @click="menu=23" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-notebook"></i> Lugares de Venta</a>
                             </li>
+                            <li  @click="menu=31" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-notebook"></i>Productos</a>
+                            </li>
+                            <li @click="menu=32" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Comercializacion</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">

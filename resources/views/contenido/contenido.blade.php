@@ -121,6 +121,12 @@
             <template v-if="menu==30">
                 <resumen></resumen>
             </template>
+            <template v-if="menu==31">
+                <producto></producto>
+            </template>
+            <template v-if="menu==32">
+                <comercializacion></comercializacion>
+            </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
                 <ventatecnico></ventatecnico>

@@ -177,6 +177,15 @@ Route::group(['middleware'=>['auth']],function(){
      Route::get('/venta/pdf/{id}','VentaController@pdf')->name('venta_pdf');
      Route::get('/venta/listarPdf','VentaController@listarPdf')->name('ventas_pdf');
      Route::get('/venta/listarDiario','VentaController@listarPdfDiario')->name('ventas_dia_pdf');
+
+      //Rutas Comercializacion
+      Route::get('/comercializacion', 'ComercializacionController@index');
+      Route::post('/comercializacion/registrar', 'ComercializacionController@store');
+      Route::get('/comercializacion/obtenerCabecera', 'ComercializacionController@obtenerCabecera');
+      Route::get('/comercializacion/obtenerDetalles', 'ComercializacionController@obtenerProductoComercializacion');
+      Route::get('/comercializacion/pdf/{id}','ComercializacionController@pdf')->name('comercializacion_pdf');
+      Route::get('/comercializacion/listarPdf','ComercializacionController@listarPdf')->name('comercializacions_pdf');
+      Route::get('/comercializacion/listarDiario','ComercializacionController@listarPdfDiario')->name('ventas_dia_pdf');
     
     //Rutas PDF
     Route::get('/finca/listarPdf','FincaController@listarPdf')->name('fincas_pdf');
@@ -208,6 +217,7 @@ Route::group(['middleware'=>['auth']],function(){
     Route::get('/fitosanitaria/excel','EncuestaFitosanitariaController@excel');
     Route::get('/producto/excel','ProductoFitosanitarioController@excel');
     Route::get('/venta/excel','VentaController@excel');
+    Route::get('/comercializacion/excel','ComercializacionController@excel');
     Route::get('/mora/excel','CategoriaMoraController@excel');
     Route::get('/lugarVenta/excel','LugarVentaController@excel');
     Route::get('/user/excel','UserController@excel');
@@ -236,6 +246,17 @@ Route::group(['middleware'=>['auth']],function(){
     Route::put('/categoriaMora/actualizar','CategoriaMoraController@update');    
     Route::get('/categoriaMora/buscarCategoria','CategoriaMoraController@buscarCategoria');
     Route::get('/categoriaMora/listarCategoria','CategoriaMoraController@listarCategoria');  
+
+    //Rutas Productos
+    Route::get('/producto','ProductosComerController@index');
+    Route::post('/producto/registrar','ProductosComerController@store');
+    Route::put('/producto/actualizar','ProductosComerController@update');    
+    Route::get('/producto/buscarCategoria','ProductosComerController@buscarCategoria');
+    Route::get('/producto/listarCategoria','ProductosComerController@listarCategoria');  
+    Route::get('/productoC/excel','ProductosComerController@excel');
+    Route::get('/productos/listarPdf','ProductosComerController@listarPdf')->name('producto_pdf');
+
+
 
     //Rutas Cultivos
     Route::get('/cultivo','CultivoController@index');

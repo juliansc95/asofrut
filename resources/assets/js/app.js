@@ -57,6 +57,8 @@ Vue.component('gastos', require('./components/GastosEstablecimiento.vue'));
 Vue.component('adecuacion', require('./components/GastosAdecuacion.vue'));
 Vue.component('produccion', require('./components/GastosProduccion.vue'));
 Vue.component('resumen', require('./components/Resumen.vue'));
+Vue.component('producto', require('./components/Productos.vue'));
+Vue.component('comercializacion', require('./components/Comercializacion.vue'));
 
 
 //Vistas Productor

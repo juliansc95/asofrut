@@ -8,128 +8,72 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Resumen ingresos y gastos
+                        <i class="fa fa-align-justify"></i> Comercializacion
+                        <button type="button" @click="mostrarDetalle()" class="btn btn-secondary">
+                            <i class="icon-plus"></i>&nbsp;Nuevo
+                        </button>
+                        <button type="button" @click="cargarPdf()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;Reporte Total
+                        </button>
+                        <button type="button" @click="reporteDiario()" class="btn btn-info">
+                            <i class="icon-doc"></i>&nbsp;Reporte Diario
+                        </button>
+                         <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayVentaEx
+                        worksheet = "Comercializacion"
+                        name    = "comercializacion.xls">
+                        Excel
+                        </export-excel>
+                        <export-excel
+                        class   = "button btn btn-success"
+                        :data   = arrayVentaEx
+                        type="csv"
+                        name    = "comercializacion.xls">
+                        csv
+                        </export-excel>
                     </div>
                     <!-- Listado-->
                     <template v-if="listado==1">
                     <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <select class="form-control col-md-3" v-model="criterio">
+                                      <option value="personas">Nombre</option>
+                                      <option value="fechaVenta">Fecha-Hora</option>
+                                      <option value="totalUnidades">cantidad total</option>
+                                    </select>
+                                    <input type="text" v-model="buscar" @keyup.enter="listarComer(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
+                                    <button type="submit" @click="listarComer(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                                </div>
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Mes</th>
-                                        <th>Total Ingresos($)</th>
-                                        <th>Total Gastos Establecimiento($)</th>
-                                        <th>Total Gastos Produccion($)</th>
-                                        <th>Total Gastos Renovacion($)</th>
-                                        <th>Utilidad($)</th>
+                                        <th>Opciones</th>
+                                        <th>Productor</th>
+                                        <th>Fecha</th>
+                                        <th>Total Unidades</th>
+                                        <th>Total($)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Enero</td>
-                                        <td v-text="arrayGastos['ventasEnero']"></td>
-                                        <td v-text="arrayGastos['EneroEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['EneroProduccion']"></td>
-                                        <td v-text="arrayGastos['EneroRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadEnero']"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Febrero</td>
-                                        <td v-text="arrayGastos['ventasFebrero']"></td>
-                                        <td v-text="arrayGastos['FebreroEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['FebreroProduccion']"></td>
-                                        <td v-text="arrayGastos['FebreroRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadFebrero']"></td>
-                                    </tr>      
-                                    <tr>
-                                        <td>Marzo</td>
-                                        <td v-text="arrayGastos['ventasMarzo']"></td>
-                                        <td v-text="arrayGastos['MarzoEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['MarzoProduccion']"></td>
-                                        <td v-text="arrayGastos['MarzoRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadMarzo']"></td>
-                                    </tr>      
-                                    <tr>
-                                        <td>Abril</td>
-                                        <td v-text="arrayGastos['ventasAbril']"></td>
-                                        <td v-text="arrayGastos['AbrilEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['AbrilProduccion']"></td>
-                                        <td v-text="arrayGastos['AbrilRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadAbril']"></td>
-                                    </tr>      
-                                    <tr>
-                                        <td>Mayo</td>
-                                        <td v-text="arrayGastos['ventasMayo']"></td>
-                                        <td v-text="arrayGastos['MayoEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['MayoProduccion']"></td>
-                                        <td v-text="arrayGastos['MayoRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadMayo']"></td>
-                                    </tr>      
-                                    <tr>
-                                        <td>Junio</td>
-                                        <td v-text="arrayGastos['ventasJunio']"></td>
-                                        <td v-text="arrayGastos['JunioEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['JunioProduccion']"></td>
-                                        <td v-text="arrayGastos['JunioRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadJunio']"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Julio</td>
-                                        <td v-text="arrayGastos['ventasJulio']"></td>
-                                        <td v-text="arrayGastos['JulioEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['JulioProduccion']"></td>
-                                        <td v-text="arrayGastos['JulioRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadJulio']"></td>
-                                    </tr>  
-                                    <tr>
-                                        <td>Agosto</td>
-                                        <td v-text="arrayGastos['ventasAgosto']"></td>
-                                        <td v-text="arrayGastos['AgostoEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['AgostoProduccion']"></td>
-                                        <td v-text="arrayGastos['AgostoRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadAgosto']"></td>
-                                    </tr>  
-                                    <tr>
-                                        <td>Septiembre</td>
-                                        <td v-text="arrayGastos['ventasSeptiembre']"></td>
-                                        <td v-text="arrayGastos['SeptiembreEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['SeptiembreProduccion']"></td>
-                                        <td v-text="arrayGastos['SeptiembreRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadSeptiembre']"></td>
-                                    </tr>  
-                                    <tr>
-                                        <td>Octubre</td>
-                                        <td v-text="arrayGastos['ventasOctubre']"></td>
-                                        <td v-text="arrayGastos['OctubreEstablecimiento']"></td>
-                                        <td v-text="arrayGastos['OctubreProduccion']"></td>
-                                        <td v-text="arrayGastos['OctubreRenovacion']"></td>
-                                        <td v-text="arrayGastos['utilidadOctubre']"></td>
-                                    </tr>  
-                                    <tr>
-                                        <td>Noviembre</td>
-                                        <td>{{arrayGastos['ventasNoviembre'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['NoviembreEstablecimiento'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['NoviembreProduccion'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['NoviembreRenovacion'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['utilidadNoviembre'].toLocaleString()}}</td>
-                                    </tr>  
-                                    <tr>
-                                        <td>Diciembre</td>
-                                        <td >{{arrayGastos['ventasDiciembre'].toLocaleString()}}</td>
-                                        <td >{{arrayGastos['DiciembreEstablecimiento'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['DiciembreProduccion'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['DiciembreRenovacion'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['utilidadDiciembre'].toLocaleString()}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td>{{arrayGastos['ingresosTotal'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['totalGastosEstablecimiento'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['totalGastosProduccion'].toLocaleString()}}</td>
-                                        <td>{{arrayGastos['totalGastosRenovacion'].toLocaleString()}}</td>
-                                        <td >{{arrayGastos['utilidadTotal'].toLocaleString()}}</td>
-                                    </tr>                            
+                                    <tr v-for="venta in arrayVenta" :key="venta.id">
+                                        <td>
+                                            <button type="button" @click="verVenta(venta.id)" class="btn btn-success btn-sm">
+                                            <i class="icon-eye"></i>
+                                            </button> &nbsp;
+                                             <button type="button" @click="pdfVenta(venta.id)" class="btn btn-info btn-sm">
+                                            <i class="icon-doc"></i>
+                                            </button> &nbsp;
+                                        <td v-text="venta.nombre_persona"></td>
+                                        <td v-text="venta.fechaVenta"></td>
+                                        <td v-text="venta.totalUnidades"></td>
+                                        <td v-text="venta.totalVenta"></td>
+                                    </tr>                                
                                 </tbody>
                             </table>
                         </div>
@@ -152,22 +96,27 @@
                     <!-- Detalle-->
                     <template v-else-if="listado==0">
                     <div class="card-body">
-                    <div class="form-group row border">
-                    <div class="col-md-6">
-                        <label for="text-input">Productor</label>
-                        <select class="form-control" v-model="productor_id" @click="selectFinca(productor_id)" @change="selectFinca(productor_id)">
-                            <option value="0" disabled>Seleccione</option>
-                            <option v-for="productor in arrayProductor" :key="productor.id" :value="productor.id" v-text="productor.nombre" ></option>
-                        </select>  
-                    </div>       
-                    <div class="col-md-6">
-                        <label for="text-input">Finca</label>
-                        <select class="form-control" v-model="finca_id">
-                            <option value="0" disabled>Seleccione</option>
-                            <option v-for="finca in arrayFinca" :key="finca.id" :value="finca.id" v-text="finca.nombre" ></option>
-                        </select>              
-                    </div>
-                    <div class="col-md-12">
+                        <div class="form-group row border">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Productor(*)</label>
+                                    <v-select
+                                        :on-search="selectProductor"
+                                        label="nombre"
+                                        :options="arrayProductor"
+                                        placeholder="Buscar Productor..."
+                                        :onChange="getDatosProductor"                                        
+                                    >
+                                    </v-select>
+                                </div>
+                            </div>
+                             <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Otro</label>
+                                    <input type="text" class="form-control" v-model="otro">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div v-show="errorVenta" class="form-group row div-error">
                                     <div class="text-center text-error">
                                         <div v-for="error in errorMostrarMsjVenta" :key="error" v-text="error">
@@ -175,52 +124,35 @@
                                         </div>
                                     </div>
                                 </div>
-                     </div>
-                    </div>
+                            </div>
+                        </div>
                         <div class="form-group row border">
-                          
-                            <div class="col-md-3">
-                               <label for="text-input">Concepto Gasto</label>
-                                <select class="form-control" v-model="conceptoGasto_id">
-                                    <option value="0" disabled>Seleccione</option>
-                                    <option v-for="concepto in arrayConcepto" :key="concepto.id" :value="concepto.id" v-text="concepto.nombre" ></option>
-                                </select>  
-                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Descripcion <span style="color:red;">(*Ingrese)</span></label>
-                                    <input type="text" value="0" step="any" class="form-control" v-model="descripcion">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Otro</label>
-                                    <input type="text" value="0" step="any" class="form-control" v-model="otro">
+                                    <label>Producto<span style="color:red;" v-show="productosComers_id==0">(*Seleccione)</span></label>
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control" v-model="codigo" @keyup.enter="buscarCategoria()" placeholder="Ingrese categoria">
+                                        <button @click="abrirModal()" class="btn btn-primary">...</button>
+                                        <input type="text" readonly class="form-control" v-model="categoria">
+                                    </div>                                    
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Valor Total($) <span style="color:red;" v-show="valorTotal==0">(*)</span></label>
-                                    <input type="number" value="0" step="any" class="form-control" v-model="valorTotal">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
                                     <button @click="agregarDetalle()" class="btn btn-success form-control btnagregar"><i class="icon-plus"></i></button>
                                 </div>
                             </div>
-                           
-                            </div>
+                        </div>
                         <div class="form-group row border">
                             <div class="table-responsive col-md-12">
                                 <table class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
                                             <th>Opciones</th>
-                                            <th>Concepto</th>
-                                            <th>Descripcion</th>
-                                            <th>Otro</th>
-                                            <th>Valor Total</th>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Valor Unitario</th>
+                                            <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody v-if="arrayDetalle.length">
@@ -230,20 +162,30 @@
                                                     <i class="icon-close"></i>
                                                 </button>
                                             </td>
-                                            <td  v-text="detalle.concepto">
+                                            <td  v-text="detalle.categoria">
                                             </td>
-                                            <td v-text="detalle.descripcion">
+                                            <td>
+                                            <input v-model="detalle.cantidad" type="number" class="form-control">
                                             </td>
-                                            <td v-text="detalle.otro">
+                                            <td v-text="detalle.valorUnitario">
                                             </td>
-                                            <td v-text="detalle.valorTotal">
+                                            <td>
+                                                $ {{(detalle.subtotal=detalle.valorUnitario*detalle.cantidad).toFixed(0)}}
                                             </td>    
-                                        </tr>    
+                                        </tr>
+                                         <tr style="background-color: #CEECF5;">
+                                            <td colspan="4" align="right"><strong>Total Unidades:</strong></td>
+                                            <td> {{(totalUnidades=calculartotalUnidades)}}</td>
+                                        </tr>
+                                        <tr style="background-color: #CEECF5;">
+                                            <td colspan="4" align="right"><strong>Total Neto:</strong></td>
+                                            <td>$ {{(totalVenta=calcularTotal).toFixed(0)}}</td>
+                                        </tr>
                                     </tbody>
                                     <tbody v-else>
                                         <tr>
                                             <td colspan="5">
-                                                NO hay gastos agregados
+                                                NO hay productos agregados
                                             </td>
                                         </tr>
                                     </tbody>                                    
@@ -253,7 +195,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                                 <button type="button" @click="ocultarDetalle()" class="btn btn-secondary">Cerrar</button>
-                                <button type="button" class="btn btn-primary" @click="registrarGasto()">Registrar Gasto</button>
+                                <button type="button" class="btn btn-primary" @click="registrarVenta()">Registrar Venta</button>
                             </div>
                         </div>
                     </div>
@@ -269,20 +211,10 @@
                                     <p v-text="productor"></p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <label for="">Linea</label>
-                                <p v-text="linea"></p>
-                            </div>
-                            <div class="col-md-4">
+                              <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Lugar de Venta</label>
-                                    <p v-text="lugarVenta"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Estado</label>
-                                    <p v-text="estado"></p>
+                                    <label for="">Otro</label>
+                                    <p v-text="otro"></p>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -297,42 +229,23 @@
                                 <table class="table table-bordered table-striped table-sm">
                                     <thead>
                                         <tr>
-                                            <th>Categoria</th>
-                                            <th>Peso(Kg)</th>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
                                             <th>Valor Unitario</th>
                                             <th>Subtotal</th>
                                         </tr>
                                     </thead>
                                     <tbody v-if="arrayDetalle.length">
                                         <tr v-for="detalle in arrayDetalle" :key="detalle.id">
-                                            <td v-text="detalle.nombre_categoria">
+                                            <td v-text="detalle.nombre_producto">
                                             </td>
-                                            <td v-text="detalle.peso">
+                                            <td v-text="detalle.cantidad">
                                             </td>
                                             <td v-text="detalle.valorUnitario">
                                             </td>
-                                            <td v-text="detalle.subtotal">
+                                            <td>
+                                                $ {{(detalle.subtotal=detalle.valorUnitario*detalle.cantidad).toFixed(0)}}
                                             </td>
-                                        </tr>
-                                       <tr style="background-color: #CEECF5;">
-                                            <td colspan="3" align="right"><strong>Peso Total(Kg):</strong></td>
-                                            <td v-text="totalKilos"></td>
-                                        </tr>
-                                         <tr style="background-color: #ff4d4d;">
-                                            <td colspan="3" align="right"><strong>Descuento Donacion:</strong></td>
-                                            <td v-text="totalDonacion"></td>
-                                        </tr>
-                                         <tr style="background-color: #ff4d4d;">
-                                            <td colspan="3" align="right"><strong>Descuento Transporte:</strong></td>
-                                            <td  v-text="totalTransporte"></td>
-                                        </tr>
-                                         <tr style="background-color: #ff4d4d;">
-                                            <td colspan="3" align="right"><strong>Descuento Asohofrucol:</strong></td>
-                                            <td  v-text="totalAsohof"></td>
-                                        </tr>
-                                         <tr style="background-color: #ff4d4d;">
-                                            <td colspan="3" align="right"><strong>Descuento 4x1000:</strong></td>
-                                            <td  v-text="totalCuatroXmil"></td>
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="3" align="right"><strong>Total Neto:</strong></td>
@@ -391,9 +304,6 @@
                                             <th>Opciones</th>
                                             <th>Nombre</th>
                                             <th>Valor Unitario</th>
-                                            <th>Valor Donacion</th>
-                                            <th>Valor Transporte</th>
-                                            <th>Valor Asohofrucol</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -405,9 +315,6 @@
                                             </td>
                                             <td v-text="categoria.nombre"></td>
                                             <td v-text="categoria.valorUnitario"></td>
-                                            <td v-text="categoria.ValorDonacion"></td>
-                                            <td v-text="categoria.valorTransporte"></td>
-                                            <td v-text="categoria.valorAsohof"></td>
                                         </tr>                                
                                     </tbody>
                                 </table>
@@ -433,26 +340,18 @@
                 venta_id: 0,
                 productor_id:0,
                 productor:'',
-                finca_id:0,
-                finca:'',
-                conceptoGasto_id:0,
-                concepto:'',
-                descripcion:'',
                 otro:'',
-                valorTotal:0,
                 linea_id:0,
                 linea:'',            
                 lugarVenta_id:0,
                 lugarVenta:'',
-                totalKilos:0.0,
+                totalUnidades:0.0,
                 totalVenta:0.0,
                 totalImpuesto: 0.0,
                 totalParcial: 0.0,
-                arrayGastos : [],
-                arrayGastoEx : [],
+                arrayVenta : [],
+                arrayVentaEx : [],
                 arrayProductor: [],
-                arrayFinca: [],
-                arrayConcepto: [],
                 arrayLugarVenta: [],
                 arrayLinea:[],
                 arrayDetalle : [],
@@ -474,12 +373,12 @@
                 criterio : 'personas',
                 buscar : '',
                 criterioA:'nombre',
-                buscarA: 'Mora',
+                buscarA: '',
                 arrayCategoriaMoras: [],
-                categoria_id: 0,
+                productosComers_id: 0,
                 categoria:'',
                 codigo:0,
-                peso:0,
+                cantidad:0,
                 valorUnitario: 0,
                 ValorDonacion: 0,
                 valorTransporte:0,
@@ -528,16 +427,16 @@
             calcularTotal: function(){
                 var resultado=0.0;
                 for(var i=0;i<this.arrayDetalle.length;i++){
-                    resultado=resultado+(this.arrayDetalle[i].valorUnitario*this.arrayDetalle[i].peso)-
+                    resultado=resultado+(this.arrayDetalle[i].valorUnitario*this.arrayDetalle[i].cantidad)-
                    this.totalDonacion-this.totalTransporte-this.totalAsohof-this.totalCuatroXmil
                 }
                                
                 return resultado;
             },
-             calcularTotalKilos: function(){
+             calculartotalUnidades: function(){
                 var resultado=0.0;
                 for(var i=0;i<this.arrayDetalle.length;i++){
-                    resultado =Number(resultado)+Number(this.arrayDetalle[i].peso)
+                    resultado =Number(resultado)+Number(this.arrayDetalle[i].cantidad)
                 }
                                
                 return resultado;
@@ -546,77 +445,96 @@
             calcularTotalDonacion: function(){
                 var resultado=0.0;
                  for(var i=0;i<this.arrayDetalle.length;i++){
-                resultado =Number(resultado)+(Number(this.arrayCategoriaMoras[0].ValorDonacion)*Number(this.arrayDetalle[i].peso));                              
+                resultado =Number(resultado)+(Number(this.arrayCategoriaMoras[0].ValorDonacion)*Number(this.arrayDetalle[i].cantidad));                              
                  }
                 return resultado;               
             },
             calcularTotalTransporte: function(){
                 var resultado=0.0;
                  for(var i=0;i<this.arrayDetalle.length;i++){
-                resultado =Number(resultado)+(Number(this.arrayCategoriaMoras[0].valorTransporte)*Number(this.arrayDetalle[i].peso));                              
+                resultado =Number(resultado)+(Number(this.arrayCategoriaMoras[0].valorTransporte)*Number(this.arrayDetalle[i].cantidad));                              
                  }
                 return resultado;               
             },
             calcularTotalAsohof: function(){
                 var resultado=0.0;
                  for(var i=0;i<this.arrayDetalle.length;i++){
-                resultado =Number(resultado)+(Number(this.arrayDetalle[i].valorUnitario)*Number(this.arrayDetalle[i].peso)*Number(this.arrayCategoriaMoras[0].valorAsohof));                              
+                resultado =Number(resultado)+(Number(this.arrayDetalle[i].valorUnitario)*Number(this.arrayDetalle[i].cantidad)*Number(this.arrayCategoriaMoras[0].valorAsohof));                              
                  }
                 return resultado;               
             },
             calcularTotalCuatroXmil: function(){
                 var resultado=0.0;
                  for(var i=0;i<this.arrayDetalle.length;i++){
-                resultado =Number(resultado)+(Number(this.arrayDetalle[i].valorUnitario)*Number(this.arrayDetalle[i].peso)*Number(this.arrayCategoriaMoras[0].valorCuatroPorMil));                              
+                resultado =Number(resultado)+(Number(this.arrayDetalle[i].valorUnitario)*Number(this.arrayDetalle[i].cantidad)*Number(this.arrayCategoriaMoras[0].valorCuatroPorMil));                              
                  }
                 return resultado;               
             },
            
         },
         methods : {
-            listarResumen (page,buscar,criterio){
+            listarComer (page,buscar,criterio){
                 let me=this;
-                var url= 'resumen';
+                var url= 'comercializacion?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayGastos = respuesta;
+                    me.arrayVenta = respuesta.comercializacion.data;
+                    me.pagination= respuesta.pagination;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             },
-            selectProductor(){
-                let me =this;
-                var url ='productor/selectProductor';
+            listarComerEx (){
+                let me=this;
+                var url= 'comercializacion/excel';
                 axios.get(url).then(function (response) {
-                    var respuesta = response.data;
-                    me.arrayProductor= respuesta.personas;
+                    var respuesta= response.data;
+                    me.arrayVentaEx = respuesta.comercializacion;
                 })
                 .catch(function (error) {
                     console.log(error);
-                })
+                });
             },
-             selectFinca(id){
-                let me =this;
-                var url ='finca/selectFinca/'+id;
+            selectProductor(search,loading){
+                let me=this;
+                loading(true)
+
+                var url= 'productor/selectProductor2?filtro='+search;
                 axios.get(url).then(function (response) {
-                    var respuesta = response.data;
-                    me.arrayFinca= respuesta.fincas;
+                    let respuesta = response.data;
+                    q: search
+                    me.arrayProductor=respuesta.personas;
+                    loading(false)
                 })
                 .catch(function (error) {
                     console.log(error);
-                })
+                });
             },
-             selectConcepto(){
-                let me =this;
-                var url ='concepto/selectConcepto';
+            getDatosProductor(val1){
+                let me = this;
+                me.loading = true;
+                me.productor_id = val1.id;
+            },
+            selectLinea(search,loading){
+                let me=this;
+                loading(true)
+
+                var url= 'linea/selectLinea2?filtro='+search;
                 axios.get(url).then(function (response) {
-                    var respuesta = response.data;
-                    me.arrayConcepto= respuesta.conceptos;
+                    let respuesta = response.data;
+                    q: search
+                    me.arrayLinea=respuesta.lineas;
+                    loading(false)
                 })
                 .catch(function (error) {
                     console.log(error);
-                })
+                });
+            },
+            getDatosLinea(val1){
+                let me = this;
+                me.loading = true;
+                me.linea_id = val1.id;
             },
             selectLugarVenta(search,loading){
                 let me=this;
@@ -640,7 +558,7 @@
             },
             buscarCategoria(){
                 let me=this;
-                var url= 'categoriaMora/buscarCategoria?filtro=' + me.codigo;
+                var url= 'producto/buscarCategoria?filtro=' + me.codigo;
 
                 axios.get(url).then(function (response) {
                    var respuesta= response.data;
@@ -648,21 +566,13 @@
                    
                     if (me.arrayCategoriaMoras.length>0){
                         me.categoria=me.arrayCategoriaMoras[0]['nombre'];
-                        me.categoria_id=me.arrayCategoriaMoras[0]['id'];
+                        me.productosComers_id=me.arrayCategoriaMoras[0]['id'];
                         me.valorUnitario=me.arrayCategoriaMoras[0]['valorUnitario'];
-                        me.ValorDonacion=me.arrayCategoriaMoras[0]['ValorDonacion'];
-                        me.valorTransporte=me.arrayCategoriaMoras[0]['valorTransporte'];
-                        me.valorAsohof=me.arrayCategoriaMoras[0]['valorAsohof'];
-                        me.valorCuatroPorMil=me.arrayCategoriaMoras[0]['valorCuatroPorMil'];
                     }
                     else{
                         me.categoria='No existe categoria';
-                        me.categoria_id=0;
+                        me.productosComers_id=0;
                         me.valorUnitario=0;
-                        me.ValorDonacion=0;
-                        me.valorTransporte=0;
-                        me.valorAsohof=0;
-                        me.valorCuatroPorMil=0;
                     }
                 })
                 .catch(function (error) {
@@ -670,25 +580,29 @@
                 });
             },
             pdfVenta(id){
-                window.open('http://gestion.asofrut.org/venta/pdf/'+id);
+                window.open('http://gestion.asofrut.org/comercializacion/pdf/'+id);
+                //window.open('http://localhost/asofrut/public/comercializacion/pdf/'+id);
             },
             cargarPdf(){
-                window.open('http://gestion.asofrut.org/venta/listarPdf');
+                window.open('http://gestion.asofrut.org/comercializacion/listarPdf');
+                //window.open('http://localhost/asofrut/public/comercializacion/listarPdf');
             },
             reporteDiario(){
-                window.open('http://gestion.asofrut.org/venta/listarDiario');
+                window.open('http://gestion.asofrut.org/comercializacion/listarDiario');
+                //window.open('http://localhost/asofrut/public/comercializacion/listarDiario');
+
             },
             cambiarPagina(page,buscar,criterio){
                 let me = this;
                 //Actualiza la página actual
                 me.pagination.current_page = page;
                 //Envia la petición para visualizar la data de esa página
-                me.listarResumen(page,buscar,criterio);
+                me.listarComer(page,buscar,criterio);
             },
             encuentra(id){
                 var sw=0;
                 for(var i=0;i<this.arrayDetalle.length;i++){
-                    if(this.arrayDetalle[i].categoria_id==id){
+                    if(this.arrayDetalle[i].productosComers_id==id){
                         sw=true;
                     }
                 }
@@ -699,45 +613,88 @@
                 me.arrayDetalle.splice(index, 1);
             },
             agregarDetalle(){
-            //     if (this.validarAgregarGastos()){
-              //      return;
-              //  }
                 let me=this;
+                if(me.productosComers_id==0){
+                }
+                else{
+                    if(me.encuentra(me.productosComers_id)){
+                        swal.fire({
+                            type: 'error',
+                            title: 'Error...',
+                            text: 'Este producto ya se encuentra agregado!',
+                            })
+                    }
+                    else{
+                      
                        me.arrayDetalle.push({
-                            conceptoGasto_id: me.conceptoGasto_id,
-                            concepto: me.arrayConcepto[me.conceptoGasto_id-1].nombre,
-                            descripcion: me.descripcion,
-                            otro:me.otro,
-                            valorTotal:me.valorTotal, 
+                            productosComers_id: me.productosComers_id,
+                            cantidad: me.cantidad,
+                            valorUnitario:me.valorUnitario,
                             });
-                        me.conceptoGasto_id=0;
-                        me.concepto="";
-                        me.descripcion="";
-                        me.otro="";
-                        me.valorTotal=0;
+                        me.productosComers_id=0;
+                        me.cantidad=0;
+                        me.valorUnitario=0;    
+                    }
+                    
+                }
+
+                
+
             },
-            registrarGasto(){
-                if (this.validarGastos()){
+            agregarDetalleModal(data =[]){
+                let me=this;
+                if(me.encuentra(data['id'])){
+                        swal.fire({
+                            type: 'error',
+                            title: 'Error...',
+                            text: 'Esta categoria ya se encuentra agregada!',
+                            })
+                    }
+                    else{
+                       me.arrayDetalle.push({
+                            productosComers_id: data['id'],
+                            categoria: data['nombre'],
+                            valorUnitario:data['valorUnitario'],
+                            subtotal:data['subtotal'],
+                            cantidad: 1,
+                        }); 
+                    }
+            },
+            listarCategoria (buscar,criterio){
+                let me=this;
+                var url= 'producto/listarCategoria?buscar='+ buscar + '&criterio='+ criterio;
+                axios.get(url).then(function (response) {
+                    var respuesta= response.data;
+                    me.arrayCategoriaMoras = respuesta.productos.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            },
+            registrarVenta(){
+                if (this.validarComercializacion()){
                     return;
                 }
                 
                 let me = this;
-                axios.post('gastos/registrar',{
+                axios.post('comercializacion/registrar',{
                     'productor_id': this.productor_id,
-                    'finca_id': this.finca_id,
+                    'otro':this.otro,
+                    'totalVenta' : this.totalVenta,
+                    'totalUnidades' : this.totalUnidades,
                     'data': this.arrayDetalle
+
                 }).then(function (response) {
                     me.listado=1;
-                    me.listarResumen(1,'','personas');
+                    me.listarComer(1,'','personas');
                     me.productor_id=0;
-                    me.linea_id=0;
-                    me.lugarVenta_id=0;
+                    me.otro='';
                     me.totalVenta=0;
-                    me.totalKilos=0;
+                    me.totalUnidades=0;
                     
-                    me.categoria_id=0;
+                    me.productosComers_id=0;
                     me.categoria='';
-                    me.peso=0;
+                    me.cantidad=0;
                     me.valorUnitario=0;
                     me.totalDonacion=0;
                     me.totalTransporte=0;
@@ -745,26 +702,21 @@
                     me.totalCuatroXmil=0;
                     me.codigo='';
                     me.arrayDetalle=[];
+                    window.open('http://gestion.asofrut.org/venta/pdf/'+response.data.id);
+
                 }).catch(function (error) {
                     console.log(error);
                 });
             },
-            validarGastos(){
+            validarComercializacion(){
                 this.errorVenta=0;
                 this.errorMostrarMsjVenta =[];
 
                 if (this.productor_id==0) this.errorMostrarMsjVenta.push("Seleccione un Productor");
-                if (this.finca_id==0) this.errorMostrarMsjVenta.push("Seleccione una finca");
-                if (this.arrayDetalle.length<=0) this.errorMostrarMsjVenta.push("Ingrese gastos");
+                if (this.arrayDetalle.length<=0) this.errorMostrarMsjVenta.push("Ingrese un producto");
+
                 if (this.errorMostrarMsjVenta.length) this.errorVenta = 1;
-                return this.errorVenta;
-            },
-             validarAgregarGastos(){
-                this.errorVenta=0;
-                this.errorMostrarMsjVenta =[];
-                if (this.conceptoGasto_id==0) this.errorMostrarMsjVenta.push("Seleccione un concepto para el gasto");
-                if (this.arrayDetalle.length<=0) this.errorMostrarMsjVenta.push("Ingrese gastos");
-                if (this.errorMostrarMsjVenta.length) this.errorVenta = 1;
+
                 return this.errorVenta;
             },
             mostrarDetalle(){
@@ -792,35 +744,27 @@
                 
                 //Obtener los datos del ingreso
                 var arrayVentaT=[];
-                var url= 'venta/obtenerCabecera?id=' + id;
+                var url= 'comercializacion/obtenerCabecera?id=' + id;
                 
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    arrayVentaT = respuesta.venta;
-
+                    arrayVentaT = respuesta.comercializacion;
                     me.productor = arrayVentaT[0]['nombre_persona'];
-                    me.linea=arrayVentaT[0]['nombre_linea'];
-                    me.lugarVenta=arrayVentaT[0]['nombre_lugarVenta'];
-                    me.estado=arrayVentaT[0]['nombre_estadoVenta'];
+                    me.otro = arrayVentaT[0]['otro'];
                     me.totalVenta=arrayVentaT[0]['totalVenta'];
-                    me.totalKilos=arrayVentaT[0]['totalKilos'];
+                    me.totalUnidades=arrayVentaT[0]['totalUnidades'];
                     me.fechaVenta=arrayVentaT[0]['fechaVenta'];
-                    me.totalDonacion=arrayVentaT[0]['totalDonacion'];
-                    me.totalTransporte=arrayVentaT[0]['totalTransporte'];
-                    me.totalAsohof=arrayVentaT[0]['totalAsohof'];
-                    me.totalCuatroXmil=arrayVentaT[0]['totalCuatroXmil'];
-
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
 
                 //Obtener los datos de los detalles 
-                var urld= 'venta/obtenerDetalles?id=' + id;
+                var urld= 'comercializacion/obtenerDetalles?id=' + id;
                 
                 axios.get(urld).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayDetalle = respuesta.ventaCategoria;
+                    me.arrayDetalle = respuesta.productoComercializacion;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -833,7 +777,7 @@
             abrirModal(){               
                 this.arrayCategoriaMoras=[];
                 this.modal = 1;
-                this.tituloModal = 'Seleccione uno o varios artículos';
+                this.tituloModal = 'Seleccione uno o varios productos';
             },
             desactivarVenta(id){
                swal.fire({
@@ -855,7 +799,7 @@
                     axios.put('venta/desactivar',{
                         'id': id
                     }).then(function (response) {
-                        me.listarVenta(1,'','personas');
+                        me.listarComer(1,'','personas');
                         swal.fire(
                         'Anulado!',
                         'La venta ha sido anulada con éxito.',
@@ -894,7 +838,7 @@
                     axios.put('venta/pasarFacturacion',{
                         'id': id
                     }).then(function (response) {
-                        me.listarResumen(1,'','personas');
+                        me.listarComer(1,'','personas');
                         swal.fire(
                         'Tramite Facturacion!',
                         'La venta ha pasado al siguiente estado con exito.',
@@ -933,7 +877,7 @@
                     axios.put('venta/pasarDisponiblePago',{
                         'id': id
                     }).then(function (response) {
-                        me.listarVenta(1,'','personas');
+                        me.listarComer(1,'','personas');
                         swal.fire(
                         'Disponible para pago!',
                         'La venta ha pasado al siguiente estado con exito.',
@@ -972,7 +916,7 @@
                     axios.put('venta/pasarPagado',{
                         'id': id
                     }).then(function (response) {
-                        me.listarResumen(1,'','personas');
+                        me.listarComer(1,'','personas');
                         swal.fire(
                         'Pagado!',
                         'La venta ha pasado al siguiente estado con exito.',
@@ -989,14 +933,12 @@
                 ) {
                     
                 }
-                })
+                }) 
             },
         },
         mounted() {
-            this.selectProductor();
-            this.selectFinca(this.productor_id); 
-            this.selectConcepto();
-            this.listarResumen(1,this.buscar,this.criterio);
+            this.listarComer(1,this.buscar,this.criterio);
+            this.listarComerEx();
         }
     }
 </script>

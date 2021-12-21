@@ -597,14 +597,14 @@ class ResumenController extends Controller
             'ventasOctubre'=>$ventasOctubre,
             'utilidadOctubre'=>$utilidadOctubre,
 
-            'NoviembreEstablecimiento' =>  $NoviembreEstablecimiento,
-            'NoviembreProduccion' =>  $NoviembreProduccion,
-            'NoviembreRenovacion' =>  $NoviembreRenovacion,
+            'NoviembreEstablecimiento' =>$NoviembreEstablecimiento,
+            'NoviembreProduccion' => $NoviembreProduccion,
+            'NoviembreRenovacion' => $NoviembreRenovacion,
             'ventasNoviembre'=>$ventasNoviembre,
             'utilidadNoviembre'=>$utilidadNoviembre,
 
             
-            'DiciembreEstablecimiento' =>  $DiciembreEstablecimiento,
+            'DiciembreEstablecimiento' => $DiciembreEstablecimiento,
             'DiciembreProduccion' =>  $DiciembreProduccion,
             'DiciembreRenovacion' =>  $DiciembreRenovacion,
             'ventasDiciembre'=>$ventasDiciembre,

@@ -25,42 +25,33 @@ class CreateComercializacion extends Migration
         Schema::create('comercializacions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('productor_id');
-
+            $table->text('otro')->nullable();
             $table->date('fechaVenta');
             $table->decimal('totalVenta', 11, 2);
-            $table->decimal('totalKilos', 11, 2);
-            $table->unsignedInteger('estado_id');                                 
+            $table->decimal('totalUnidades', 11, 2);
             $table->timestamps();
-        });
+        }); 
 
         
 
-        Schema::table('ventas', function (Blueprint $table) {
+        Schema::table('comercializacions', function (Blueprint $table) {
             $table->foreign('productor_id')->references('id')->on('productors');
-            $table->foreign('linea_id')->references('id')->on('lineas');
-            $table->foreign('lugarVenta_id')->references('id')->on('lugarVentas');
-            $table->foreign('estado_id')->references('id')->on('estadoVentas');
         });
 
         echo "Creando tabla de ventas_categorias ".__LINE__."\n";
-        Schema::create('ventas_categorias', function (Blueprint $table) {
+        Schema::create('comercializacionProductos', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('ventas_id');
-            $table->unsignedInteger('categoria_id');
-            $table->decimal('peso', 11, 2);
+            $table->unsignedInteger('comercializacion_id');
+            $table->unsignedInteger('productosComers_id');
+            $table->decimal('cantidad', 11, 2);
             $table->decimal('valorUnitario', 11, 2);
-            $table->decimal('subtotal', 11, 2);
-            $table->decimal('donacion', 11, 2);
-            $table->decimal('transporte', 11, 2);
-            $table->decimal('asohof', 11, 2);
-            $table->decimal('cuatroXmil', 11, 2);
             $table->text('otro')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('ventas_categorias', function (Blueprint $table) {
-            $table->foreign('ventas_id')->references('id')->on('ventas');
-            $table->foreign('categoria_id')->references('id')->on('categoriaMoras');
+        Schema::table('comercializacionProductos', function (Blueprint $table) {
+            $table->foreign('comercializacion_id')->references('id')->on('comercializacions');
+            $table->foreign('productosComers_id')->references('id')->on('productosComers');
         });
     }
 
@@ -71,6 +62,8 @@ class CreateComercializacion extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('productosComers');
+        Schema::dropIfExists('comercializacions');
+        Schema::dropIfExists('comercializacionProductos');
     }
 }
