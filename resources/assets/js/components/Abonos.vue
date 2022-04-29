@@ -8,64 +8,28 @@
                 <!-- Ejemplo de tabla Listado -->
                 <div class="card">
                     <div class="card-header">
-                        <i class="fa fa-align-justify"></i> Gastos Establecimiento
-                        <button type="button" @click="mostrarDetalle()" class="btn btn-secondary">
-                            <i class="icon-plus"></i>&nbsp;Nuevo
-                        </button>
-                         <export-excel
-                        class   = "button btn btn-success"
-                        :data   = arrayGastoEx
-                        worksheet = "GastosEstablecimiento"
-                        name    = "gastosEstablecimiento.xls">
-                        Excel
-                        </export-excel>
-                        <export-excel
-                        class   = "button btn btn-success"
-                        :data   = arrayGastoEx
-                        type="csv"
-                        name    = "gastosEstablecimiento.xls">
-                        csv
-                        </export-excel>
+                        <i class="fa fa-align-justify"></i> Resumen Abonos
                     </div>
                     <!-- Listado-->
                     <template v-if="listado==1">
                     <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <select class="form-control col-md-3" v-model="criterio">
-                                      <option value="personas">Nombre</option>
-                                      <option value="fechaVenta">Fecha-Hora</option>
-                                      <option value="totalKilos">Peso total</option>
-                                    </select>
-                                    <input type="text" v-model="buscar" @keyup.enter="listarGastos(1,buscar,criterio)" class="form-control" placeholder="Texto a buscar">
-                                    <button type="submit" @click="listarGastos(1,buscar,criterio)" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
-                                </div>
-                            </div>
-                        </div>
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Fecha Registro</th>
                                         <th>Productor</th>
-                                        <th>Finca</th>
-                                        <th>Concepto Gasto</th>
-                                        <th>Descripcion</th>
-                                        <th>Otro</th>
-                                        <th>Valor Total($)</th>
+                                        <th>Valor Abonado</th>
+                                        <th>Saldo</th>
+                                        <th>Fecha</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="gasto in arrayGastos" :key="gasto.id">
-                                        <td v-text="gasto.fechaRegistro"></td>
-                                        <td v-text="gasto.nombreProductor"></td>
-                                        <td v-text="gasto.nombreFinca"></td>
-                                        <td v-text="gasto.conceptoGasto"></td>
-                                        <td v-text="gasto.descripcion"></td>
-                                        <td v-text="gasto.otro"></td>
-                                        <td v-text="gasto.valorTotal"></td>
-                                    </tr>                                
+                                     <tr v-for="abono in arrayGastos" :key="abono.id">
+                                        <td v-text="abono.nombre_persona"></td>
+                                        <td v-text="abono.valorAbonado"></td>
+                                        <td v-text="abono.saldo"></td>
+                                        <td v-text="abono.created_at"></td>
+                                    </tr>       
                                 </tbody>
                             </table>
                         </div>
@@ -89,25 +53,20 @@
                     <template v-else-if="listado==0">
                     <div class="card-body">
                     <div class="form-group row border">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="text-input">Productor</label>
                         <select class="form-control" v-model="productor_id" @click="selectFinca(productor_id)" @change="selectFinca(productor_id)">
                             <option value="0" disabled>Seleccione</option>
                             <option v-for="productor in arrayProductor" :key="productor.id" :value="productor.id" v-text="productor.nombre" ></option>
                         </select>  
                     </div>       
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="text-input">Finca</label>
                         <select class="form-control" v-model="finca_id">
                             <option value="0" disabled>Seleccione</option>
                             <option v-for="finca in arrayFinca" :key="finca.id" :value="finca.id" v-text="finca.nombre" ></option>
                         </select>              
                     </div>
-                    <div class="col-md-4">
-                        <label for="text-input">Fecha Registro</label>
-                                <v-datepicker  v-model="fechaRegistro "></v-datepicker>
-                    </div>
-                    
                     <div class="col-md-12">
                                 <div v-show="errorVenta" class="form-group row div-error">
                                     <div class="text-center text-error">
@@ -368,7 +327,6 @@
 
 <script>
     import vSelect from 'vue-select';
-    import Datepicker from 'vuejs-datepicker';
     export default {
         data (){
             return {
@@ -380,7 +338,6 @@
                 conceptoGasto_id:0,
                 concepto:'',
                 descripcion:'',
-                fechaRegistro:'',
                 otro:'',
                 valorTotal:0,
                 linea_id:0,
@@ -517,24 +474,13 @@
            
         },
         methods : {
-            listarGastos (page,buscar,criterio){
+            listarResumen (page,buscar,criterio){
                 let me=this;
-                var url= 'gastos?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
+                var url= 'abonos';
                 axios.get(url).then(function (response) {
                     var respuesta= response.data;
-                    me.arrayGastos = respuesta.gastos.data;
+                     me.arrayGastos = respuesta.abono.data;
                     me.pagination= respuesta.pagination;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            },
-            listarGastoEx (){
-                let me=this;
-                var url= 'gastos/excel';
-                axios.get(url).then(function (response) {
-                    var respuesta= response.data;
-                    me.arrayGastoEx = respuesta.gastos;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -638,7 +584,7 @@
                 //Actualiza la página actual
                 me.pagination.current_page = page;
                 //Envia la petición para visualizar la data de esa página
-                me.listarGastos(page,buscar,criterio);
+                me.listarResumen(page,buscar,criterio);
             },
             encuentra(id){
                 var sw=0;
@@ -680,18 +626,15 @@
                 axios.post('gastos/registrar',{
                     'productor_id': this.productor_id,
                     'finca_id': this.finca_id,
-                    'data': this.arrayDetalle,
-                    'fechaRegistro':this.fechaRegistro
+                    'data': this.arrayDetalle
                 }).then(function (response) {
                     me.listado=1;
-                    me.listarGastos(1,'','personas');
+                    me.listarResumen(1,'','personas');
                     me.productor_id=0;
                     me.linea_id=0;
                     me.lugarVenta_id=0;
                     me.totalVenta=0;
                     me.totalKilos=0;
-                    me.fechaRegistro='';
-                    me.finca_id=0;
                     
                     me.categoria_id=0;
                     me.categoria='';
@@ -742,27 +685,7 @@
                 me.arrayDetalle=[];
             },
             ocultarDetalle(){
-                let me =this;
-                
                 this.listado=1;
-                 me.productor_id=0;
-                    me.linea_id=0;
-                    me.lugarVenta_id=0;
-                    me.totalVenta=0;
-                    me.totalKilos=0;
-                    me.fechaRegistro='';
-                    me.finca_id=0;
-                    
-                    me.categoria_id=0;
-                    me.categoria='';
-                    me.peso=0;
-                    me.valorUnitario=0;
-                    me.totalDonacion=0;
-                    me.totalTransporte=0;
-                    me.totalAsohof=0;
-                    me.totalCuatroXmil=0;
-                    me.codigo='';
-                    me.arrayDetalle=[];
             },
             verVenta(id){
                 let me=this;
@@ -872,7 +795,7 @@
                     axios.put('venta/pasarFacturacion',{
                         'id': id
                     }).then(function (response) {
-                        me.listarGastos(1,'','personas');
+                        me.listarResumen(1,'','personas');
                         swal.fire(
                         'Tramite Facturacion!',
                         'La venta ha pasado al siguiente estado con exito.',
@@ -950,7 +873,7 @@
                     axios.put('venta/pasarPagado',{
                         'id': id
                     }).then(function (response) {
-                        me.listarGastos(1,'','personas');
+                        me.listarResumen(1,'','personas');
                         swal.fire(
                         'Pagado!',
                         'La venta ha pasado al siguiente estado con exito.',
@@ -974,8 +897,7 @@
             this.selectProductor();
             this.selectFinca(this.productor_id); 
             this.selectConcepto();
-            this.listarGastos(1,this.buscar,this.criterio);
-            this.listarGastoEx();
+            this.listarResumen(1,this.buscar,this.criterio);
         }
     }
 </script>

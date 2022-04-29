@@ -89,19 +89,23 @@
                     <template v-else-if="listado==0">
                     <div class="card-body">
                     <div class="form-group row border">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="text-input">Productor</label>
                         <select class="form-control" v-model="productor_id" @click="selectFinca(productor_id)" @change="selectFinca(productor_id)">
                             <option value="0" disabled>Seleccione</option>
                             <option v-for="productor in arrayProductor" :key="productor.id" :value="productor.id" v-text="productor.nombre" ></option>
                         </select>  
                     </div>       
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="text-input">Finca</label>
                         <select class="form-control" v-model="finca_id">
                             <option value="0" disabled>Seleccione</option>
                             <option v-for="finca in arrayFinca" :key="finca.id" :value="finca.id" v-text="finca.nombre" ></option>
                         </select>              
+                    </div>
+                     <div class="col-md-4">
+                        <label for="text-input">Fecha Registro</label>
+                                <v-datepicker  v-model="fechaRegistro "></v-datepicker>
                     </div>
                     <div class="col-md-12">
                                 <div v-show="errorVenta" class="form-group row div-error">
@@ -372,6 +376,7 @@
                 finca_id:0,
                 finca:'',
                 conceptoGasto_id:0,
+                fechaRegistro:'',
                 concepto:'',
                 descripcion:'',
                 otro:'',
@@ -673,7 +678,8 @@
                 axios.post('produccion/registrar',{
                     'productor_id': this.productor_id,
                     'finca_id': this.finca_id,
-                    'data': this.arrayDetalle
+                    'data': this.arrayDetalle,
+                    'fechaRegistro':this.fechaRegistro
                 }).then(function (response) {
                     me.listado=1;
                     me.listarGastos(1,'','personas');
@@ -682,7 +688,8 @@
                     me.lugarVenta_id=0;
                     me.totalVenta=0;
                     me.totalKilos=0;
-                    
+                    me.fechaRegistro='';
+                    me.finca_id=0;
                     me.categoria_id=0;
                     me.categoria='';
                     me.peso=0;
@@ -732,7 +739,26 @@
                 me.arrayDetalle=[];
             },
             ocultarDetalle(){
+                let me=this;
+                
                 this.listado=1;
+                  me.productor_id=0;
+                    me.linea_id=0;
+                    me.lugarVenta_id=0;
+                    me.totalVenta=0;
+                    me.totalKilos=0;
+                    me.fechaRegistro='';
+                    me.finca_id=0;
+                    me.categoria_id=0;
+                    me.categoria='';
+                    me.peso=0;
+                    me.valorUnitario=0;
+                    me.totalDonacion=0;
+                    me.totalTransporte=0;
+                    me.totalAsohof=0;
+                    me.totalCuatroXmil=0;
+                    me.codigo='';
+                    me.arrayDetalle=[];
             },
             verVenta(id){
                 let me=this;

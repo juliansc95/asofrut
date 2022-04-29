@@ -141,7 +141,8 @@ class AdecuacionRenovacionController extends Controller
             $gasto = new AdecuacionRenovacion();
             $gasto->productor_id = $request->productor_id;
             $gasto->finca_id = $request->finca_id;
-            $gasto->fechaRegistro = $mytime->toDateTimeString();
+            $mytime= Carbon::parse($request->fechaRegistro)->toDateString();
+            $gasto->fechaRegistro = $mytime;
             $gasto->save();
 
             $renovacionConceptos = $request->data;//Array de detalles
@@ -178,7 +179,7 @@ class AdecuacionRenovacionController extends Controller
             $gasto = new AdecuacionRenovacion();
             $gasto->productor_id = $request->productor_id;
             $gasto->finca_id = $request->finca_id;
-            $gasto->fechaRegistro = $mytime->toDateTimeString();
+            $gasto->fechaRegistro = $request->fecha_registro;
             $gasto->save();
 
             $renovacionConceptos = json_decode($request->data, true);

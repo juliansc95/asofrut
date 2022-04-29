@@ -186,7 +186,14 @@ Route::group(['middleware'=>['auth']],function(){
       Route::get('/comercializacion/pdf/{id}','ComercializacionController@pdf')->name('comercializacion_pdf');
       Route::get('/comercializacion/listarPdf','ComercializacionController@listarPdf')->name('comercializacions_pdf');
       Route::get('/comercializacion/listarDiario','ComercializacionController@listarPdfDiario')->name('ventas_dia_pdf');
-    
+      Route::get('/comercializacion/deuda/{id}','VentaController@deudaTotal');
+
+      //Rutas Abono
+      Route::get('/abono/{id}','VentaController@getSaldo');
+      Route::get('/abonos','AbonoController@index');
+
+  
+
     //Rutas PDF
     Route::get('/finca/listarPdf','FincaController@listarPdf')->name('fincas_pdf');
     Route::get('/cultivo/listarPdf','CultivoController@listarPdf')->name('cultivos_pdf');

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Abono;
 use App\Venta;
 use App\VentaCategoria;
+use App\Comercializacion;
+
 
 class VentaController extends Controller
 {
@@ -27,7 +30,7 @@ class VentaController extends Controller
             'ventas.fechaVenta','ventas.lugarVenta_id','ventas.totalVenta','ventas.totalKilos',
             'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
             'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
-             ->orderBy('ventas.estado_id', 'asc')->paginate(10);
+             ->orderBy('ventas.fechaVenta', 'desc')->paginate(10);
         }
         if($criterio == 'personas'){
         $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
@@ -40,7 +43,7 @@ class VentaController extends Controller
         'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
         'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
         ->where($criterio.'.nombre', 'like', '%'. $buscar . '%')
-        ->orderBy('ventas.estado_id', 'asc')->paginate(10);
+        ->orderBy('ventas.fechaVenta', 'desc')->paginate(10);
         }
         else{
             $ventas = Venta::join('personas','ventas.productor_id','=','personas.id')
@@ -53,7 +56,7 @@ class VentaController extends Controller
             'ventas.estado_id','personas.nombre as nombre_persona','estadoVentas.nombre as nombre_estadoVenta',
             'lugarVentas.nombre as nombre_lugarVenta','lineas.nombre as nombre_linea')
             ->where('ventas.'.$criterio, 'like', '%'. $buscar . '%')
-            ->orderBy('ventas.estado_id', 'asc')->paginate(10);
+            ->orderBy('ventas.fechaVenta', 'desc')->paginate(10);
         }
         
         return [
@@ -166,6 +169,15 @@ class VentaController extends Controller
         return ['ventaCategoria' => $ventaCategoria];
     }
 
+    public function getSaldo(Request $request){
+        // if(!$request->ajax()) return redirect('/');
+         $id=$request->id;
+         $saldo= Abono::select('id','saldo','valorAbonado')
+         ->where('productor_id','=',$id)
+         ->orderBy('id','desc')->take(1)->get();
+         return['saldo'=>$saldo];
+     }
+
     public function pdf(Request $request,$id){
         $venta = Venta::join('personas','ventas.productor_id','=','personas.id')
         ->join('productors','ventas.productor_id','=','productors.id')
@@ -194,6 +206,15 @@ class VentaController extends Controller
 
         $pdf = \PDF::loadView('pdf.venta',['venta'=>$venta,'ventaCategoria' => $ventaCategoria]);
         return $pdf->download('venta-'.$nombrePdf[0]->fechaVenta.'.pdf');
+    }
+
+    public function deudaTotal(Request $request,$id){
+        $comercializacion = Comercializacion::
+        select(DB::raw("SUM(comercializacions.totalVenta) as deuda"))
+        ->where('productor_id','=',$id)->get();
+        return [
+            'deudaTotal' => $comercializacion
+        ];
     }
 
     public function listarPdf(){
@@ -268,6 +289,13 @@ class VentaController extends Controller
             $venta->totalCuatroXmil =$request->totalCuatroXmil;
             $venta->estado_id = '1';
             $venta->save();
+
+            $abono = new Abono();
+            $abono->productor_id = $request->productor_id;
+            $abono->valorAbonado = $request->totalAbono;
+            $abono->saldo = $request->saldo;
+            $abono->save();
+
 
             $ventaCategorias = $request->data;//Array de detalles
             //Recorro todos los elementos

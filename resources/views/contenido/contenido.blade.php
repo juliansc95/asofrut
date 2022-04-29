@@ -127,6 +127,9 @@
             <template v-if="menu==32">
                 <comercializacion></comercializacion>
             </template>
+            <template v-if="menu==33">
+                <abonos></abonos>
+            </template>
             @elseif(Auth::user()->idrol == 2)
             <template v-if="menu==5">
                 <ventatecnico></ventatecnico>
@@ -184,10 +187,16 @@
 
             <template v-if="menu==19">
                <visita></visita>
-            </template>   
+            </template>    
             <template v-if="menu==20">
                <gpx></gpx>
-            </template>    
+            </template>
+            <template v-if="menu==21">
+               <gmap></gmap>
+            </template> 
+            <template v-if="menu==25">
+              <gpxzone></gpxzone> 
+            </template> 
             @elseif(Auth::user()->idrol == 4)
             <template v-if="menu==1">
                 <fincaproductor></fincaproductor>

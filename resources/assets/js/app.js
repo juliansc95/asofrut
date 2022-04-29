@@ -21,7 +21,8 @@ import excel from 'vue-excel-export'
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+ 
+Vue.component('abonos', require('./components/Abonos.vue'));
 Vue.component('categoria', require('./components/Categoria.vue'));
 Vue.component('articulo', require('./components/Articulo.vue'));
 Vue.component('cliente', require('./components/Cliente.vue'));

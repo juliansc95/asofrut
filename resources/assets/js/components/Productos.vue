@@ -48,6 +48,7 @@
                                 <tr>
                                     <th>Opciones</th>
                                     <th>Nombre</th>
+                                    <th>Numero ICA</th>
                                     <th>Valor Unitario</th>
                             </tr>
                             </thead>
@@ -59,6 +60,7 @@
                                         </button> &nbsp;
                                     </td>
                                     <td v-text="categoria.nombre"></td>
+                                    <td v-text="categoria.ICA"></td>
                                     <td v-text="categoria.valorUnitario"></td>
                                 </tr>
                             </tbody>
@@ -100,6 +102,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label class="col-md-3 form-control-label" for="number-input">Numero ICA</label>
+                                    <div class="col-md-9">
+                                        <input type="text" v-model="ICA"  class="form-control" placeholder="">
+                                    </div>
+                                </div>          
+                                <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="number-input">Valor Unitario</label>
                                     <div class="col-md-9">
                                         <input type="number" v-model="valorUnitario"  class="form-control" placeholder="">
@@ -134,6 +142,7 @@
                 categoriaMora_id:0,
                 nombre:'',
                 valorUnitario:0,
+                ICA:'',
                 modal: 0,
                 tituloModal : '',
                 tipoAccion:0,
@@ -216,6 +225,7 @@
             let me=this;
             axios.post('producto/registrar',{
                 'nombre':this.nombre,
+                'ICA':this.ICA,
                 'valorUnitario':this.valorUnitario,                           
             }).then(function (response) {
                     me.cerrarModal();
@@ -227,7 +237,7 @@
 
         },
         cargarPdf(){
-                window.open('http://gestion.asofrut.org/mora/listarPdf');
+                window.open('http://gestion.asofrut.org/productos/listarPdf');
                 //window.open('http://localhost/asofrut/public/productos/listarPdf');
 
             },
@@ -238,6 +248,7 @@
             let me=this;
             axios.put('producto/actualizar',{
                 'nombre':this.nombre,
+                'ICA':this.ICA,
                 'valorUnitario':this.valorUnitario,
                 'id':this.categoriaMora_id
             }).then(function (response) {
@@ -261,6 +272,7 @@
                 this.modal=0;
                 this.tituloModal='';
                 this.nombre='';
+                this.ICA = '';
                 this.valorUnitario=0;
 		        this.errorcategoriaMora=0;
         },
@@ -274,6 +286,7 @@
                         this.modal = 1;
                         this.tituloModal = 'Registrar Producto';
                         this.nombre = '';
+                        this.ICA='';
                         this.valorUnitario=0;
                         this.tipoAccion=1;
                         break;
@@ -285,6 +298,7 @@
                         this.tipoAccion=2;
                         this.categoriaMora_id=data['id'];
                         this.nombre =data['nombre'];
+                        this.ICA =data['ICA'];
                         this.valorUnitario=data['valorUnitario'];
                         break;
                     }       

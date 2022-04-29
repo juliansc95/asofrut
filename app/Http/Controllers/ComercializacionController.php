@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Comercializacion;
+use App\Abono;
 use App\ComercializacionProductos;
 class ComercializacionController extends Controller
 {
@@ -97,6 +98,13 @@ class ComercializacionController extends Controller
 
             $comercializacionproductos = $request->data;//Array de detalles
             //Recorro todos los elementos
+
+            $abono = new Abono();
+            $abono->productor_id = $request->productor_id;
+            $abono->valorAbonado = $request->valorAbonado;
+            $abono->saldo = $request->saldo;
+            $abono->save();
+
 
             foreach($comercializacionproductos as $ep=>$comerPro)
             {

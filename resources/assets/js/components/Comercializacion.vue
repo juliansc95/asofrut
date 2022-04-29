@@ -99,15 +99,11 @@
                         <div class="form-group row border">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">Productor(*)</label>
-                                    <v-select
-                                        :on-search="selectProductor"
-                                        label="nombre"
-                                        :options="arrayProductor"
-                                        placeholder="Buscar Productor..."
-                                        :onChange="getDatosProductor"                                        
-                                    >
-                                    </v-select>
+                                   <label for="text-input">Productor</label>
+                                    <select class="form-control" v-model="productor_id" @click="getSaldo(productor_id)" @change="getSaldo(productor_id)">
+                                        <option value="0" disabled>Seleccione</option>
+                                        <option v-for="productor in arrayProductor" :key="productor.id" :value="productor.id" v-text="productor.nombre" ></option>
+                                    </select>  
                                 </div>
                             </div>
                              <div class="col-md-4">
@@ -141,6 +137,19 @@
                                 <div class="form-group">
                                     <button @click="agregarDetalle()" class="btn btn-success form-control btnagregar"><i class="icon-plus"></i></button>
                                 </div>
+                            </div>
+                        </div>
+                         <div class="form-group row border">
+                            <div class="col-md-4">                               
+                                <label>Saldo Comercializacion</label>  
+                                <div class="form-group">
+                                <div v-if="!arraySaldo.length">
+                                     <input type="number" value=0 disabled> 
+                                </div>
+                                <div>
+                                <input type="number" v-for="saldo in arraySaldo" :key="saldo.id" :value="saldo.saldo" v-text="saldo.saldo" disabled>  
+                                </div>
+                                </div>       
                             </div>
                         </div>
                         <div class="form-group row border">
@@ -375,6 +384,7 @@
                 criterioA:'nombre',
                 buscarA: '',
                 arrayCategoriaMoras: [],
+                arraySaldo:[],
                 productosComers_id: 0,
                 categoria:'',
                 codigo:0,
@@ -496,25 +506,16 @@
                     console.log(error);
                 });
             },
-            selectProductor(search,loading){
-                let me=this;
-                loading(true)
-
-                var url= 'productor/selectProductor2?filtro='+search;
+           selectProductor(){
+                let me =this;
+                var url ='productor/selectProductor';
                 axios.get(url).then(function (response) {
-                    let respuesta = response.data;
-                    q: search
-                    me.arrayProductor=respuesta.personas;
-                    loading(false)
+                    var respuesta = response.data;
+                    me.arrayProductor= respuesta.personas;
                 })
                 .catch(function (error) {
                     console.log(error);
-                });
-            },
-            getDatosProductor(val1){
-                let me = this;
-                me.loading = true;
-                me.productor_id = val1.id;
+                })
             },
             selectLinea(search,loading){
                 let me=this;
@@ -550,6 +551,17 @@
                 .catch(function (error) {
                     console.log(error);
                 });
+            },
+             getSaldo(id){
+                let me =this;
+                var url ='abono/'+id;
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arraySaldo= respuesta.saldo;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             },
             getDatosLugarVenta(val1){
                 let me = this;
@@ -671,6 +683,22 @@
                     console.log(error);
                 });
             },
+            verificarSaldo(){
+                if(this.arraySaldo.length == 0){
+                    return 0;
+                }
+                else{
+                    return this.arraySaldo[0].saldo;
+                }
+            },
+             verificarAbono(){
+                if(this.arraySaldo.length == 0){
+                    return 0;
+                }
+                else{
+                    return this.arraySaldo[0].valorAbonado;
+                }
+            },
             registrarVenta(){
                 if (this.validarComercializacion()){
                     return;
@@ -680,7 +708,9 @@
                 axios.post('comercializacion/registrar',{
                     'productor_id': this.productor_id,
                     'otro':this.otro,
-                    'totalVenta' : this.totalVenta,
+                    'totalVenta':this.totalVenta,
+                    'saldo' : Number(this.totalVenta) +this.verificarSaldo(),
+                    'valorAbonado':this.verificarAbono(),
                     'totalUnidades' : this.totalUnidades,
                     'data': this.arrayDetalle
 
@@ -702,7 +732,7 @@
                     me.totalCuatroXmil=0;
                     me.codigo='';
                     me.arrayDetalle=[];
-                    window.open('http://gestion.asofrut.org/venta/pdf/'+response.data.id);
+                    window.open('http://gestion.asofrut.org/comercializacion/pdf/'+response.data.id);
 
                 }).catch(function (error) {
                     console.log(error);
@@ -937,6 +967,8 @@
             },
         },
         mounted() {
+            this.selectProductor();
+            this.getSaldo(this.productor_id);
             this.listarComer(1,this.buscar,this.criterio);
             this.listarComerEx();
         }

@@ -143,7 +143,8 @@ class GastosEstablecimientoController extends Controller
             $gasto = new GastosEstablecimiento();
             $gasto->productor_id = $request->productor_id;
             $gasto->finca_id = $request->finca_id;
-            $gasto->fechaRegistro = $mytime->toDateTimeString();
+            $mytime= Carbon::parse($request->fechaRegistro)->toDateString();
+            $gasto->fechaRegistro = $mytime;
             $gasto->save();
 
             $establecimientoConceptos = $request->data;//Array de detalles
@@ -180,7 +181,7 @@ class GastosEstablecimientoController extends Controller
             $gasto = new GastosEstablecimiento();
             $gasto->productor_id = $request->productor_id;
             $gasto->finca_id = $request->finca_id;
-            $gasto->fechaRegistro = $mytime->toDateTimeString();
+            $gasto->fechaRegistro = $request->fecha_registro;
             $gasto->save();
 
             $establecimientoConceptos = json_decode($request->data, true);//Array de detalles

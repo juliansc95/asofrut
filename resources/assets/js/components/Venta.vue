@@ -128,15 +128,11 @@
                         <div class="form-group row border">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="">Productor(*)</label>
-                                    <v-select
-                                        :on-search="selectProductor"
-                                        label="nombre"
-                                        :options="arrayProductor"
-                                        placeholder="Buscar Productor..."
-                                        :onChange="getDatosProductor"                                        
-                                    >
-                                    </v-select>
+                                   <label for="text-input">Productor</label>
+                                    <select class="form-control" v-model="productor_id" @click="getSaldo(productor_id)" @change="getSaldo(productor_id)">
+                                        <option value="0" disabled>Seleccione</option>
+                                        <option v-for="productor in arrayProductor" :key="productor.id" :value="productor.id" v-text="productor.nombre" ></option>
+                                    </select>  
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -176,7 +172,7 @@
                             </div>
                         </div>
                         <div class="form-group row border">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Categoria Mora <span style="color:red;" v-show="categoria_id==0">(*Seleccione)</span></label>
                                     <div class="form-inline">
@@ -193,15 +189,28 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="form-group" style="display:none;">
                                     <label>Peso(Kg) <span style="color:red;" v-show="peso==0">(*Ingrese)</span></label>
                                     <input type="number" value="0" step="any" class="form-control" v-model="peso">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <button @click="agregarDetalle()" class="btn btn-success form-control btnagregar"><i class="icon-plus"></i></button>
+                                    <button @click="agregarDetalle()"  class="btn btn-success form-control btnagregar"><i class="icon-plus"></i></button>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group row border">
+                            <div class="col-md-4">                               
+                                <label>Saldo Comercializacion</label>  
+                                <div class="form-group">
+                                <div v-if="!arraySaldo.length">
+                                     <input type="number" value=0 disabled> 
+                                </div>
+                                <div>
+                                <input type="number" v-for="saldo in arraySaldo" :key="saldo.id" :value="saldo.saldo" v-text="saldo.saldo" disabled>  
+                                </div>
+                                </div>       
                             </div>
                         </div>
                         <div class="form-group row border">
@@ -226,7 +235,7 @@
                                             <td  v-text="detalle.categoria">
                                             </td>
                                             <td>
-                                            <input v-model="detalle.peso" type="number" class="form-control">
+                                            <input v-model="detalle.peso" type="number" v-on:keyup="calculadora" v-on:change="calculadora" class="form-control">
                                             </td>
                                             <td v-text="detalle.valorUnitario">
                                             </td>
@@ -253,6 +262,10 @@
                                          <tr style="background-color: #ff4d4d;">
                                             <td colspan="4" align="right"><strong>Descuento 4x1000:</strong></td>
                                             <td>$ {{(totalCuatroXmil=calcularTotalCuatroXmil).toFixed(0)}}</td>
+                                        </tr>
+                                        <tr style="background-color: #ff4d4d;">
+                                            <td colspan="4" align="right"><strong>Abono Comercializacion: $</strong></td>
+                                               <input v-model="totalAbono" type="number"  class="form-control"/>                                              
                                         </tr>
                                         <tr style="background-color: #CEECF5;">
                                             <td colspan="4" align="right"><strong>Total Neto:</strong></td>
@@ -466,11 +479,13 @@
                 arrayLugarVenta: [],
                 arrayLinea:[],
                 arrayDetalle : [],
+                abono:0,
                 listado:1,
                 modal : 0,
                 tituloModal : '',
                 tipoAccion : 0,
                 errorVenta : 0,
+                saldo:0,
                 errorMostrarMsjVenta : [],
                 pagination : {
                     'total' : 0,
@@ -485,6 +500,7 @@
                 buscar : '',
                 criterioA:'nombre',
                 buscarA: 'Mora',
+                arraySaldo:[],
                 arrayCategoriaMoras: [],
                 categoria_id: 0,
                 categoria:'',
@@ -495,6 +511,7 @@
                 valorTransporte:0,
                 valorAsohof:0,
                 valorCuatroPorMil:0,
+                totalAbono:0,
                 totalSinDescuento:0,
                 totalDonacion:0,
                 totalTransporte:0,
@@ -539,7 +556,7 @@
                 var resultado=0.0;
                 for(var i=0;i<this.arrayDetalle.length;i++){
                     resultado=resultado+(this.arrayDetalle[i].valorUnitario*this.arrayDetalle[i].peso)-
-                   this.totalDonacion-this.totalTransporte-this.totalAsohof-this.totalCuatroXmil
+                   this.totalDonacion-this.totalTransporte-this.totalAsohof-this.totalCuatroXmil-this.totalAbono
                 }
                                
                 return resultado;
@@ -581,9 +598,55 @@
                  }
                 return resultado;               
             },
+             calcularAbono: function(){
+                var resultado=0.0;
+                 for(var i=0;i<this.arrayDetalle.length;i++){
+                 resultado =Number(resultado)+(Number(this.arrayDetalle[i].valorUnitario)*Number(this.arrayDetalle[i].peso)*Number(0.1));                              
+                 }
+                 var saldo = Number(this.arraySaldo[0].saldo);
+                 if(resultado > this.arraySaldo[0].saldo){
+                   return saldo;   
+                 }
+                 else{
+                   return resultado;
+                 }            
+            },
            
         },
         methods : {
+            calculadora(){
+                 var resultado=0.0;
+                 for(var i=0;i<this.arrayDetalle.length;i++){
+                 resultado =Number(resultado)+(Number(this.arrayDetalle[i].valorUnitario)*Number(this.arrayDetalle[i].peso)*Number(0.1));                              
+                 }
+
+                if(this.arraySaldo.length > 0){
+                      var saldo = Number(this.arraySaldo[0].saldo);
+                        if(resultado > this.arraySaldo[0].saldo){
+                        this.totalAbono = saldo;   
+                        }
+                        else{
+                        this.totalAbono = resultado;
+                        }      
+                }
+                else{
+                    this.totalAbono = 0;
+                }
+               
+            },
+            validarDiferencia(){
+                var resultado=0.0;
+                for(var i=0;i<this.arrayDetalle.length;i++){
+                    resultado=resultado+(this.arrayDetalle[i].valorUnitario*this.arrayDetalle[i].peso)-
+                   this.totalDonacion-this.totalTransporte-this.totalAsohof-this.totalCuatroXmil-this.totalAbono
+                }                               
+                if(resultado < 0){
+                    return false; 
+                }
+                else{
+                    return true;
+                }
+            },
             listarVenta (page,buscar,criterio){
                 let me=this;
                 var url= 'venta?page=' + page + '&buscar='+ buscar + '&criterio='+ criterio;
@@ -607,25 +670,27 @@
                     console.log(error);
                 });
             },
-            selectProductor(search,loading){
-                let me=this;
-                loading(true)
-
-                var url= 'productor/selectProductor2?filtro='+search;
+            selectProductor(){
+                let me =this;
+                var url ='productor/selectProductor';
                 axios.get(url).then(function (response) {
-                    let respuesta = response.data;
-                    q: search
-                    me.arrayProductor=respuesta.personas;
-                    loading(false)
+                    var respuesta = response.data;
+                    me.arrayProductor= respuesta.personas;
                 })
                 .catch(function (error) {
                     console.log(error);
-                });
+                })
             },
-            getDatosProductor(val1){
-                let me = this;
-                me.loading = true;
-                me.productor_id = val1.id;
+             getSaldo(id){
+                let me =this;
+                var url ='abono/'+id;
+                axios.get(url).then(function (response) {
+                    var respuesta = response.data;
+                    me.arraySaldo= respuesta.saldo;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             },
             selectLinea(search,loading){
                 let me=this;
@@ -778,7 +843,7 @@
                             categoria: data['nombre'],
                             valorUnitario:data['valorUnitario'],
                             subtotal:data['subtotal'],
-                            peso: 1,
+                            peso: 0,
                         }); 
                     }
             },
@@ -793,12 +858,39 @@
                     console.log(error);
                 });
             },
+             verificarSaldo(){
+                if(this.arraySaldo.length == 0){
+                    return 0;
+                }
+                else{
+                    return this.arraySaldo[0].saldo;
+                }
+            },
+             verificarAbono(){
+                if(this.arraySaldo.length == 0){
+                    return 0;
+                }
+                else{
+                    return this.arraySaldo[0].valorAbonado;
+                }
+            },
             registrarVenta(){
                 if (this.validarVenta()){
-                    return;
-                }
+                     return;
+                 }
                 
-                let me = this;
+                var saldo = 0;
+                if(this.arraySaldo.length > 0){
+                     saldo = this.arraySaldo[0].saldo;
+                }
+
+                var abono = this.totalAbono;
+                var diferencia = saldo - abono;
+                console.log(diferencia);
+                if( diferencia> 0)
+                {
+                if(this.validarDiferencia()){
+                    let me = this;
                 axios.post('venta/registrar',{
                     'productor_id': this.productor_id,
                     'linea_id': this.linea_id,
@@ -809,6 +901,8 @@
                     'totalTransporte':this.totalTransporte,
                     'totalAsohof':this.totalAsohof,
                     'totalCuatroXmil':this.totalCuatroXmil,
+                    'totalAbono':this.totalAbono,
+                    'saldo':Number (this.verificarSaldo() - this.totalAbono),
                     'data': this.arrayDetalle
 
                 }).then(function (response) {
@@ -830,11 +924,30 @@
                     me.totalCuatroXmil=0;
                     me.codigo='';
                     me.arrayDetalle=[];
+                    me.arraySaldo= [];
+                    me.totalAbono=0;
                     window.open('http://gestion.asofrut.org/venta/pdf/'+response.data.id);
 
                 }).catch(function (error) {
                     console.log(error);
                 });
+                }
+                else{
+                    swal.fire({
+                            type: 'error',
+                            title: 'Error...',
+                            text: 'El valor del abono no puede superar el valor total neto de venta ',
+                            })
+                }}
+                else{
+                    swal.fire({
+                            type: 'error',
+                            title: 'Error...',
+                            text: 'El valor abonado no puede superar el saldo pendiente por comercializacion ',
+                            })
+                    console.log("falla");
+                }
+                
             },
             validarVenta(){
                 this.errorVenta=0;
@@ -867,6 +980,24 @@
             },
             ocultarDetalle(){
                 this.listado=1;
+                this.productor_id=0;
+                this.linea_id=0;
+                this.lugarVenta_id=0;
+                this.totalVenta=0;
+                this.totalKilos=0;
+                
+                this.categoria_id=0;
+                this.categoria='';
+                this.peso=0;
+                this.valorUnitario=0;
+                this.totalDonacion=0;
+                this.totalTransporte=0;
+                this.totalAsohof=0;
+                this.totalCuatroXmil=0;
+                this.codigo='';
+                this.arrayDetalle=[];
+                this.arraySaldo=[];
+                this.totalAbono=0;
             },
             verVenta(id){
                 let me=this;
@@ -1075,6 +1206,8 @@
             },
         },
         mounted() {
+            this.selectProductor();
+            this.getSaldo(this.productor_id);
             this.listarVenta(1,this.buscar,this.criterio);
             this.listarVentaEx();
         }

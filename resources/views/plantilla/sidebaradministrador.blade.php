@@ -71,6 +71,9 @@
                             <li @click="menu=32" class="nav-item">
                                 <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Comercializacion</a>
                             </li>
+                            <li @click="menu=33" class="nav-item">
+                                <a class="nav-link" href="#"><i class="icon-basket-loaded"></i> Abonos</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item nav-dropdown">

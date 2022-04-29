@@ -15,11 +15,11 @@ class ProductosComerController extends Controller
         $criterio = $request->criterio;
 
         if($buscar == ''){
-            $productos= ProductosComer::select('id','nombre','valorUnitario')
+            $productos= ProductosComer::select('id','nombre','ICA','valorUnitario')
             ->orderBy('id','desc')->paginate(10);
         }
         else{
-            $productos= ProductosComer::select('id','nombre','valorUnitario')
+            $productos= ProductosComer::select('id','nombre','ICA','valorUnitario')
             ->where('productoscomers.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('productoscomers.id', 'desc')->paginate(3);          
         }
@@ -40,7 +40,7 @@ class ProductosComerController extends Controller
         //if(!$request->ajax()) return redirect('/');
         $filtro = $request->filtro;
         $productos= ProductosComer::where('id','=',$filtro)
-        ->select('id','nombre','valorUnitario')
+        ->select('id','nombre','ICA','valorUnitario')
         ->orderBy('nombre','asc')
         ->take(1)->get();
         return[ 'productos' => $productos];
@@ -53,11 +53,11 @@ class ProductosComerController extends Controller
         $criterio = $request->criterio;
         
         if ($buscar==''){
-            $productos= ProductosComer::select('id','nombre','valorUnitario')
+            $productos= ProductosComer::select('id','nombre','ICA','valorUnitario')
             ->orderBy('id','desc')->paginate(10);
         }
         else{
-            $productos= ProductosComer::select('id','nombre','valorUnitario') 
+            $productos= ProductosComer::select('id','nombre','ICA','valorUnitario') 
             ->where('productoscomers.'.$criterio, 'like', '%'. $buscar . '%')
             ->orderBy('id','desc')->paginate(10);        }
         
@@ -73,6 +73,7 @@ class ProductosComerController extends Controller
         DB::beginTransaction();    
         $producto = new ProductosComer();
         $producto->nombre = $request->nombre;
+        $producto->ICA = $request->ICA;
         $producto->valorUnitario = $request->valorUnitario;
         $producto->save();
 
@@ -90,6 +91,7 @@ class ProductosComerController extends Controller
 
         $producto= ProductosComer::findOrFail($request->id);    
         $producto->nombre = $request->nombre;
+        $producto->ICA = $request->ICA;
         $producto->valorUnitario = $request->valorUnitario;
         $producto->save();
         DB::commit();    
@@ -101,7 +103,7 @@ class ProductosComerController extends Controller
     public function listarPdf(Request $request)
     {
         $ahora= Carbon::now('America/Bogota');
-        $productos= ProductosComer::select('id','nombre','valorUnitario')
+        $productos= ProductosComer::select('id','nombre','ICA','valorUnitario')
         ->orderBy('id','desc')->get();
         $cont=ProductosComer::count();
 
@@ -111,7 +113,7 @@ class ProductosComerController extends Controller
 
     public function excel(Request $request)
     {
-        $productos= ProductosComer::select('id','nombre','valorUnitario')
+        $productos= ProductosComer::select('id','nombre','ICA','valorUnitario')
         ->orderBy('id','asc')->get();
         return [
             'productos' => $productos
